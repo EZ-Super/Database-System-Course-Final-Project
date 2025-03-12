@@ -4,4 +4,4 @@
 1. **楊峻朋**
 2. **謝延偵**
 ## About us
-* Page[]()
+* [Page](https://github.com/EZ-Super/EZ-Super)
