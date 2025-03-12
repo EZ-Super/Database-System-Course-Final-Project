@@ -1,4 +1,4 @@
-# Database System Course Final Topic
+# Database System Course Final Project
 
 ## Team member
 1. **楊峻朋**
