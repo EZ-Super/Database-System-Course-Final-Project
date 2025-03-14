@@ -1,6 +1,8 @@
 # Database System Course Final Project
 * Topic :
-* Database using Mysql
+* Database using Mysql 
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-original-wordmark.svg" width="35" height="50"/>
+          
 * Database Api Server language: Rust
 * Backend language: Node.js
 * Frontend language: JavaScript,Html5,Css
