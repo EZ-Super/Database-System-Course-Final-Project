@@ -22,3 +22,14 @@
 |41143207|鐘文瑀||
 |40843141|李維誠|[lii0423](https://github.com/EZ-Super/Database-System-Course-Final-Project/blob/main/Team%20Member/%E6%9D%8E%E7%B6%AD%E8%AA%A0.md)|
 
+## Schedule
+* [Schedule Link](https://github.com/EZ-Super/Database-System-Course-Final-Project/blob/main/schedule.md)
+### This Week's Progress
+* 提交個人介紹
+* Deadline: 2025-03-17 0:00:00 
+|name|Done|
+|:--:|:--:|
+|楊峻朋|✅|
+|謝延偵|✅|
+|鐘文瑀|❌|
+|李維誠|✅|
