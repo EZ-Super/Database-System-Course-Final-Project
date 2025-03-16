@@ -26,7 +26,8 @@
 * [Schedule Link](https://github.com/EZ-Super/Database-System-Course-Final-Project/blob/main/schedule.md)
 ### This Week's Progress
 * 提交個人介紹
-* Deadline: 2025-03-17 0:00:00 
+* Deadline: 2025-03-17 0:00:00
+  
 |name|Done|
 |:--:|:--:|
 |楊峻朋|✅|
