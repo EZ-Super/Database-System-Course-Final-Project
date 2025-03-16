@@ -1,5 +1,5 @@
 ## 提交個人介紹
-* Deadline: <d:1742140800:t>
+* Deadline: <t:1742140800>
 
   
 |name|Done|
