@@ -30,10 +30,7 @@
 ### This Week's Progress
 * 提交個人介紹
 * Deadline: 2025-03-17 0:00:00
-    <p id="timestamp"></p>
-<script>
-  document.getElementById("timestamp").innerText = new Date("1742140800").toLocaleString();
-</script>
+
 |name|Done|
 |:--:|:--:|
 |楊峻朋|✅|
