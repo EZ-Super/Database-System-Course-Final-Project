@@ -1,21 +1,21 @@
-# Database System Course Final Project - G7
+# 👥 Database System Course Final Project - G7
 
-## Project Info
-* Topic: 全方位墊商平台智慧型資料庫系統
-* Content:
-  * 用戶管理
+## 📒 Project Info
+* 📌 Topic: 全方位墊商平台智慧型資料庫系統
+* 📋 Content:
+  * 👤 用戶管理
     * 買家 & 賣家，會員等級、積分、行為分析。 
-  * 商品管理
+  * 📜 商品管理
     * 分類、庫存、價格變動、供應商資訊。
-  * 訂單管理
+  * 🧾 訂單管理
     * 訂單狀態、支付、退貨退款。
-  * 物流與倉儲
+  * 📦 物流與倉儲
     * 庫存分配、發貨時間預測。
-  * 數據分析
+  * 📊 數據分析
     * 用戶行為分析、熱銷商品、價格走勢。
           
 
-## Using Language
+## 💻 Using Language
 * Database using Mysql   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-original-wordmark.svg" width="35" height="35"/>          
 * Database Api Server language: Rust   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/rust/rust-original.svg" width="35" height="35"/>
 * Backend language: Node.js,TypeScript   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nodejs/nodejs-original-wordmark.svg" width="35" height="35"/>  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/typescript/typescript-original.svg" width="35" height="35"/>
@@ -31,7 +31,7 @@
           
 
 
-## Team member
+## 👾 Team member
 |Student ID|Name|Personal Page|
 |:---:|:---:|:----:|
 |41043229|楊峻朋|[EZ-Super](https://github.com/EZ-Super)|
@@ -39,9 +39,9 @@
 |41143207|鍾文瑀|[Cf-space](https://github.com/EZ-Super/Database-System-Course-Final-Project/blob/main/Team%20Member/%E9%8D%BE%E6%96%87%E7%91%80.md)
 |40843141|李維誠|[lii0423](https://github.com/EZ-Super/Database-System-Course-Final-Project/blob/main/Team%20Member/%E6%9D%8E%E7%B6%AD%E8%AA%A0.md)|
 
-## Schedule
+## 📆 Schedule
 * [History Schedule Link](https://github.com/EZ-Super/Database-System-Course-Final-Project/blob/main/schedule.md)
-### This Week's Progress
+### 📝 This Week's Progress
 * 提交個人介紹
 * Deadline: 2025-03-17 0:00:00
 
