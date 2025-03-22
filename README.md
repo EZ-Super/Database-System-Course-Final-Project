@@ -1,7 +1,7 @@
 # 👥 Database System Course Final Project - G7
 
 ## 📒 Project Info
-* 📌 Topic: 全方位墊商平台智慧型資料庫系統
+* 📌 Topic: 全方位電商平台智慧型資料庫系統
 * 📋 Content:
   * 👤 用戶管理
     * 買家 & 賣家，會員等級、積分、行為分析。 
