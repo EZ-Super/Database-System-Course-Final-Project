@@ -1,4 +1,4 @@
-![image](https://github.com/user-attachments/assets/031acdec-6a3b-4ebf-b909-6936bb1161c7)
+
 ## DataBase Authentication
 * Account table
   
@@ -234,3 +234,21 @@
 | 8    | Customer_Feedback_Stats | FOREIGN KEY     | (product_id)  | REFERENCES Products(product_id)        | 外鍵，連結到 Products 表的 product_id        |
 
 *** 
+| 欄位名稱      | 資料型態         | 約束條件        | 備註                                 |
+|---------------|------------------|-----------------|--------------------------------------|
+| userID        | SERIAL           | PRIMARY KEY     | 自動增長，主鍵                         |
+| username      | VARCHAR(255)     | NOT NULL        | 用戶名，不可空，唯一                    |
+| email         | VARCHAR(255)     | NOT NULL UNIQUE | 電子郵箱，不可空，唯一                  |
+| phone         | VARCHAR(20)      | NULL            | 電話號碼                               |
+| registrationDate | DATE          | NOT NULL        | 註冊日期                               |
+| userType      | user_type        | NOT NULL        | 用戶類型（管理者，客戶，賣家等）        |
+| isActive      | BOOLEAN          | NOT NULL        | 賬戶是否啟用                           |
+
+| 欄位名稱      | 資料型態         | 約束條件             | 備註                                   |
+|---------------|------------------|----------------------|----------------------------------------|
+| sellerID      | INT              | PRIMARY KEY          | 主鍵，外鍵參照 Users 表的 userID        |
+| storeName     | VARCHAR(255)     | NOT NULL             | 商店名稱                                |
+| storeID       | VARCHAR(255)     | NOT NULL             |                                         |
+| storeDescription | TEXT          |                      | 商店描述                                |
+| bankAccount   | VARCHAR(255)     |                      | 銀行賬戶資訊                            |
+
