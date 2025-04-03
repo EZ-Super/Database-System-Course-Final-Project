@@ -234,6 +234,8 @@
 | 8    | Customer_Feedback_Stats | FOREIGN KEY     | (product_id)  | REFERENCES Products(product_id)        | 外鍵，連結到 Products 表的 product_id        |
 
 *** 
+* Users
+
 | 欄位名稱      | 資料型態         | 約束條件        | 備註                                 |
 |---------------|------------------|-----------------|--------------------------------------|
 | userID        | SERIAL           | PRIMARY KEY     | 自動增長，主鍵                         |
@@ -244,6 +246,8 @@
 | userType      | user_type        | NOT NULL        | 用戶類型（管理者，客戶，賣家等）        |
 | isActive      | BOOLEAN          | NOT NULL        | 賬戶是否啟用                           |
 
+* Sellers
+
 | 欄位名稱      | 資料型態         | 約束條件             | 備註                                   |
 |---------------|------------------|----------------------|----------------------------------------|
 | sellerID      | INT              | PRIMARY KEY          | 主鍵，外鍵參照 Users 表的 userID        |
@@ -251,4 +255,26 @@
 | storeID       | VARCHAR(255)     | NOT NULL             |                                         |
 | storeDescription | TEXT          |                      | 商店描述                                |
 | bankAccount   | VARCHAR(255)     |                      | 銀行賬戶資訊                            |
+
+* Points
+
+| 欄位名稱      | 資料型態         | 約束條件             | 備註                                   |
+|---------------|------------------|----------------------|----------------------------------------|
+| pointID       | SERIAL           | PRIMARY KEY          | 積分ID，自動增長                        |
+| userID        | INT              | FOREIGN KEY          | 外鍵參照 Users 表的 userID              |
+| pointsEarned  | INT              |                      | 獲得的積分                              |
+| pointsRedeemed| INT              |                      | 已兌換的積分                            |
+| transactionDate | DATE           | NOT NULL             | 交易日期                               |
+| description   | VARCHAR(255)     |                      | 描述                                    |
+
+* Messages
+  
+| 欄位名稱      | 資料型態         | 約束條件             | 備註                                   |
+|---------------|------------------|----------------------|----------------------------------------|
+| messageID     | SERIAL           | PRIMARY KEY          | 訊息ID，自動增長                        |
+| senderID      | INT              | FOREIGN KEY          | 發送者ID，外鍵參照 Users 表的 userID    |
+| receiverID    | INT              | FOREIGN KEY          | 接收者ID，外鍵參照 Users 表的 userID    |
+| messageContent| TEXT             | NOT NULL             | 訊息內容                                |
+| sendTime      | TIMESTAMP        | DEFAULT CURRENT_TIMESTAMP| 發送時間，預設為當前時間戳                |
+| isRead        | BOOLEAN          | NOT NULL             | 是否已讀                                |
 
