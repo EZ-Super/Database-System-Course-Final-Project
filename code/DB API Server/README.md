@@ -1,4 +1,4 @@
-
+![image](https://github.com/user-attachments/assets/031acdec-6a3b-4ebf-b909-6936bb1161c7)
 ## DataBase Authentication
 * Account table
   
@@ -119,5 +119,82 @@
 | 9    | Outbound_Shipments | FOREIGN KEY   | (warehouse_id)| REFERENCES Warehouses(warehouse_id)       | 外鍵，連結到 Warehouses 表                |
 | 10   | Outbound_Shipments | FOREIGN KEY   | (product_id)  | REFERENCES Products(product_id)           | 外鍵，連結到 Products 表                  |
 
+* 訂單商品
 
+| 序號 | 表名   | 欄位名稱       | 資料型態     | 約束條件                         | 備註                                 |
+|------|--------|----------------|--------------|-----------------------------------|--------------------------------------|
+| 1    | Orders | order_id       | INT          | AUTO_INCREMENT PRIMARY KEY        | 自動增長，主鍵                        |
+| 2    | Orders | customer_name  | VARCHAR(100) | NOT NULL                          | 客戶名稱，必填                        |
+| 3    | Orders | order_status   | ENUM('pending', 'shipped', 'delivered') | NOT NULL | 訂單狀態，可為 pending, shipped, 或 delivered |
+| 4    | Orders | total_amount   | DECIMAL(10,2)| NOT NULL                          | 訂單總金額，必填                      |
+| 5    | Orders | created_at     | TIMESTAMP    | DEFAULT CURRENT_TIMESTAMP         | 創建時間，預設為當前時間戳              |
+
+* 物流配送
+
+| 序號 | 表名      | 欄位名稱         | 資料型態      | 約束條件                           | 備註                                           |
+|------|-----------|------------------|---------------|-------------------------------------|------------------------------------------------|
+| 1    | Shipments | shipment_id      | INT           | AUTO_INCREMENT PRIMARY KEY          | 自動增長，主鍵                                  |
+| 2    | Shipments | order_id         | INT           |                                     | 訂單ID，外鍵參照 Orders 表的 order_id            |
+| 3    | Shipments | tracking_number  | VARCHAR(50)   | UNIQUE                              | 追蹤號碼，唯一                                  |
+| 4    | Shipments | shipment_status  | ENUM('preparing', 'shipped', 'delivered') | NOT NULL  | 出貨狀態，可為 preparing, shipped, 或 delivered |
+| 5    | Shipments | estimated_delivery | DATE        |                                     | 預計送達日期                                    |
+| 6    | Shipments | actual_delivery  | DATE          |                                     | 實際送達日期                                    |
+| 7    | Shipments | carrier          | VARCHAR(50)   |                                     | 運送公司                                        |
+| 8    | Shipments | shipping_cost    | DECIMAL(10,2) | DEFAULT 0.00                        | 運費，預設為 0.00                               |
+| 9    | Shipments | FOREIGN KEY      | (order_id)    | REFERENCES Orders(order_id)         | 外鍵，連結到 Orders 表                          |
+
+* 倉庫內調撥
+
+| 序號 | 表名                | 欄位名稱           | 資料型態      | 約束條件                                     | 備註                                           |
+|------|---------------------|--------------------|---------------|---------------------------------------------|------------------------------------------------|
+| 1    | Warehouse_Transfers | transfer_id        | INT           | AUTO_INCREMENT PRIMARY KEY                  | 自動增長，主鍵                                  |
+| 2    | Warehouse_Transfers | from_warehouse_id  | INT           |                                             | 從倉庫ID，外鍵參照 Warehouses 表的 warehouse_id  |
+| 3    | Warehouse_Transfers | to_warehouse_id    | INT           |                                             | 到倉庫ID，外鍵參照 Warehouses 表的 warehouse_id  |
+| 4    | Warehouse_Transfers | product_id         | INT           |                                             | 產品ID，外鍵參照 Products 表的 product_id        |
+| 5    | Warehouse_Transfers | quantity           | INT           | NOT NULL                                    | 轉移數量，必填                                  |
+| 6    | Warehouse_Transfers | transfer_status    | ENUM('pending', 'in transit', 'completed') | DEFAULT 'pending' | 轉移狀態，預設為 'pending'                       |
+| 7    | Warehouse_Transfers | transfer_date      | TIMESTAMP     | DEFAULT CURRENT_TIMESTAMP                   | 轉移日期，預設為當前時間戳                        |
+| 8    | Warehouse_Transfers | FOREIGN KEY        | (from_warehouse_id) | REFERENCES Warehouses(warehouse_id)       | 外鍵，連結到 Warehouses 表的 from_warehouse_id   |
+| 9    | Warehouse_Transfers | FOREIGN KEY        | (to_warehouse_id)   | REFERENCES Warehouses(warehouse_id)       | 外鍵，連結到 Warehouses 表的 to_warehouse_id     |
+| 10   | Warehouse_Transfers | FOREIGN KEY        | (product_id)        | REFERENCES Products(product_id)           | 外鍵，連結到 Products 表的 product_id            |
+
+* 訂單支付
+
+| 序號 | 表名     | 欄位名稱         | 資料型態      | 約束條件                           | 備註                                          |
+|------|----------|------------------|---------------|-------------------------------------|-----------------------------------------------|
+| 1    | Payments | payment_id       | INT           | AUTO_INCREMENT PRIMARY KEY          | 自動增長，主鍵                                 |
+| 2    | Payments | order_id         | INT           |                                     | 訂單ID，外鍵參照 Orders 表的 order_id          |
+| 3    | Payments | payment_method   | ENUM('credit_card', 'paypal', 'bank_transfer') | NOT NULL | 支付方式，包括信用卡、PayPal、銀行轉賬          |
+| 4    | Payments | payment_status   | ENUM('pending', 'completed', 'failed') | NOT NULL | 支付狀態，可為 pending, completed, 或 failed  |
+| 5    | Payments | amount           | DECIMAL(10,2) | NOT NULL                            | 交易金額                                      |
+| 6    | Payments | payment_date     | TIMESTAMP     | DEFAULT CURRENT_TIMESTAMP           | 支付日期，預設為當前時間戳                      |
+| 7    | Payments | FOREIGN KEY      | (order_id)    | REFERENCES Orders(order_id)         | 外鍵，連結到 Orders 表的 order_id              |
+
+* 退貨與退款
+
+| 序號 | 表名           | 欄位名稱      | 資料型態      | 約束條件                              | 備註                                          |
+|------|----------------|---------------|---------------|----------------------------------------|-----------------------------------------------|
+| 1    | Returns_Refunds | return_id     | INT           | AUTO_INCREMENT PRIMARY KEY             | 自動增長，主鍵                                 |
+| 2    | Returns_Refunds | order_id      | INT           |                                        | 訂單ID，外鍵參照 Orders 表的 order_id          |
+| 3    | Returns_Refunds | product_id    | INT           |                                        | 產品ID，外鍵參照 Products 表的 product_id      |
+| 4    | Returns_Refunds | reason        | TEXT          |                                        | 退貨原因                                      |
+| 5    | Returns_Refunds | status        | ENUM('requested', 'approved', 'rejected') | DEFAULT 'requested' | 退貨狀態，預設為 'requested'                    |
+| 6    | Returns_Refunds | refund_amount | DECIMAL(10,2) |                                        | 退款金額                                      |
+| 7    | Returns_Refunds | created_at    | TIMESTAMP     | DEFAULT CURRENT_TIMESTAMP              | 創建時間，預設為當前時間戳                      |
+| 8    | Returns_Refunds | FOREIGN KEY   | (order_id)    | REFERENCES Orders(order_id)            | 外鍵，連結到 Orders 表的 order_id              |
+| 9    | Returns_Refunds | FOREIGN KEY   | (product_id)  | REFERENCES Products(product_id)        | 外鍵，連結到 Products 表的 product_id          |
+
+* 銷售分析
+
+| 序號 | 表名          | 欄位名稱       | 資料型態      | 約束條件                              | 備註                                         |
+|------|---------------|----------------|---------------|----------------------------------------|----------------------------------------------|
+| 1    | Sales_Analysis | record_id     | INT           | AUTO_INCREMENT PRIMARY KEY             | 自動增長，主鍵                               |
+| 2    | Sales_Analysis | date          | DATE          | NOT NULL                               | 銷售日期，必填                               |
+| 3    | Sales_Analysis | product_id    | INT           |                                        | 產品ID，外鍵參照 Products 表的 product_id    |
+| 4    | Sales_Analysis | category_id   | INT           |                                        | 類別ID，外鍵參照 Categories 表的 category_id |
+| 5    | Sales_Analysis | total_sales   | INT           | NOT NULL                               | 總銷售數量，必填                             |
+| 6    | Sales_Analysis | revenue       | DECIMAL(10,2) | NOT NULL                               | 總收入，必填                                 |
+| 7    | Sales_Analysis | average_price | DECIMAL(10,2) | NOT NULL                               | 平均售價，必填                               |
+| 8    | Sales_Analysis | FOREIGN KEY   | (product_id)  | REFERENCES Products(product_id)        | 外鍵，連結到 Products 表的 product_id        |
+| 9    | Sales_Analysis | FOREIGN KEY   | (category_id) | REFERENCES Categories(category_id)     | 外鍵，連結到 Categories 表的 category_id     |
 
