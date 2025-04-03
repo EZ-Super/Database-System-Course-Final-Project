@@ -39,16 +39,6 @@
 | 22   | 最後一次更新      | last_updated         | TIMESTAMP     | DEFAULT CURRENT_TIMESTAMP | 商品資訊最後更新的時間               |
 | 23   | 狀態              | status               | VARCHAR(50)   |                       | 商品銷售狀態，例如「在售」、「缺貨」等 |
 
-* 評論系統
-
-| 序號 | 欄位中文名稱 | 欄位名稱    | 資料型態   | 約束條件      | 備註         |
-|------|-------------|------------|------------|---------------|--------------|
-| 29   | 評論ID       | review_id   | SERIAL     | PRIMARY KEY   | 自動生成，唯一識別每個評論 |
-| 30   | 商品ID       | product_id  | VARCHAR(255) | FOREIGN KEY | 必須，參照商品表的商品ID  |
-| 31   | 用戶ID       | user_id     | VARCHAR(255) | FOREIGN KEY | 必須，參照用戶表的用戶ID  |
-| 32   | 評分         | rating      | INT        | NOT NULL     | 用戶對商品的評分       |
-| 33   | 評論內容     | comment     | TEXT       | NOT NULL     | 評論的文字內容       |
-| 34   | 評論日期     | created_at  | TIMESTAMP  | NOT NULL     | 評論創建的時間       |
 
 *** 
 
@@ -198,3 +188,49 @@
 | 8    | Sales_Analysis | FOREIGN KEY   | (product_id)  | REFERENCES Products(product_id)        | 外鍵，連結到 Products 表的 product_id        |
 | 9    | Sales_Analysis | FOREIGN KEY   | (category_id) | REFERENCES Categories(category_id)     | 外鍵，連結到 Categories 表的 category_id     |
 
+* 庫存趨勢
+
+| 序號 | 表名              | 欄位名稱       | 資料型態      | 約束條件                              | 備註                                         |
+|------|-------------------|----------------|---------------|----------------------------------------|----------------------------------------------|
+| 1    | Inventory_Analytics | record_id     | INT           | AUTO_INCREMENT PRIMARY KEY             | 自動增長，主鍵                               |
+| 2    | Inventory_Analytics | date          | DATE          | NOT NULL                               | 日期，必填                                   |
+| 3    | Inventory_Analytics | warehouse_id  | INT           |                                        | 倉庫ID，外鍵參照 Warehouses 表的 warehouse_id  |
+| 4    | Inventory_Analytics | product_id    | INT           |                                        | 產品ID，外鍵參照 Products 表的 product_id      |
+| 5    | Inventory_Analytics | starting_stock| INT           | NOT NULL                               | 初始庫存數量，必填                           |
+| 6    | Inventory_Analytics | ending_stock  | INT           | NOT NULL                               | 結束庫存數量，必填                           |
+| 7    | Inventory_Analytics | sold_units    | INT           | NOT NULL                               | 銷售單位數量，必填                           |
+| 8    | Inventory_Analytics | received_units| INT           | NOT NULL                               | 接收單位數量，必填                           |
+| 9    | Inventory_Analytics | FOREIGN KEY   | (warehouse_id)| REFERENCES Warehouses(warehouse_id)    | 外鍵，連結到 Warehouses 表的 warehouse_id     |
+| 10   | Inventory_Analytics | FOREIGN KEY   | (product_id)  | REFERENCES Products(product_id)        | 外鍵，連結到 Products 表的 product_id         |
+
+* 訂單轉換率
+
+| 序號 | 表名                  | 欄位名稱        | 資料型態      | 約束條件                   | 備註                        |
+|------|-----------------------|-----------------|---------------|-----------------------------|-----------------------------|
+| 1    | Order_Conversion_Stats | record_id      | INT           | AUTO_INCREMENT PRIMARY KEY  | 自動增長，主鍵              |
+| 2    | Order_Conversion_Stats | date           | DATE          | NOT NULL                    | 日期，必填                  |
+| 3    | Order_Conversion_Stats | total_visits   | INT           | NOT NULL                    | 總訪問次數，必填            |
+| 4    | Order_Conversion_Stats | total_orders   | INT           | NOT NULL                    | 總訂單數，必填              |
+| 5    | Order_Conversion_Stats | conversion_rate| DECIMAL(5,2)  | NOT NULL                    | 轉換率，必填                |
+| 6    | Shipment_Performance  | record_id           | INT           | AUTO_INCREMENT PRIMARY KEY  | 自動增長，主鍵              |
+| 7    | Shipment_Performance  | date                | DATE          | NOT NULL                    | 日期，必填                  |
+| 8    | Shipment_Performance  | carrier             | VARCHAR(50)   | NOT NULL                    | 運輸商名稱，必填            |
+| 9    | Shipment_Performance  | total_shipments     | INT           | NOT NULL                    | 總出貨量，必填              |
+| 10   | Shipment_Performance  | on_time_deliveries  | INT           | NOT NULL                    | 準時送達數，必填            |
+| 11   | Shipment_Performance  | late_deliveries     | INT           | NOT NULL                    | 延遲送達數，必填            |
+| 12   | Shipment_Performance  | average_delivery_time | INT        | NOT NULL                    | 平均送達時間（小時），必填  |
+
+* 顧客滿意度分析
+
+| 序號 | 表名                   | 欄位名稱         | 資料型態      | 約束條件                              | 備註                                         |
+|------|------------------------|------------------|---------------|----------------------------------------|----------------------------------------------|
+| 1    | Customer_Feedback_Stats | record_id       | INT           | AUTO_INCREMENT PRIMARY KEY             | 自動增長，主鍵                               |
+| 2    | Customer_Feedback_Stats | date            | DATE          | NOT NULL                               | 日期，必填                                   |
+| 3    | Customer_Feedback_Stats | product_id      | INT           |                                        | 產品ID，外鍵參照 Products 表的 product_id    |
+| 4    | Customer_Feedback_Stats | total_reviews   | INT           | NOT NULL                               | 總評論數，必填                               |
+| 5    | Customer_Feedback_Stats | average_rating  | DECIMAL(3,2)  | NOT NULL                               | 平均評分，必填                               |
+| 6    | Customer_Feedback_Stats | positive_reviews| INT           | NOT NULL                               | 積極評論數（4-5星評價），必填                |
+| 7    | Customer_Feedback_Stats | negative_reviews| INT           | NOT NULL                               | 消極評論數（1-2星評價），必填                |
+| 8    | Customer_Feedback_Stats | FOREIGN KEY     | (product_id)  | REFERENCES Products(product_id)        | 外鍵，連結到 Products 表的 product_id        |
+
+*** 
