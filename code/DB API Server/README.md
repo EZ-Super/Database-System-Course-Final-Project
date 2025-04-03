@@ -31,9 +31,19 @@
 | 17   | 倉庫地            | stock_location       | VARCHAR(100)  | NOT NULL              | 商品庫存位置                          |
 | 18   | 圖片URL          | image_url            | VARCHAR(255)  | NOT NULL              | 商品圖片路徑                          |
 | 19   | 條碼 (EAN/UPC)   | barcode              | VARCHAR(50)   |                       |                                      |
-| 20   | 評論-次數         | reviews_count        | INT           | DEFAULT 0             | 商品評論次數                          |
-| 21   | 收藏-次數         | favorites_count      | INT           | DEFAULT 0             | 商品被收藏次數                        |
+| 20   | 瀏覽次數         | reviews_count        | INT           | DEFAULT 0             | 商品評論次數                          |
+| 21   | 收藏次數         | favorites_count      | INT           | DEFAULT 0             | 商品被收藏次數                        |
 | 22   | 加入日期          | date_added           | TIMESTAMP     | DEFAULT CURRENT_TIMESTAMP | 商品加入平台的時間                   |
 | 23   | 最後一次更新      | last_updated         | TIMESTAMP     | DEFAULT CURRENT_TIMESTAMP | 商品資訊最後更新的時間               |
 | 24   | 狀態              | status               | VARCHAR(50)   |                       | 商品銷售狀態，例如「在售」、「缺貨」等 |
 
+* 評論系統
+
+| 序號 | 欄位中文名稱 | 欄位名稱    | 資料型態   | 約束條件      | 備註         |
+|------|-------------|------------|------------|---------------|--------------|
+| 29   | 評論ID       | review_id   | SERIAL     | PRIMARY KEY   | 自動生成，唯一識別每個評論 |
+| 30   | 商品ID       | product_id  | VARCHAR(255) | FOREIGN KEY | 必須，參照商品表的商品ID  |
+| 31   | 用戶ID       | user_id     | VARCHAR(255) | FOREIGN KEY | 必須，參照用戶表的用戶ID  |
+| 32   | 評分         | rating      | INT        | NOT NULL     | 用戶對商品的評分       |
+| 33   | 評論內容     | comment     | TEXT       | NOT NULL     | 評論的文字內容       |
+| 34   | 評論日期     | created_at  | TIMESTAMP  | NOT NULL     | 評論創建的時間       |
