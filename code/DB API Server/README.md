@@ -51,4 +51,31 @@
 | 33   | 評論內容     | comment     | TEXT       | NOT NULL     | 評論的文字內容       |
 | 34   | 評論日期     | created_at  | TIMESTAMP  | NOT NULL     | 評論創建的時間       |
 
+* 倉庫管理
+
+| 序號 | 表名       | 欄位名稱       | 資料型態      | 約束條件                         | 備註                                |
+|------|------------|----------------|---------------|-----------------------------------|-------------------------------------|
+| 3    | Warehouses | warehouse_id   | INT           | AUTO_INCREMENT PRIMARY KEY        | 自動增長，主鍵                       |
+| 4    | Warehouses | warehouse_name | VARCHAR(100)  | NOT NULL                          | 倉庫名稱                            |
+| 5    | Warehouses | location       | VARCHAR(255)  | NOT NULL                          | 倉庫位置                            |
+| 6    | Warehouses | capacity       | INT           | NOT NULL                          | 倉庫容量                            |
+| 7    | Warehouses | manager_id     | INT           |                                   | 倉庫經理的用戶ID                     |
+| 8    | Warehouses | contact_info   | VARCHAR(255)  |                                   | 倉庫聯繫信息                        |
+| 9    | Warehouses | created_at     | TIMESTAMP     | DEFAULT CURRENT_TIMESTAMP         | 創建時間，預設為當前時間戳            |
+| 10   | Warehouses | FOREIGN KEY    | (manager_id)  | REFERENCES Users(user_id)         | 外鍵，參照 Users 表的 user_id 欄位   |
+
+* 庫存管理
+
+| 序號 | 表名      | 欄位名稱        | 資料型態   | 約束條件                                         | 備註                                    |
+|------|-----------|----------------|------------|---------------------------------------------------|-----------------------------------------|
+| 1    | Inventory | inventory_id   | INT        | AUTO_INCREMENT PRIMARY KEY                        | 自動增長，主鍵                           |
+| 2    | Inventory | warehouse_id   | INT        |                                                   | 倉庫ID，參照 Warehouses 表的 warehouse_id |
+| 3    | Inventory | product_id     | INT        |                                                   | 產品ID，參照 Products 表的 product_id     |
+| 4    | Inventory | stock_quantity | INT        | DEFAULT 0                                         | 初始庫存量設為 0                         |
+| 5    | Inventory | reorder_level  | INT        | DEFAULT 10                                        | 最低訂購水平設為 10                      |
+| 6    | Inventory | last_updated   | TIMESTAMP  | DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP | 最後更新時間，自動更新                  |
+| 7    | Inventory | FOREIGN KEY    | (warehouse_id) | REFERENCES Warehouses(warehouse_id)            | 外鍵，連結到 Warehouses 表                |
+| 8    | Inventory | FOREIGN KEY    | (product_id)   | REFERENCES Products(product_id)                | 外鍵，連結到 Products 表                  |
+
+
 
