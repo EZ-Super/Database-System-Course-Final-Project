@@ -1,11 +1,13 @@
 
 ## DataBase Authentication
 * Account table
-  |field|Type|Null|Primary|
-  |:---:|:---:|:--:|:----:|
-  |name|Char(20)|F|N|
-  |Account(Gmail)|Char(20)|F|T|
-  |Password|Char(25)|F|F|
+| 序號 | 欄位中文名稱     | 欄位名稱    | 資料型態      | 約束條件       | 備註            |
+|------|-----------------|------------|---------------|----------------|-----------------|
+| 1    | User ID         | user_id    | SERIAL        | PRIMARY KEY    | 自動生成，唯一識別每個用戶 |
+| 2    | Account         | account    | VARCHAR(255)  | NOT NULL       | 用戶帳號        |
+| 3    | Password        | password   | VARCHAR(255)  | NOT NULL       | 用戶密碼        |
+| 4    | Current JWT token | jwt       | VARCHAR(255)  |                | 當前用戶的 JWT 令牌 |
+
 
 ## DataBase Shop
 * 商品管理
@@ -47,3 +49,5 @@
 | 32   | 評分         | rating      | INT        | NOT NULL     | 用戶對商品的評分       |
 | 33   | 評論內容     | comment     | TEXT       | NOT NULL     | 評論的文字內容       |
 | 34   | 評論日期     | created_at  | TIMESTAMP  | NOT NULL     | 評論創建的時間       |
+
+
