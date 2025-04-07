@@ -9,7 +9,9 @@
 | 3    | Password        | password   | VARCHAR(255)  | NOT NULL       | 用戶密碼        |
 | 4    | Current JWT token | jwt       | VARCHAR(255)  |                | 當前用戶的 JWT 令牌 |
 
-* login_logs 
+
+* login_logs
+  
 | 序號 | 欄位中文名稱     | 欄位名稱    | 資料型態      | 約束條件       | 備註            |
 |------|-----------------|------------|---------------|----------------|-----------------|
 | 1    | id         | login_id    | SERIAL        | PRIMARY KEY    | 	紀錄唯一識別碼 |
