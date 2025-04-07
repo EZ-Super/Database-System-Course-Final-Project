@@ -9,6 +9,15 @@
 | 3    | Password        | password   | VARCHAR(255)  | NOT NULL       | 用戶密碼        |
 | 4    | Current JWT token | jwt       | VARCHAR(255)  |                | 當前用戶的 JWT 令牌 |
 
+* login_logs 
+| 序號 | 欄位中文名稱     | 欄位名稱    | 資料型態      | 約束條件       | 備註            |
+|------|-----------------|------------|---------------|----------------|-----------------|
+| 1    | id         | login_id    | SERIAL        | PRIMARY KEY    | 	紀錄唯一識別碼 |
+| 1    | User ID         | user_id    | SERIAL        | FOREIGN KEY    | 使用者 ID（FK） |
+| 2    | login_time         | login_time    | TIMESTAMP  | NOT NULL       | 登入時間        |
+| 3    | ip_address        | ip_address   | VARCHAR  | NOT NULL       | ip        |
+| 4    | success | success       | BOOLEAN  |                | 	是否成功登入 |
+
 
 ## DataBase Shop
 * 商品管理
