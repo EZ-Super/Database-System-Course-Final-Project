@@ -1,3 +1,8 @@
+## TIMESTAMP 支援格式
+* "2024-04-10T18:30:00"
+* "2024-04-10T00:00:00"
+
+
 
 ## DataBase Authentication
 
