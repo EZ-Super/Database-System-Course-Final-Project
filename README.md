@@ -39,6 +39,9 @@
 |41143207|鍾文瑀|[Cf-space](https://github.com/EZ-Super/Database-System-Course-Final-Project/blob/main/Team%20Member/%E9%8D%BE%E6%96%87%E7%91%80.md)
 |40843141|李維誠|[lii0423](https://github.com/EZ-Super/Database-System-Course-Final-Project/blob/main/Team%20Member/%E6%9D%8E%E7%B6%AD%E8%AA%A0.md)|
 
+## 📝 DataBase Tables 
+[Click me 👇](https://github.com/EZ-Super/Database-System-Course-Final-Project/blob/main/code/DB%20API%20Server/README.md)
+
 ## 📆 Schedule
 * [History Schedule Link](https://github.com/EZ-Super/Database-System-Course-Final-Project/blob/main/schedule.md)
 ### 📝 This Week's Progress
