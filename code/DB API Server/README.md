@@ -1,8 +1,36 @@
 
 ## DataBase Authentication
-* Account table
-  
 
+* AD_server 資料表結構
+
+| 中文欄位名稱         | 欄位名稱            | 資料型態         | 約束條件                            | 備註                                                                 |
+|----------------------|---------------------|------------------|-------------------------------------|----------------------------------------------------------------------|
+| 使用者ID             | user_id             | SERIAL           | PRIMARY KEY                         | 自動生成，唯一識別每個用戶                                          |
+| 帳號 (sAMAccountName)| sAMAccountName      | VARCHAR(255)     | NOT NULL UNIQUE                     | 用戶登入帳號 (AD 備用名稱)                                          |
+| 電子郵件             | mail                | VARCHAR(255)     | UNIQUE                              | 用戶的電子郵件地址                                                  |
+| 部門                 | department          | VARCHAR(255)     |                                     | 用戶所屬部門                                                        |
+| 職稱                 | title               | VARCHAR(255)     |                                     | 用戶的職稱                                                          |
+| 啟用帳戶             | accountEnabled      | BOOLEAN          | NOT NULL DEFAULT TRUE               | 帳戶是否啟用                                                        |
+| 密碼上次設定時間     | pwdLastSet          | BIGINT           |                                     | 密碼上次變更時間 (NT 時代的 LARGE 格式時間戳)                       |
+| 組織單位             | organizationalUnit  | VARCHAR(255)     |                                     | 用戶所屬的組織單位 (OU)                                              |
+| 管理員ID             | manager             | INTEGER          | REFERENCES users(user_id)           | 上級主管的使用者ID (外鍵參照 users 表)                              |
+| 帳戶建立時間         | whenCreated         | TIMESTAMP WITH TIME ZONE | DEFAULT NOW()                | 建立帳號的時間                                                      |
+| 上次修改時間         | whenChanged         | TIMESTAMP WITH TIME ZONE | DEFAULT NOW()                | 上次變更資料的時間                                                  |
+| 使用者帳戶控制碼     | userAccountControl  | INTEGER          | DEFAULT 512                         | AD 控制定義碼 (例如 512 代表帳號啟用)                               |
+| 當前 JWT             | jwt                 | TEXT             |                                     | 當前登入的 JWT 令牌 (建議長度 TEXT，保留彈性)                       |
+| 登陸狀態             | loginStatus         | VARCHAR(50)      | DEFAULT '未登錄'                    | 目前登入狀態，例如：已登入、未登入、鎖定                             |
+  
+* login_log
+
+| 中文欄位名稱 | 欄位名稱   | 資料型態                    | 約束條件                         | 備註 |
+|--------------|------------|-----------------------------|----------------------------------|------|
+| 登入ID       | login_id   | SERIAL                      | PRIMARY KEY                      | 自動遞增主鍵 |
+| 使用者ID     | user_id    | INTEGER                     | REFERENCES users(user_id)        | 外鍵，對應使用者表 |
+| 登入時間     | login_time | TIMESTAMP WITH TIME ZONE    | NOT NULL DEFAULT NOW()           | 登入紀錄時間 |
+| IP位址       | ip_address | VARCHAR(45)                 | NOT NULL                        | 登入IP位址|
+|登入成功      | success    | Boolean                     | NOT NULL                        | 登入狀態| 
+|JWT Token    | jwt         | TEXT                       | NOT NULL                        | JWT|
+ 
 
 ## DataBase Shop
 
@@ -34,6 +62,24 @@
 | 加入日期           | date_added       | TIMESTAMP WITH    | DEFAULT NOW()                               | 產品加入日期，預設為當前時間 |
 | 最後更新日期       | last_updated     | TIMESTAMP WITH    | DEFAULT NOW()                               | 最後更新日期，預設為當前時間 |
 
+* reviews
+
+| 中文欄位名稱 | 欄位名稱   | 資料型態                  | 約束條件                          | 備註         |
+|--------------|------------|---------------------------|-----------------------------------|--------------|
+| 評論ID       | review_id  | SERIAL                    | PRIMARY KEY                       |              |
+| 商品ID       | product_id | INTEGER                   | REFERENCES products(product_id)   | 關聯商品     |
+| 使用者ID     | user_id    | INTEGER                   | REFERENCES users(user_id)         | 關聯使用者   |
+| 評分         | rating     | INTEGER                   | NOT NULL                          | 評論分數     |
+| 評論內容     | comment    | TEXT                      | NOT NULL                          | 評論文字     |
+| 創建時間     | created_at | TIMESTAMP WITH TIME ZONE  | NOT NULL DEFAULT NOW()            | 發表時間戳記 |
+
+* categories
+
+| 中文欄位名稱 | 欄位名稱           | 資料型態       | 約束條件             | 備註     |
+|--------------|--------------------|----------------|----------------------|----------|
+| 分類ID       | category_id        | SERIAL         | PRIMARY KEY          |          |
+| 分類名稱     | category_name      | VARCHAR(255)   | NOT NULL UNIQUE      | 唯一分類 |
+| 分類描述     | category_description | TEXT          |                      |          |
 
 
 ***
