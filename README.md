@@ -40,7 +40,7 @@
 |40843141|李維誠|[lii0423](https://github.com/EZ-Super/Database-System-Course-Final-Project/blob/main/Team%20Member/%E6%9D%8E%E7%B6%AD%E8%AA%A0.md)|
 
 ## 📝 DataBase Tables 
-[Click me 👇](https://github.com/EZ-Super/Database-System-Course-Final-Project/blob/main/code/DB%20API%20Server/README.md)
+* [Click me 👇](https://github.com/EZ-Super/Database-System-Course-Final-Project/blob/main/code/DB%20API%20Server/README.md)
 
 ## 📆 Schedule
 * [History Schedule Link](https://github.com/EZ-Super/Database-System-Course-Final-Project/blob/main/schedule.md)
