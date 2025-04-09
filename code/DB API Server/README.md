@@ -5,6 +5,40 @@
 
 
 ## DataBase Shop
+
+### 商品管理
+
+* products
+
+| 列名               | 欄位名稱           | 資料型態            | 約束條件                                      | 備註                    |
+|-------------------|------------------|-------------------|---------------------------------------------|------------------------|
+| 產品ID             | product_id       | SERIAL            | PRIMARY KEY                                 | 自動增長，主鍵          |
+| 產品名稱           | product_name     | VARCHAR(255)      | NOT NULL                                    | 產品名稱，不可為空      |
+| 庫存單位代碼       | sku              | VARCHAR(100)      | NOT NULL, UNIQUE                            | 唯一庫存單位代碼，不可為空 |
+| 品牌               | brand            | VARCHAR(100)      |                                             |                         |
+| 型號               | model            | VARCHAR(100)      |                                             |                         |
+| 介紹               | description      | TEXT              |                                             |                         |
+| 分類ID             | category_id      | INTEGER           | REFERENCES categories(category_id) NOT NULL | 分類ID，外鍵參照         |
+| 變體型             | variant_type     | VARCHAR(255)      |                                             |                         |
+| 價格               | price            | NUMERIC(10,2)     | NOT NULL                                    | 價格，不可為空          |
+| 促銷價格           | promotional_price| INTEGER           |                                             |                         |
+| 促銷開始日期       | promotion_start_date | TIMESTAMP WITH |                                             | 促銷開始時間            |
+| 促銷結束日期       | promotion_end_date   | TIMESTAMP WITH |                                             | 促銷結束時間            |
+| 庫存數量           | stock_quantity   | INTEGER           | NOT NULL DEFAULT 0                          | 庫存數量，不可為空，預設為0 |
+| 賣家ID             | seller_id        | INTEGER           | REFERENCES sellers(seller_id)               | 賣家ID，外鍵參照         |
+| 運輸重量           | shipping_weight  | NUMERIC(10,2)     | DEFAULT 0                                   | 運輸重量，預設為0        |
+| 圖片URL            | image_url        | VARCHAR(255)      |                                             | 產品圖片的網址          |
+| 條碼               | barcode          | VARCHAR(50)       |                                             | 產品條碼                |
+| 瀏覽數量           | reviews_count    | INTEGER           | DEFAULT 0                                   | 評論數量，預設為0        |
+| 收藏數量           | favorites_count  | INTEGER           | DEFAULT 0                                   | 收藏數量，預設為0        |
+| 加入日期           | date_added       | TIMESTAMP WITH    | DEFAULT NOW()                               | 產品加入日期，預設為當前時間 |
+| 最後更新日期       | last_updated     | TIMESTAMP WITH    | DEFAULT NOW()                               | 最後更新日期，預設為當前時間 |
+
+
+
+***
+
+
 ### 物流倉儲
 
 * shipments
