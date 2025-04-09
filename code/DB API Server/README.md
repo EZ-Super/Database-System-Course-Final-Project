@@ -1,4 +1,4 @@
-![image](https://github.com/user-attachments/assets/35dc5bd5-1413-4822-b718-c3d21cc37958)![image](https://github.com/user-attachments/assets/20f61409-8108-444f-9bf7-ba87179e74e3)
+
 ## DataBase Authentication
 * Account table
   
@@ -115,7 +115,7 @@
 
 * Sales_Analysis
 
-  | 列名          | 欄位名稱       | 資料型態                | 約束條件                          | 備註                              |
+| 列名          | 欄位名稱       | 資料型態                | 約束條件                          | 備註                              |
 |---------------|----------------|-------------------------|-----------------------------------|----------------------------------|
 | 銷售紀錄ID    | record_id      | SERIAL                  | PRIMARY KEY                       | 自動增長，主鍵                    |
 | 日期          | date           | DATE                    | NOT NULL                          | 銷售數據的日期，不可為空          |
