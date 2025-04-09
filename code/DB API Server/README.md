@@ -1,299 +1,178 @@
-
+![image](https://github.com/user-attachments/assets/35dc5bd5-1413-4822-b718-c3d21cc37958)![image](https://github.com/user-attachments/assets/20f61409-8108-444f-9bf7-ba87179e74e3)
 ## DataBase Authentication
 * Account table
   
-| 序號 | 欄位中文名稱     | 欄位名稱    | 資料型態      | 約束條件       | 備註            |
-|------|-----------------|------------|---------------|----------------|-----------------|
-| 1    | User ID         | user_id    | SERIAL        | PRIMARY KEY    | 自動生成，唯一識別每個用戶 |
-| 2    | Account         | account    | VARCHAR(255)  | NOT NULL       | 用戶帳號        |
-| 3    | Password        | password   | VARCHAR(255)  | NOT NULL       | 用戶密碼        |
-| 4    | Current JWT token | jwt       | VARCHAR(255)  |                | 當前用戶的 JWT 令牌 |
-
-
-* login_logs
-  
-| 序號 | 欄位中文名稱     | 欄位名稱    | 資料型態      | 約束條件       | 備註            |
-|------|-----------------|------------|---------------|----------------|-----------------|
-| 1    | id         | login_id    | SERIAL        | PRIMARY KEY    | 	紀錄唯一識別碼 |
-| 1    | User ID         | user_id    | SERIAL        | FOREIGN KEY    | 使用者 ID（FK） |
-| 2    | login_time         | login_time    | TIMESTAMP  | NOT NULL       | 登入時間        |
-| 3    | ip_address        | ip_address   | VARCHAR  | NOT NULL       | ip        |
-| 4    | success | success       | BOOLEAN  |                | 	是否成功登入 |
 
 
 ## DataBase Shop
-* 商品管理
+### 物流倉儲
 
-| 序號 | 欄位中文名稱      | 欄位名稱             | 資料型態      | 約束條件              | 備註                                 |
-|------|-------------------|----------------------|---------------|-----------------------|--------------------------------------|
-| 1    | 商品ID            | product_id           | SERIAL        | PRIMARY KEY           | 自動生成，唯一識別每個商品             |
-| 2    | 產品名稱          | product_name         | VARCHAR(255)  | NOT NULL              | 商品名稱必須填寫                      |
-| 3    | SKU (Stock Keeping Unit) | sku                | VARCHAR(100)  | NOT NULL              | 唯一庫存單位代碼                      |
-| 4    | 品牌              | brand                | VARCHAR(100)  |                       |                                      |
-| 5    | 型號              | model                | VARCHAR(100)  |                       |                                      |
-| 6    | 介紹              | description          | TEXT          | NOT NULL              | 商品詳細描述                          |
-| 7    | 分類              | category             | VARCHAR(100)  | NOT NULL              | 商品類別                              |
-| 8    | 變種              | variant_type         | VARCHAR(100)  | NOT NULL              | 例如顏色、大小等選項                    |
-| 9    | 價格              | price                | INT           | NOT NULL              |                                      |
-| 10   | 最低價值 ( MAP )  | minimum_advertised_price | INT           | NOT NULL              | 最低廣告價格                          |
-| 11   | 促銷價格          | promotional_price    | INT           |                       |                                      |
-| 12   | 促銷開始          | promotion_start_date | TIMESTAMP     |                       | 促銷價格開始時間                      |
-| 13   | 促銷結束          | promotion_end_date   | TIMESTAMP     |                       | 促銷價格結束時間                      |
-| 14   | 庫存數量          | stock_quantity       | INT           | NOT NULL              |                                      |
-| 15   | 賣家ID           | seller_id            | VARCHAR(255)  | FOREIGN KEY           | 關聯至賣家資料表                      |
-| 16   | 運輸重量          | shipping_weight      | INT           | NOT NULL              |                                      |
-| 17   | 圖片URL          | image_url            | VARCHAR(255)  | NOT NULL              | 商品圖片路徑                          |
-| 18   | 條碼 (EAN/UPC)   | barcode              | VARCHAR(50)   |                       |                                      |
-| 19   | 瀏覽次數         | reviews_count        | INT           | DEFAULT 0             | 商品評論次數                          |
-| 20   | 收藏次數         | favorites_count      | INT           | DEFAULT 0             | 商品被收藏次數                        |
-| 21   | 加入日期          | date_added           | TIMESTAMP     | DEFAULT CURRENT_TIMESTAMP | 商品加入平台的時間                   |
-| 22   | 最後一次更新      | last_updated         | TIMESTAMP     | DEFAULT CURRENT_TIMESTAMP | 商品資訊最後更新的時間               |
-| 23   | 狀態              | status               | VARCHAR(50)   |                       | 商品銷售狀態，例如「在售」、「缺貨」等 |
+* shipments
 
-| 序號 | 欄位中文名稱 | 欄位名稱    | 資料型態   | 約束條件      | 備註         |
-|------|-------------|------------|------------|---------------|--------------|
-| 29   | 評論ID       | review_id   | SERIAL     | PRIMARY KEY   | 自動生成，唯一識別每個評論 |
-| 30   | 商品ID       | product_id  | VARCHAR(255) | FOREIGN KEY | 必須，參照商品表的商品ID  |
-| 31   | 用戶ID       | user_id     | VARCHAR(255) | FOREIGN KEY | 必須，參照用戶表的用戶ID  |
-| 32   | 評分         | rating      | INT        | NOT NULL     | 用戶對商品的評分       |
-| 33   | 評論內容     | comment     | TEXT       | NOT NULL     | 評論的文字內容       |
-| 34   | 評論日期     | created_at  | TIMESTAMP  | NOT NULL     | 評論創建的時間       |
+| 列名            | 欄位名稱           | 資料型態      | 約束條件                      | 備註                           |
+|----------------|--------------------|---------------|-------------------------------|--------------------------------|
+| 物流ID          | shipment_id        | SERIAL        | PRIMARY KEY                   | 自動增長，主鍵                  |
+| 訂單編號        | order_id           | INTEGER       | REFERENCES orders(order_id)   | 參照 Orders 表的 order_id       |
+| 追蹤編號        | tracking_number    | VARCHAR(50)   | UNIQUE NOT NULL               | 唯一，不可為空                  |
+| 物流狀態        | shipment_status    | ENUM('preparing', 'shipped', 'delivered') | NOT NULL | 出貨狀態，不可為空            |
+| 預計送達日期    | estimated_delivery | DATE          |                               | 預計送達日期                    |
+| 實際送達日期    | actual_delivery    | DATE          |                               | 實際送達日期                    |
+| 物流承運商      | carrier            | VARCHAR(50)   |                               | 物流承運商名稱                  |
+| 運費            | shipping_cost      | NUMERIC(10,2) | DEFAULT 0.00                  | 運費，預設值為 0.00             |
 
-*** 
+* warehouse_transfers.csv
 
-* 倉庫管理
+| 列名              | 欄位名稱         | 資料型態                | 約束條件                          | 備註                          |
+|-------------------|------------------|-------------------------|-----------------------------------|-------------------------------|
+| 調撥ID            | transfer_id      | SERIAL                  | PRIMARY KEY                       | 自動增長，主鍵                 |
+| 來源倉庫ID        | from_warehouse_id| INTEGER                 | REFERENCES warehouses(warehouse_id)| 來源倉庫，外鍵指向倉庫表       |
+| 目標倉庫ID        | to_warehouse_id  | INTEGER                 | REFERENCES warehouses(warehouse_id)| 目標倉庫，外鍵指向倉庫表       |
+| 產品ID            | product_id       | INTEGER                 | REFERENCES products(product_id)    | 產品ID，外鍵指向產品表         |
+| 調撥數量          | quantity         | INTEGER                 | NOT NULL                           | 轉移的產品數量，不可為空       |
+| 調撥狀態          | transfer_status  | ENUM('pending', 'in transit', 'completed') | DEFAULT 'pending' | 轉移的狀態，預設為 'pending' |
+| 調撥日期          | transfer_date    | TIMESTAMP WITH TIME ZONE | DEFAULT NOW()                      | 轉移的日期，預設為當前時間     |
 
-| 序號 | 表名       | 欄位名稱       | 資料型態      | 約束條件                         | 備註                                |
-|------|------------|----------------|---------------|-----------------------------------|-------------------------------------|
-| 3    | Warehouses | warehouse_id   | INT           | AUTO_INCREMENT PRIMARY KEY        | 自動增長，主鍵                       |
-| 4    | Warehouses | warehouse_name | VARCHAR(100)  | NOT NULL                          | 倉庫名稱                            |
-| 5    | Warehouses | location       | VARCHAR(255)  | NOT NULL                          | 倉庫位置                            |
-| 6    | Warehouses | capacity       | INT           | NOT NULL                          | 倉庫容量                            |
-| 7    | Warehouses | manager_id     | INT           |                                   | 倉庫經理的用戶ID                     |
-| 8    | Warehouses | contact_info   | VARCHAR(255)  |                                   | 倉庫聯繫信息                        |
-| 9    | Warehouses | created_at     | TIMESTAMP     | DEFAULT CURRENT_TIMESTAMP         | 創建時間，預設為當前時間戳            |
-| 10   | Warehouses | FOREIGN KEY    | (manager_id)  | REFERENCES Users(user_id)         | 外鍵，參照 Users 表的 user_id 欄位   |
+* Payments
 
-* 庫存管理
+| 列名          | 欄位名稱         | 資料型態                 | 約束條件                        | 備註                              |
+|---------------|------------------|--------------------------|---------------------------------|-----------------------------------|
+| 付款ID        | payment_id       | SERIAL                   | PRIMARY KEY                     | 自動增長，主鍵                     |
+| 訂單編號      | order_id         | INTEGER                  | REFERENCES orders(order_id)     | 訂單ID，外鍵參照訂單表             |
+| 付款方式      | payment_method   | ENUM('credit_card', 'paypal', 'bank_transfer') | NOT NULL | 付款方式，不可為空                 |
+| 付款狀態      | payment_status   | ENUM('pending', 'completed', 'failed') | NOT NULL | 付款狀態，不可為空                 |
+| 付款金額      | amount           | NUMERIC(10,2)            | NOT NULL                        | 付款金額，不可為空                 |
+| 付款日期      | payment_date     | TIMESTAMP WITH TIME ZONE | DEFAULT NOW()                   | 付款日期，預設為當前時間            |
 
-| 序號 | 表名      | 欄位名稱        | 資料型態   | 約束條件                                         | 備註                                    |
-|------|-----------|----------------|------------|---------------------------------------------------|-----------------------------------------|
-| 1    | Inventory | inventory_id   | INT        | AUTO_INCREMENT PRIMARY KEY                        | 自動增長，主鍵                           |
-| 2    | Inventory | warehouse_id   | INT        |                                                   | 倉庫ID，參照 Warehouses 表的 warehouse_id |
-| 3    | Inventory | product_id     | INT        |                                                   | 產品ID，參照 Products 表的 product_id     |
-| 4    | Inventory | stock_quantity | INT        | DEFAULT 0                                         | 初始庫存量設為 0                         |
-| 5    | Inventory | reorder_level  | INT        | DEFAULT 10                                        | 最低訂購水平設為 10                      |
-| 6    | Inventory | last_updated   | TIMESTAMP  | DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP | 最後更新時間，自動更新                  |
-| 7    | Inventory | FOREIGN KEY    | (warehouse_id) | REFERENCES Warehouses(warehouse_id)            | 外鍵，連結到 Warehouses 表                |
-| 8    | Inventory | FOREIGN KEY    | (product_id)   | REFERENCES Products(product_id)                | 外鍵，連結到 Products 表                  |
+* Warehouses
 
-* 供應商管理
+| 列名          | 欄位名稱         | 資料型態                | 約束條件                          | 備註                             |
+|---------------|------------------|-------------------------|-----------------------------------|----------------------------------|
+| 倉庫ID        | warehouse_id     | SERIAL                  | PRIMARY KEY                       | 自動增長，主鍵                    |
+| 倉庫名稱      | warehouse_name   | VARCHAR(100)            | NOT NULL                          | 倉庫名稱，不可為空                |
+| 倉庫地址      | location         | VARCHAR(255)            | NOT NULL                          | 倉庫位置，不可為空                |
+| 倉庫容量      | capacity         | INTEGER                 | NOT NULL                          | 倉庫容量，不可為空                |
+| 管理員ID      | manager_id       | INTEGER                 | REFERENCES users(user_id)         | 管理員ID，外鍵參照用戶表的 user_id |
+| 聯絡資訊      | contact_info     | VARCHAR(255)            |                                   | 倉庫聯絡資訊                      |
+| 創建時間      | created_at       | TIMESTAMP WITH TIME ZONE| DEFAULT NOW()                     | 倉庫創建時間，預設為當前時間      |
 
-| 序號 | 表名      | 欄位名稱       | 資料型態      | 約束條件                             | 備註                          |
-|------|-----------|----------------|---------------|---------------------------------------|-------------------------------|
-| 1    | Suppliers | supplier_id    | INT           | AUTO_INCREMENT PRIMARY KEY            | 自動增長，主鍵                 |
-| 2    | Suppliers | supplier_name  | VARCHAR(100)  | NOT NULL                              | 供應商名稱，必填項目           |
-| 3    | Suppliers | contact_info   | VARCHAR(255)  | NOT NULL                              | 供應商聯繫信息，必填項目       |
-| 4    | Suppliers | country        | VARCHAR(50)   | NOT NULL                              | 供應商所在國家，必填項目       |
-| 5    | Suppliers | rating         | INT           | CHECK (rating BETWEEN 1 AND 5)        | 供應商評分，範圍1到5           |
-| 6    | Suppliers | created_at     | TIMESTAMP     | DEFAULT CURRENT_TIMESTAMP             | 創建時間，預設為當前時間戳     |
+* inventory.csv
 
-* 入庫記錄
+| 列名            | 欄位名稱       | 資料型態                | 約束條件                          | 備註                              |
+|-----------------|----------------|-------------------------|-----------------------------------|-----------------------------------|
+| 庫存ID          | inventory_id   | SERIAL                  | PRIMARY KEY                       | 自動增長，主鍵                     |
+| 倉庫ID          | warehouse_id   | INTEGER                 | REFERENCES warehouses(warehouse_id)| 倉庫ID，外鍵參照倉庫表             |
+| 產品ID          | product_id     | INTEGER                 | REFERENCES products(product_id)    | 產品ID，外鍵參照產品表             |
+| 庫存數量        | stock_quantity | INTEGER                 | DEFAULT 0                         | 庫存數量，預設值為0                |
+| 再訂購水平      | reorder_level  | INTEGER                 | DEFAULT 10                        | 再訂購水平，預設值為10             |
+| 最後更新時間    | last_updated   | TIMESTAMP WITH TIME ZONE| DEFAULT NOW()                     | 最後更新時間，預設為當前時間       |
 
-| 序號 | 表名              | 欄位名稱       | 資料型態      | 約束條件                                 | 備註                                     |
-|------|-------------------|----------------|---------------|-------------------------------------------|------------------------------------------|
-| 1    | Inbound_Shipments | inbound_id     | INT           | AUTO_INCREMENT PRIMARY KEY                | 自動增長，主鍵                            |
-| 2    | Inbound_Shipments | supplier_id    | INT           |                                           | 供應商ID，外鍵參照 Suppliers 表的 supplier_id |
-| 3    | Inbound_Shipments | warehouse_id   | INT           |                                           | 倉庫ID，外鍵參照 Warehouses 表的 warehouse_id |
-| 4    | Inbound_Shipments | product_id     | INT           |                                           | 產品ID，外鍵參照 Products 表的 product_id    |
-| 5    | Inbound_Shipments | quantity       | INT           | NOT NULL                                  | 貨物數量，必填                            |
-| 6    | Inbound_Shipments | arrival_date   | DATE          | NOT NULL                                  | 貨物到達日期，必填                        |
-| 7    | Inbound_Shipments | status         | ENUM('pending', 'received', 'damaged') | DEFAULT 'pending' | 貨物狀態，預設為 'pending'                 |
-| 8    | Inbound_Shipments | FOREIGN KEY    | (supplier_id) | REFERENCES Suppliers(supplier_id)         | 外鍵，連結到 Suppliers 表                 |
-| 9    | Inbound_Shipments | FOREIGN KEY    | (warehouse_id)| REFERENCES Warehouses(warehouse_id)       | 外鍵，連結到 Warehouses 表                |
-| 10   | Inbound_Shipments | FOREIGN KEY    | (product_id)  | REFERENCES Products(product_id)           | 外鍵，連結到 Products 表                  |
+* suppliers.csv
 
-* 出庫記錄
+| 列名          | 欄位名稱       | 資料型態                | 約束條件                          | 備註                             |
+|---------------|----------------|-------------------------|-----------------------------------|----------------------------------|
+| 供應商ID      | supplier_id    | SERIAL                  | PRIMARY KEY                       | 自動增長，主鍵                    |
+| 供應商名稱    | supplier_name  | VARCHAR(100)            | NOT NULL                          | 供應商名稱，不可為空              |
+| 聯絡資訊      | contact_info   | VARCHAR(255)            |                                   | 供應商聯絡信息                    |
+| 國家          | country        | VARCHAR(50)             |                                   | 供應商所在國家                    |
+| 評級          | rating         | INTEGER                 | CHECK (rating BETWEEN 1 AND 5)    | 供應商評級，介於1至5之間          |
+| 創建時間      | created_at     | TIMESTAMP WITH TIME ZONE| DEFAULT NOW()                     | 創建時間，預設為當前時間          |
 
-| 序號 | 表名              | 欄位名稱       | 資料型態      | 約束條件                                 | 備註                                     |
-|------|-------------------|----------------|---------------|-------------------------------------------|------------------------------------------|
-| 1    | Outbound_Shipments | outbound_id   | INT           | AUTO_INCREMENT PRIMARY KEY                | 自動增長，主鍵                            |
-| 2    | Outbound_Shipments | order_id      | INT           |                                           | 訂單ID，外鍵參照 Orders 表的 order_id      |
-| 3    | Outbound_Shipments | warehouse_id  | INT           |                                           | 倉庫ID，外鍵參照 Warehouses 表的 warehouse_id |
-| 4    | Outbound_Shipments | product_id    | INT           |                                           | 產品ID，外鍵參照 Products 表的 product_id    |
-| 5    | Outbound_Shipments | quantity      | INT           | NOT NULL                                  | 貨物數量，必填                            |
-| 6    | Outbound_Shipments | dispatch_date | DATE          | NOT NULL                                  | 貨物發送日期，必填                        |
-| 7    | Outbound_Shipments | status        | ENUM('preparing', 'shipped', 'delivered') | DEFAULT 'preparing' | 貨物狀態，預設為 'preparing'             |
-| 8    | Outbound_Shipments | FOREIGN KEY   | (order_id)    | REFERENCES Orders(order_id)               | 外鍵，連結到 Orders 表                    |
-| 9    | Outbound_Shipments | FOREIGN KEY   | (warehouse_id)| REFERENCES Warehouses(warehouse_id)       | 外鍵，連結到 Warehouses 表                |
-| 10   | Outbound_Shipments | FOREIGN KEY   | (product_id)  | REFERENCES Products(product_id)           | 外鍵，連結到 Products 表                  |
+* inbound_shipments.csv
 
-* 訂單商品
+| 列名          | 欄位名稱       | 資料型態                | 約束條件                          | 備註                              |
+|---------------|----------------|-------------------------|-----------------------------------|----------------------------------|
+| 入庫ID        | inbound_id     | SERIAL                  | PRIMARY KEY                       | 自動增長，主鍵                    |
+| 供應商ID      | supplier_id    | INTEGER                 | REFERENCES suppliers(supplier_id) | 供應商ID，外鍵參照供應商表         |
+| 倉庫ID        | warehouse_id   | INTEGER                 | REFERENCES warehouses(warehouse_id)| 倉庫ID，外鍵參照倉庫表             |
+| 產品ID        | product_id     | INTEGER                 | REFERENCES products(product_id)    | 產品ID，外鍵參照產品表             |
+| 入庫數量      | quantity       | INTEGER                 | NOT NULL                           | 入庫數量，不可為空                |
+| 到貨日期      | arrival_date   | DATE                    | NOT NULL                           | 到貨日期，不可為空                |
+| 入庫狀態      | status         | ENUM('pending', 'received', 'damaged') | DEFAULT 'pending' | 入庫狀態，預設為 'pending'     |
 
-| 序號 | 表名   | 欄位名稱       | 資料型態     | 約束條件                         | 備註                                 |
-|------|--------|----------------|--------------|-----------------------------------|--------------------------------------|
-| 1    | Orders | order_id       | INT          | AUTO_INCREMENT PRIMARY KEY        | 自動增長，主鍵                        |
-| 2    | Orders | customer_name  | VARCHAR(100) | NOT NULL                          | 客戶名稱，必填                        |
-| 3    | Orders | order_status   | ENUM('pending', 'shipped', 'delivered') | NOT NULL | 訂單狀態，可為 pending, shipped, 或 delivered |
-| 4    | Orders | total_amount   | DECIMAL(10,2)| NOT NULL                          | 訂單總金額，必填                      |
-| 5    | Orders | created_at     | TIMESTAMP    | DEFAULT CURRENT_TIMESTAMP         | 創建時間，預設為當前時間戳              |
+* outbound_shipments.csv
 
-* 物流配送
+| 列名          | 欄位名稱       | 資料型態                | 約束條件                          | 備註                              |
+|---------------|----------------|-------------------------|-----------------------------------|----------------------------------|
+| 出庫ID        | outbound_id    | SERIAL                  | PRIMARY KEY                       | 自動增長，主鍵                    |
+| 訂單編號      | order_id       | INTEGER                 | REFERENCES orders(order_id)       | 訂單ID，外鍵參照訂單表             |
+| 倉庫ID        | warehouse_id   | INTEGER                 | REFERENCES warehouses(warehouse_id)| 倉庫ID，外鍵參照倉庫表             |
+| 產品ID        | product_id     | INTEGER                 | REFERENCES products(product_id)    | 產品ID，外鍵參照產品表             |
+| 出庫數量      | quantity       | INTEGER                 | NOT NULL                           | 出庫數量，不可為空                |
+| 發貨日期      | dispatch_date  | DATE                    | NOT NULL                           | 發貨日期，不可為空                |
+| 出庫狀態      | status         | ENUM('preparing', 'shipped', 'delivered') | DEFAULT 'preparing' | 出庫狀態，預設為 'preparing'     |
 
-| 序號 | 表名      | 欄位名稱         | 資料型態      | 約束條件                           | 備註                                           |
-|------|-----------|------------------|---------------|-------------------------------------|------------------------------------------------|
-| 1    | Shipments | shipment_id      | INT           | AUTO_INCREMENT PRIMARY KEY          | 自動增長，主鍵                                  |
-| 2    | Shipments | order_id         | INT           |                                     | 訂單ID，外鍵參照 Orders 表的 order_id            |
-| 3    | Shipments | tracking_number  | VARCHAR(50)   | UNIQUE                              | 追蹤號碼，唯一                                  |
-| 4    | Shipments | shipment_status  | ENUM('preparing', 'shipped', 'delivered') | NOT NULL  | 出貨狀態，可為 preparing, shipped, 或 delivered |
-| 5    | Shipments | estimated_delivery | DATE        |                                     | 預計送達日期                                    |
-| 6    | Shipments | actual_delivery  | DATE          |                                     | 實際送達日期                                    |
-| 7    | Shipments | carrier          | VARCHAR(50)   |                                     | 運送公司                                        |
-| 8    | Shipments | shipping_cost    | DECIMAL(10,2) | DEFAULT 0.00                        | 運費，預設為 0.00                               |
-| 9    | Shipments | FOREIGN KEY      | (order_id)    | REFERENCES Orders(order_id)         | 外鍵，連結到 Orders 表                          |
+* return_refunds.csv
 
-* 倉庫內調撥
+| 列名          | 欄位名稱       | 資料型態                | 約束條件                          | 備註                              |
+|---------------|----------------|-------------------------|-----------------------------------|----------------------------------|
+| 退款ID        | refund_id      | SERIAL                  | PRIMARY KEY                       | 自動增長，主鍵                    |
+| 訂單編號      | order_id       | INTEGER                 | REFERENCES orders(order_id)       | 訂單ID，外鍵參照訂單表             |
+| 產品ID        | product_id     | INTEGER                 | REFERENCES products(product_id)   | 產品ID，外鍵參照產品表             |
+| 原因/退款原因  | reason         | TEXT                    |                                   | 退款原因                           |
+| 退款狀態      | status         | ENUM('requested', 'approved', 'rejected', 'processed') | DEFAULT 'requested' | 退款狀態，預設為 'requested' |
+| 退款金額      | refund_amount  | NUMERIC(10,2)           |                                   | 退款金額                           |
+| 創建時間      | created_at     | TIMESTAMP WITH TIME ZONE| DEFAULT NOW()                     | 創建時間，預設為當前時間          |
 
-| 序號 | 表名                | 欄位名稱           | 資料型態      | 約束條件                                     | 備註                                           |
-|------|---------------------|--------------------|---------------|---------------------------------------------|------------------------------------------------|
-| 1    | Warehouse_Transfers | transfer_id        | INT           | AUTO_INCREMENT PRIMARY KEY                  | 自動增長，主鍵                                  |
-| 2    | Warehouse_Transfers | from_warehouse_id  | INT           |                                             | 從倉庫ID，外鍵參照 Warehouses 表的 warehouse_id  |
-| 3    | Warehouse_Transfers | to_warehouse_id    | INT           |                                             | 到倉庫ID，外鍵參照 Warehouses 表的 warehouse_id  |
-| 4    | Warehouse_Transfers | product_id         | INT           |                                             | 產品ID，外鍵參照 Products 表的 product_id        |
-| 5    | Warehouse_Transfers | quantity           | INT           | NOT NULL                                    | 轉移數量，必填                                  |
-| 6    | Warehouse_Transfers | transfer_status    | ENUM('pending', 'in transit', 'completed') | DEFAULT 'pending' | 轉移狀態，預設為 'pending'                       |
-| 7    | Warehouse_Transfers | transfer_date      | TIMESTAMP     | DEFAULT CURRENT_TIMESTAMP                   | 轉移日期，預設為當前時間戳                        |
-| 8    | Warehouse_Transfers | FOREIGN KEY        | (from_warehouse_id) | REFERENCES Warehouses(warehouse_id)       | 外鍵，連結到 Warehouses 表的 from_warehouse_id   |
-| 9    | Warehouse_Transfers | FOREIGN KEY        | (to_warehouse_id)   | REFERENCES Warehouses(warehouse_id)       | 外鍵，連結到 Warehouses 表的 to_warehouse_id     |
-| 10   | Warehouse_Transfers | FOREIGN KEY        | (product_id)        | REFERENCES Products(product_id)           | 外鍵，連結到 Products 表的 product_id            |
+* Sales_Analysis
 
-* 訂單支付
+  | 列名          | 欄位名稱       | 資料型態                | 約束條件                          | 備註                              |
+|---------------|----------------|-------------------------|-----------------------------------|----------------------------------|
+| 銷售紀錄ID    | record_id      | SERIAL                  | PRIMARY KEY                       | 自動增長，主鍵                    |
+| 日期          | date           | DATE                    | NOT NULL                          | 銷售數據的日期，不可為空          |
+| 產品ID        | product_id     | INTEGER                 | REFERENCES products(product_id)   | 產品ID，外鍵參照產品表            |
+| 分類ID        | category_id    | INTEGER                 | REFERENCES categories(category_id)| 分類ID，外鍵參照分類表            |
+| 總銷售量      | total_sales    | NUMERIC(10,2)           | NOT NULL                          | 總銷售量，不可為空                |
+| 總收入        | revenue        | NUMERIC(10,2)           | NOT NULL                          | 總收入，不可為空                  |
+| 平均價格      | average_price  | NUMERIC(10,2)           | NOT NULL                          | 平均銷售價格，不可為空            |
 
-| 序號 | 表名     | 欄位名稱         | 資料型態      | 約束條件                           | 備註                                          |
-|------|----------|------------------|---------------|-------------------------------------|-----------------------------------------------|
-| 1    | Payments | payment_id       | INT           | AUTO_INCREMENT PRIMARY KEY          | 自動增長，主鍵                                 |
-| 2    | Payments | order_id         | INT           |                                     | 訂單ID，外鍵參照 Orders 表的 order_id          |
-| 3    | Payments | payment_method   | ENUM('credit_card', 'paypal', 'bank_transfer') | NOT NULL | 支付方式，包括信用卡、PayPal、銀行轉賬          |
-| 4    | Payments | payment_status   | ENUM('pending', 'completed', 'failed') | NOT NULL | 支付狀態，可為 pending, completed, 或 failed  |
-| 5    | Payments | amount           | DECIMAL(10,2) | NOT NULL                            | 交易金額                                      |
-| 6    | Payments | payment_date     | TIMESTAMP     | DEFAULT CURRENT_TIMESTAMP           | 支付日期，預設為當前時間戳                      |
-| 7    | Payments | FOREIGN KEY      | (order_id)    | REFERENCES Orders(order_id)         | 外鍵，連結到 Orders 表的 order_id              |
+* inventory_analytics.csv
 
-* 退貨與退款
+| 列名          | 欄位名稱           | 資料型態                | 約束條件                          | 備註                              |
+|---------------|--------------------|-------------------------|-----------------------------------|----------------------------------|
+| 紀錄ID        | record_id          | SERIAL                  | PRIMARY KEY                       | 自動增長，主鍵                    |
+| 日期          | date               | DATE                    | NOT NULL                          | 分析數據的日期，不可為空          |
+| 倉庫ID        | warehouse_id       | INTEGER                 | REFERENCES warehouses(warehouse_id)| 倉庫ID，外鍵參照倉庫表             |
+| 產品ID        | product_id         | INTEGER                 | REFERENCES products(product_id)   | 產品ID，外鍵參照產品表             |
+| 初始庫存      | starting_stock     | INTEGER                 | NOT NULL                          | 初始庫存，不可為空                |
+| 結束庫存      | ending_stock       | INTEGER                 | NOT NULL                          | 結束庫存，不可為空                |
+| 銷售數量      | sold_quantity      | INTEGER                 | NOT NULL                          | 該期間內銷售的產品數量，不可為空  |
+| 入庫數量      | received_quantity  | INTEGER                 | NOT NULL                          | 該期間內收到的產品數量，不可為空  |
 
-| 序號 | 表名           | 欄位名稱      | 資料型態      | 約束條件                              | 備註                                          |
-|------|----------------|---------------|---------------|----------------------------------------|-----------------------------------------------|
-| 1    | Returns_Refunds | return_id     | INT           | AUTO_INCREMENT PRIMARY KEY             | 自動增長，主鍵                                 |
-| 2    | Returns_Refunds | order_id      | INT           |                                        | 訂單ID，外鍵參照 Orders 表的 order_id          |
-| 3    | Returns_Refunds | product_id    | INT           |                                        | 產品ID，外鍵參照 Products 表的 product_id      |
-| 4    | Returns_Refunds | reason        | TEXT          |                                        | 退貨原因                                      |
-| 5    | Returns_Refunds | status        | ENUM('requested', 'approved', 'rejected') | DEFAULT 'requested' | 退貨狀態，預設為 'requested'                    |
-| 6    | Returns_Refunds | refund_amount | DECIMAL(10,2) |                                        | 退款金額                                      |
-| 7    | Returns_Refunds | created_at    | TIMESTAMP     | DEFAULT CURRENT_TIMESTAMP              | 創建時間，預設為當前時間戳                      |
-| 8    | Returns_Refunds | FOREIGN KEY   | (order_id)    | REFERENCES Orders(order_id)            | 外鍵，連結到 Orders 表的 order_id              |
-| 9    | Returns_Refunds | FOREIGN KEY   | (product_id)  | REFERENCES Products(product_id)        | 外鍵，連結到 Products 表的 product_id          |
+* order_conversion_stats.csv
 
-* 銷售分析
+| 列名              | 欄位名稱         | 資料型態                | 約束條件                          | 備註                              |
+|-------------------|------------------|-------------------------|-----------------------------------|----------------------------------|
+| 記錄ID            | record_id        | SERIAL                  | PRIMARY KEY                       | 自動增長，主鍵                    |
+| 日期              | date             | DATE                    | NOT NULL                          | 統計數據的日期，不可為空          |
+| 訪問用戶數/瀏覽    | total_visits     | INTEGER                 | NOT NULL                          | 總訪問次數，不可為空              |
+| 總訂單數          | total_orders     | INTEGER                 | NOT NULL                          | 總訂單數，不可為空                |
+| 轉換率            | conversion_rate  | NUMERIC(5,2)            | NOT NULL                          | 訂單轉化率，不可為空，保留兩位小數|
 
-| 序號 | 表名          | 欄位名稱       | 資料型態      | 約束條件                              | 備註                                         |
-|------|---------------|----------------|---------------|----------------------------------------|----------------------------------------------|
-| 1    | Sales_Analysis | record_id     | INT           | AUTO_INCREMENT PRIMARY KEY             | 自動增長，主鍵                               |
-| 2    | Sales_Analysis | date          | DATE          | NOT NULL                               | 銷售日期，必填                               |
-| 3    | Sales_Analysis | product_id    | INT           |                                        | 產品ID，外鍵參照 Products 表的 product_id    |
-| 4    | Sales_Analysis | category_id   | INT           |                                        | 類別ID，外鍵參照 Categories 表的 category_id |
-| 5    | Sales_Analysis | total_sales   | INT           | NOT NULL                               | 總銷售數量，必填                             |
-| 6    | Sales_Analysis | revenue       | DECIMAL(10,2) | NOT NULL                               | 總收入，必填                                 |
-| 7    | Sales_Analysis | average_price | DECIMAL(10,2) | NOT NULL                               | 平均售價，必填                               |
-| 8    | Sales_Analysis | FOREIGN KEY   | (product_id)  | REFERENCES Products(product_id)        | 外鍵，連結到 Products 表的 product_id        |
-| 9    | Sales_Analysis | FOREIGN KEY   | (category_id) | REFERENCES Categories(category_id)     | 外鍵，連結到 Categories 表的 category_id     |
+* shipment_performance.csv
 
-* 庫存趨勢
+| 列名              | 欄位名稱             | 資料型態                | 約束條件                          | 備註                              |
+|-------------------|----------------------|-------------------------|-----------------------------------|----------------------------------|
+| 記錄ID            | record_id            | SERIAL                  | PRIMARY KEY                       | 自動增長，主鍵                    |
+| 日期              | date                 | DATE                    | NOT NULL                          | 統計數據的日期，不可為空          |
+| 物流承運商        | carrier              | VARCHAR(50)             | NOT NULL                          | 物流承運商名稱，不可為空          |
+| 總發貨量          | total_shipments      | INTEGER                 | NOT NULL                          | 總發貨量，不可為空                |
+| 準時送達數量      | on_time_deliveries   | INTEGER                 | NOT NULL                          | 準時送達的貨物數量，不可為空      |
+| 平均送達時長      | average_delivery_time| NUMERIC(5,2)            | NOT NULL                          | 平均送達時長，不可為空，保留兩位小數 |
 
-| 序號 | 表名              | 欄位名稱       | 資料型態      | 約束條件                              | 備註                                         |
-|------|-------------------|----------------|---------------|----------------------------------------|----------------------------------------------|
-| 1    | Inventory_Analytics | record_id     | INT           | AUTO_INCREMENT PRIMARY KEY             | 自動增長，主鍵                               |
-| 2    | Inventory_Analytics | date          | DATE          | NOT NULL                               | 日期，必填                                   |
-| 3    | Inventory_Analytics | warehouse_id  | INT           |                                        | 倉庫ID，外鍵參照 Warehouses 表的 warehouse_id  |
-| 4    | Inventory_Analytics | product_id    | INT           |                                        | 產品ID，外鍵參照 Products 表的 product_id      |
-| 5    | Inventory_Analytics | starting_stock| INT           | NOT NULL                               | 初始庫存數量，必填                           |
-| 6    | Inventory_Analytics | ending_stock  | INT           | NOT NULL                               | 結束庫存數量，必填                           |
-| 7    | Inventory_Analytics | sold_units    | INT           | NOT NULL                               | 銷售單位數量，必填                           |
-| 8    | Inventory_Analytics | received_units| INT           | NOT NULL                               | 接收單位數量，必填                           |
-| 9    | Inventory_Analytics | FOREIGN KEY   | (warehouse_id)| REFERENCES Warehouses(warehouse_id)    | 外鍵，連結到 Warehouses 表的 warehouse_id     |
-| 10   | Inventory_Analytics | FOREIGN KEY   | (product_id)  | REFERENCES Products(product_id)        | 外鍵，連結到 Products 表的 product_id         |
 
-* 訂單轉換率
+* customer_feedback_stats.csv
 
-| 序號 | 表名                  | 欄位名稱        | 資料型態      | 約束條件                   | 備註                        |
-|------|-----------------------|-----------------|---------------|-----------------------------|-----------------------------|
-| 1    | Order_Conversion_Stats | record_id      | INT           | AUTO_INCREMENT PRIMARY KEY  | 自動增長，主鍵              |
-| 2    | Order_Conversion_Stats | date           | DATE          | NOT NULL                    | 日期，必填                  |
-| 3    | Order_Conversion_Stats | total_visits   | INT           | NOT NULL                    | 總訪問次數，必填            |
-| 4    | Order_Conversion_Stats | total_orders   | INT           | NOT NULL                    | 總訂單數，必填              |
-| 5    | Order_Conversion_Stats | conversion_rate| DECIMAL(5,2)  | NOT NULL                    | 轉換率，必填                |
-| 6    | Shipment_Performance  | record_id           | INT           | AUTO_INCREMENT PRIMARY KEY  | 自動增長，主鍵              |
-| 7    | Shipment_Performance  | date                | DATE          | NOT NULL                    | 日期，必填                  |
-| 8    | Shipment_Performance  | carrier             | VARCHAR(50)   | NOT NULL                    | 運輸商名稱，必填            |
-| 9    | Shipment_Performance  | total_shipments     | INT           | NOT NULL                    | 總出貨量，必填              |
-| 10   | Shipment_Performance  | on_time_deliveries  | INT           | NOT NULL                    | 準時送達數，必填            |
-| 11   | Shipment_Performance  | late_deliveries     | INT           | NOT NULL                    | 延遲送達數，必填            |
-| 12   | Shipment_Performance  | average_delivery_time | INT        | NOT NULL                    | 平均送達時間（小時），必填  |
+| 列名          | 欄位名稱       | 資料型態                | 約束條件                          | 備註                              |
+|---------------|----------------|-------------------------|-----------------------------------|----------------------------------|
+| 產品ID        | product_id     | INTEGER                 | PRIMARY KEY REFERENCES products(product_id) | 主鍵，外鍵參照產品表            |
+| 平均評級      | average_rating | NUMERIC(3,2)            | NOT NULL                          | 平均評級，保留兩位小數            |
+| 4-5 星評論數  | star_4_5_reviews | INTEGER               | NOT NULL                          | 4至5星評論的數量                 |
+| 1-3 星評論數  | star_1_3_reviews | INTEGER               | NOT NULL                          | 1至3星評論的數量                 |
 
-* 顧客滿意度分析
 
-| 序號 | 表名                   | 欄位名稱         | 資料型態      | 約束條件                              | 備註                                         |
-|------|------------------------|------------------|---------------|----------------------------------------|----------------------------------------------|
-| 1    | Customer_Feedback_Stats | record_id       | INT           | AUTO_INCREMENT PRIMARY KEY             | 自動增長，主鍵                               |
-| 2    | Customer_Feedback_Stats | date            | DATE          | NOT NULL                               | 日期，必填                                   |
-| 3    | Customer_Feedback_Stats | product_id      | INT           |                                        | 產品ID，外鍵參照 Products 表的 product_id    |
-| 4    | Customer_Feedback_Stats | total_reviews   | INT           | NOT NULL                               | 總評論數，必填                               |
-| 5    | Customer_Feedback_Stats | average_rating  | DECIMAL(3,2)  | NOT NULL                               | 平均評分，必填                               |
-| 6    | Customer_Feedback_Stats | positive_reviews| INT           | NOT NULL                               | 積極評論數（4-5星評價），必填                |
-| 7    | Customer_Feedback_Stats | negative_reviews| INT           | NOT NULL                               | 消極評論數（1-2星評價），必填                |
-| 8    | Customer_Feedback_Stats | FOREIGN KEY     | (product_id)  | REFERENCES Products(product_id)        | 外鍵，連結到 Products 表的 product_id        |
 
-*** 
-* Users
 
-| 欄位名稱      | 資料型態         | 約束條件        | 備註                                 |
-|---------------|------------------|-----------------|--------------------------------------|
-| userID        | SERIAL           | PRIMARY KEY     | 自動增長，主鍵                         |
-| username      | VARCHAR(255)     | NOT NULL        | 用戶名，不可空，唯一                    |
-| email         | VARCHAR(255)     | NOT NULL UNIQUE | 電子郵箱，不可空，唯一                  |
-| phone         | VARCHAR(20)      | NULL            | 電話號碼                               |
-| registrationDate | DATE          | NOT NULL        | 註冊日期                               |
-| userType      | user_type        | NOT NULL        | 用戶類型（管理者，客戶，賣家等）        |
-| isActive      | BOOLEAN          | NOT NULL        | 賬戶是否啟用                           |
 
-* Sellers
 
-| 欄位名稱      | 資料型態         | 約束條件             | 備註                                   |
-|---------------|------------------|----------------------|----------------------------------------|
-| sellerID      | INT              | PRIMARY KEY          | 主鍵，外鍵參照 Users 表的 userID        |
-| storeName     | VARCHAR(255)     | NOT NULL             | 商店名稱                                |
-| storeID       | VARCHAR(255)     | NOT NULL             |                                         |
-| storeDescription | TEXT          |                      | 商店描述                                |
-| bankAccount   | VARCHAR(255)     |                      | 銀行賬戶資訊                            |
 
-* Points
-
-| 欄位名稱      | 資料型態         | 約束條件             | 備註                                   |
-|---------------|------------------|----------------------|----------------------------------------|
-| pointID       | SERIAL           | PRIMARY KEY          | 積分ID，自動增長                        |
-| userID        | INT              | FOREIGN KEY          | 外鍵參照 Users 表的 userID              |
-| pointsEarned  | INT              |                      | 獲得的積分                              |
-| pointsRedeemed| INT              |                      | 已兌換的積分                            |
-| transactionDate | DATE           | NOT NULL             | 交易日期                               |
-| description   | VARCHAR(255)     |                      | 描述                                    |
-
-* Messages
-  
-| 欄位名稱      | 資料型態         | 約束條件             | 備註                                   |
-|---------------|------------------|----------------------|----------------------------------------|
-| messageID     | SERIAL           | PRIMARY KEY          | 訊息ID，自動增長                        |
-| senderID      | INT              | FOREIGN KEY          | 發送者ID，外鍵參照 Users 表的 userID    |
-| receiverID    | INT              | FOREIGN KEY          | 接收者ID，外鍵參照 Users 表的 userID    |
-| messageContent| TEXT             | NOT NULL             | 訊息內容                                |
-| sendTime      | TIMESTAMP        | DEFAULT CURRENT_TIMESTAMP| 發送時間，預設為當前時間戳                |
-| isRead        | BOOLEAN          | NOT NULL             | 是否已讀                                |
 
