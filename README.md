@@ -40,7 +40,7 @@
 
 
 ## 🖋️ HomeWork
-1. Homework I []()
+1. Homework I [Click me 👇](https://github.com/EZ-Super/Database-System-Course-Final-Project/blob/main/%E4%BD%9C%E6%A5%AD%E4%B8%80.md)
 
 ## 📝 DataBase Tables 
 * [Click me 👇](https://github.com/EZ-Super/Database-System-Course-Final-Project/blob/main/code/DB%20API%20Server/README.md)
