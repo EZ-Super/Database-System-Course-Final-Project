@@ -2,7 +2,23 @@
 * "2024-04-10T18:30:00"
 * "2024-04-10T00:00:00"
 
+##用戶管理
 
+* User
+
+| 列名              | 欄位名稱             | 資料型態                | 約束條件                          | 備註                              |
+|----------------------|---------------------|------------------|-------------------------------------|----------------------------------------------------------------------|
+| 使用者ID             | user_id             | SERIAL           | PRIMARY KEY                         | 自動生成，唯一識別每個用戶                                          |
+| 使用者名稱            | username      | VARCHAR(255)     | NOT NULL,UNIQUE                     | 用戶登入帳號                                   |
+| 電子郵件             | email             | VARCHAR(255)     | NOT NULL,UNIQUE                           | 用戶的電子郵件地址                                                  |
+| 電話號碼               | phone        |VARCHAR(20)     |                                     | 用戶的聯絡電話                                                      |
+| 註冊日期         |registration_date            | TIMESTAMP WITH TIME ZONE     |DEFAULT NOW()            | 用戶建立帳號的時間                                      |
+| 是否啟用         |is_active      | BOOLEAN          |DEFAULT TRUE              | 帳戶是否啟用                                                        |
+| 會員等級ID     | membership_level_id        | INTEGER          |REFERENCES membership_levels(level_id)      | 用戶所屬的會員等級                         |
+| 運送地址      |shipping_address  | VARCHAR(255)     |                                     |預設的商品運送地址                                          |
+| 帳單地址         | billing_address          | VARCHAR(255)         |        |  預設的帳單寄送地址                     |
+
+***
 
 ## DataBase Authentication
 
@@ -253,8 +269,6 @@
 | 平均評級      | average_rating | NUMERIC(3,2)            | NOT NULL                          | 平均評級，保留兩位小數            |
 | 4-5 星評論數  | star_4_5_reviews | INTEGER               | NOT NULL                          | 4至5星評論的數量                 |
 | 1-3 星評論數  | star_1_3_reviews | INTEGER               | NOT NULL                          | 1至3星評論的數量                 |
-
-
 
 
 
