@@ -2,21 +2,88 @@
 * "2024-04-10T18:30:00"
 * "2024-04-10T00:00:00"
 
-##用戶管理
+## 用戶管理 - 謝延偵
 
-* User
+* users
 
 | 列名              | 欄位名稱             | 資料型態                | 約束條件                          | 備註                              |
 |----------------------|---------------------|------------------|-------------------------------------|----------------------------------------------------------------------|
 | 使用者ID             | user_id             | SERIAL           | PRIMARY KEY                         | 自動生成，唯一識別每個用戶                                          |
-| 使用者名稱            | username      | VARCHAR(255)     | NOT NULL,UNIQUE                     | 用戶登入帳號                                   |
-| 電子郵件             | email             | VARCHAR(255)     | NOT NULL,UNIQUE                           | 用戶的電子郵件地址                                                  |
+| 使用者名稱            | username      | VARCHAR(255)     | NOT NULL, UNIQUE                     | 用戶登入帳號                                   |
+| 電子郵件             | email             | VARCHAR(255)     | NOT NULL, UNIQUE                           | 用戶的電子郵件地址                                                  |
 | 電話號碼               | phone        |VARCHAR(20)     |                                     | 用戶的聯絡電話                                                      |
 | 註冊日期         |registration_date            | TIMESTAMP WITH TIME ZONE     |DEFAULT NOW()            | 用戶建立帳號的時間                                      |
 | 是否啟用         |is_active      | BOOLEAN          |DEFAULT TRUE              | 帳戶是否啟用                                                        |
 | 會員等級ID     | membership_level_id        | INTEGER          |REFERENCES membership_levels(level_id)      | 用戶所屬的會員等級                         |
 | 運送地址      |shipping_address  | VARCHAR(255)     |                                     |預設的商品運送地址                                          |
 | 帳單地址         | billing_address          | VARCHAR(255)         |        |  預設的帳單寄送地址                     |
+
+* sellers
+
+| 列名              | 欄位名稱             | 資料型態                | 約束條件                          | 備註                              |
+|----------------------|---------------------|------------------|-------------------------------------|----------------------------------------------------------------------|
+| 賣家ID |seller_id  | SERIAL                    | PRIMARY KEY                | 自動生成，唯一識別每個賣家                     |
+| 使用者ID    |  user_id | INTEGER                   | REFERENCES users(user_id), NOT NULL | 關聯到用戶表的ID |
+| 商店名稱     |  store_name | VARCHAR(255)              | NOT NULL                  | 賣家的商店名稱                               |
+| 商店描述  | store_description | TEXT                      |                           | 賣家商店的詳細描述                           |
+| 銀行帳戶 | bank_account| VARCHAR(255)              |                           | 賣家的銀行帳戶資訊                           |
+
+* membership_levels
+
+| 列名              | 欄位名稱             | 資料型態                | 約束條件                          | 備註                              |
+|----------------------|---------------------|------------------|-------------------------------------|----------------------------------------------------------------------|
+| 等級ID |level_id | SERIAL       | PRIMARY KEY       | 會員等級的唯一識別碼               |
+| 等級名稱 |   level_name | VARCHAR(255) | NOT NULL         | 會員等級的名稱，如：金級、銀級      |
+| 所需點數 |    required_points  | INTEGER      | NOT NULL         | 升級到此等級所需的點數             |
+| 折扣率 |   discount_rate | NUMERIC(5,2) | NOT NULL         | 會員等級的折扣比率，如：0.9 表示9折 |
+
+* point
+
+| 列名              | 欄位名稱             | 資料型態                | 約束條件                          | 備註                              |
+|----------------------|---------------------|------------------|-------------------------------------|----------------------------------------------------------------------|
+| 點數ID  |point_id | SERIAL                    | PRIMARY KEY                | 自動生成，唯一識別每筆點數紀錄                 |
+| 使用者ID |  user_id| INTEGER                   | REFERENCES users(user_id), NOT NULL | 關聯到用戶表的ID |
+| 獲得點數 |  points_earned| INTEGER                   |                           | 用戶獲得或消費的點數量                       |
+| 交易日期   |  transaction_date | TIMESTAMP WITH TIME ZONE  | DEFAULT NOW()             | 點數交易發生的時間                           |
+| 描述  |   description | VARCHAR(255)              |                           | 點數交易的說明，如：購物得點、活動獎勵         |
+
+* coupons
+
+| 列名              | 欄位名稱             | 資料型態                | 約束條件                          | 備註                              |
+|----------------------|---------------------|------------------|-------------------------------------|----------------------------------------------------------------------|
+| 優惠券ID | coupon_id  | SERIAL                    | PRIMARY KEY                | 自動生成，唯一識別每張優惠券                   |
+| 優惠券代碼|    coupon_code | VARCHAR(255)              | NOT NULL, UNIQUE           | 優惠券的唯一代碼，供用戶輸入使用               |
+| 折扣金額 |   discount_amount | NUMERIC(10,2)             | NOT NULL                  | 優惠券提供的折扣金額                         |
+| 過期日期   |  expiry_date  | DATE                      |                           | 優惠券的有效期限                             |
+| 使用次數限制   |   usage_limit | INTEGER                   |                           | 優惠券可使用的最大次數                       |
+| 是否啟用     |   is_active | BOOLEAN                   | DEFAULT TRUE              | 優惠券是否可用                               |
+| 優惠券類型    |   coupon_type | coupon_type_enum          | NOT NULL, DEFAULT 'single_use' | 優惠券使用類型 |
+* coupon_type_enum AS ENUM ('single_use', 'multi_use_limited');
+
+* messages
+
+| 列名              | 欄位名稱             | 資料型態                | 約束條件                          | 備註                              |
+|----------------------|---------------------|------------------|-------------------------------------|----------------------------------------------------------------------|
+| 訊息ID | message_id | SERIAL                    | PRIMARY KEY                | 自動生成，唯一識別每則訊息                     |
+| 發送者ID  |    sender_id  | INTEGER                   | REFERENCES users(user_id), NOT NULL | 關聯到發送訊息的用戶ID |
+| 接收者ID |    receiver_id | INTEGER                   | REFERENCES users(user_id), NOT NULL | 關聯到接收訊息的用戶ID |
+| 訊息內容 |    message_content   | TEXT                      | NOT NULL                  | 訊息的文字內容                               |
+| 發送時間|    send_time  | TIMESTAMP WITH TIME ZONE  | DEFAULT NOW()             | 訊息發送的時間                               |
+| 是否已讀 |    is_read  | BOOLEAN                   | DEFAULT FALSE             | 訊息是否已經被接收者閱讀                     |
+
+* notifications
+
+| 列名              | 欄位名稱             | 資料型態                | 約束條件                          | 備註                              |
+|----------------------|---------------------|------------------|-------------------------------------|----------------------------------------------------------------------|
+| 通知ID |notification_id| SERIAL                    | PRIMARY KEY                | 自動生成，唯一識別每則通知                     |
+| 使用者ID   |    user_id  | INTEGER                   | REFERENCES users(user_id), NOT NULL | 關聯到接收通知的用戶ID |
+| 通知類型|    notification_type | VARCHAR(50)               | NOT NULL                  | 通知的類型，如：訂單狀態、系統公告             |
+| 標題  |    subject | VARCHAR(255)              | NOT NULL                  | 通知的標題                                   |
+| 內容    |    message| TEXT                      | NOT NULL                  | 通知的詳細內容                               |
+| 發送時間|    sent_at | TIMESTAMP WITH TIME ZONE  | DEFAULT NOW()             | 通知發送的時間                               |
+| 是否已讀 |    is_read | BOOLEAN                   | DEFAULT FALSE             | 通知是否已經被用戶閱讀                       |
+| 相關實體   |   related_entity | VARCHAR(50)               |                           | 通知關聯的實體類型，如：訂單、商品             |
+| 相關實體ID |   related_entity_id| INTEGER                   |                           | 通知關聯的實體ID                             |
 
 ***
 
