@@ -47,7 +47,8 @@
 | 交易日期   |  transaction_date | TIMESTAMP WITH TIME ZONE  | DEFAULT NOW()             | 點數交易發生的時間                           |
 | 描述  |   description | VARCHAR(255)              |                           | 點數交易的說明，如：購物得點、活動獎勵         |
 
-* coupons
+- coupons
+    - coupon_type_enum AS ENUM ('single_use', 'multi_use_limited');
 
 | 列名              | 欄位名稱             | 資料型態                | 約束條件                          | 備註                              |
 |----------------------|---------------------|------------------|-------------------------------------|----------------------------------------------------------------------|
@@ -58,7 +59,7 @@
 | 使用次數限制   |   usage_limit | INTEGER                   |                           | 優惠券可使用的最大次數                       |
 | 是否啟用     |   is_active | BOOLEAN                   | DEFAULT TRUE              | 優惠券是否可用                               |
 | 優惠券類型    |   coupon_type | coupon_type_enum          | NOT NULL, DEFAULT 'single_use' | 優惠券使用類型 |
-* coupon_type_enum AS ENUM ('single_use', 'multi_use_limited');
+
 
 * messages
 
