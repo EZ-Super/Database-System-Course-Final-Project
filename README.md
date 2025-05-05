@@ -41,6 +41,7 @@
 
 ## 🖋️ HomeWork
  1. Homework I : [Click me 👇](https://github.com/EZ-Super/Database-System-Course-Final-Project/blob/main/%E4%BD%9C%E6%A5%AD%E4%B8%80.md)
+ 2. Homework II : [Click me 👇](https://github.com/EZ-Super/Database-System-Course-Final-Project/blob/a557602a3094cee3c2bbe4414ae162f00647ee3c/%E4%BD%9C%E6%A5%AD%E4%BA%8C.md)
 
 ## 📝 DataBase Tables 
 * [Click me 👇](https://github.com/EZ-Super/Database-System-Course-Final-Project/blob/main/code/DB%20API%20Server/README.md)
@@ -48,22 +49,20 @@
 ## 📆 Schedule
 * [History Schedule Link](https://github.com/EZ-Super/Database-System-Course-Final-Project/blob/main/schedule.md)
 ### 📝 This Week's Progress
-## 資料表繳交
-* Deadline: 2025-04-1 23:59:59
-  * 👤 用戶管理
+## Final Project Part II
+* Deadline: 2025-05-06 23:59:59
+  * 完整之資料庫Schema以SQL語法並舉例說明、修正ER Diagram及詳細說明
     * 謝延偵 
-  * 📜 商品管理、AD Server
+  * 完整之資料庫Schema以SQL語法並舉例說明、修正系統需求說明
     * 楊峻朋
-  * 🧾 訂單管理
+  * 完整之資料庫Schema以SQL語法並舉例說明
     * 李維誠
-  * 📦 物流與倉儲
-    * 鐘文瑀
-  * 📊 數據分析
+  * 完整之資料庫Schema以SQL語法並舉例說明
     * 鐘文瑀
 
 |name|Done|
 |:--:|:--:|
 |楊峻朋|✅|
 |謝延偵|✅|
-|鐘文瑀|✅|
-|李維誠|✅|
+|鐘文瑀||
+|李維誠||
