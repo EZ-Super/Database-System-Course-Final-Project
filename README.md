@@ -13,7 +13,9 @@
     * 庫存分配、發貨時間預測。
   * 📊 數據分析
     * 熱銷商品、價格走勢。
-          
+
+## 📝 應用情境與使用案例
+  [click me 👇](https://github.com/EZ-Super/Database-System-Course-Final-Project/blob/main/%E4%BD%9C%E6%A5%AD%E4%B8%80.md)
 
 ## 💻 Using Language
 * Database using MariaDB  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mariadb/mariadb-original-wordmark.svg" width="35" height="35"/>
