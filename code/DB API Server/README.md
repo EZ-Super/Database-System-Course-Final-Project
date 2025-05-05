@@ -174,7 +174,7 @@
 ***
 
 
-### 物流倉儲
+### 物流倉儲 - 鍾文瑀
 
 * shipments
 
@@ -282,6 +282,8 @@
 | 退款金額      | refund_amount  | NUMERIC(10,2)           |                                   | 退款金額                           |
 | 創建時間      | created_at     | TIMESTAMP WITH TIME ZONE| DEFAULT NOW()                     | 創建時間，預設為當前時間          |
 
+### 物流倉儲 - 鍾文瑀
+
 * Sales_Analysis
 
 | 列名          | 欄位名稱       | 資料型態                | 約束條件                          | 備註                              |
@@ -337,6 +339,8 @@
 | 平均評級      | average_rating | NUMERIC(3,2)            | NOT NULL                          | 平均評級，保留兩位小數            |
 | 4-5 星評論數  | star_4_5_reviews | INTEGER               | NOT NULL                          | 4至5星評論的數量                 |
 | 1-3 星評論數  | star_1_3_reviews | INTEGER               | NOT NULL                          | 1至3星評論的數量                 |
+
+***
 
 
 
