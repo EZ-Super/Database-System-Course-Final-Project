@@ -49,6 +49,7 @@
 ## 📆 Schedule
 * [History Schedule Link](https://github.com/EZ-Super/Database-System-Course-Final-Project/blob/main/schedule.md)
 ### 📝 This Week's Progress
+### 完成資料表建置
 * Deadline: 2025-05-10 23:59:59
  * 完成建立資料庫table
 
