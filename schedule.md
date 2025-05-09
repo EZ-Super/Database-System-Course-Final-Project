@@ -1,3 +1,17 @@
+## 完成資料表建置
+* Deadline: 2025-05-10 23:59:59
+ * 完成建立資料庫table
+
+|name|Done|
+|:--:|:--:|
+|楊峻朋|✅|
+|謝延偵||
+|鐘文瑀||
+|李維誠||
+
+
+
+
 ## Final Project Part II
 * Deadline: 2025-05-06 23:59:59
   * 完整之資料庫Schema以SQL語法並舉例說明、修正ER Diagram及詳細說明
