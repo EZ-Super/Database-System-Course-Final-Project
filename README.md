@@ -43,7 +43,7 @@
 
 ## 🖋️ HomeWork
  1. Homework I : [Click me 👇](https://github.com/EZ-Super/Database-System-Course-Final-Project/blob/main/%E4%BD%9C%E6%A5%AD%E4%B8%80.md)
- 2. Homework II : [Click me 👇]([https://github.com/EZ-Super/Database-System-Course-Final-Project/blob/a557602a3094cee3c2bbe4414ae162f00647ee3c/%E4%BD%9C%E6%A5%AD%E4%BA%8C.md](https://github.com/EZ-Super/Database-System-Course-Final-Project/blob/main/%E4%BD%9C%E6%A5%AD%E4%BA%8C.md)
+ 2. Homework II : [Click me 👇](https://github.com/EZ-Super/Database-System-Course-Final-Project/blob/main/%E4%BD%9C%E6%A5%AD%E4%BA%8C.md)
 
 ## 📝 DataBase Tables 
 * [Click me 👇](https://github.com/EZ-Super/Database-System-Course-Final-Project/blob/main/code/DB%20API%20Server/README.md)
