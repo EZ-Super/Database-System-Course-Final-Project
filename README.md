@@ -19,7 +19,6 @@
 
 ## 💻 Using Language
 * Database using MariaDB  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mariadb/mariadb-original-wordmark.svg" width="35" height="35"/>
-* Database Api Server language: Rust   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/rust/rust-original.svg" width="35" height="35"/>
 * Backend language: Golang   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/go/go-original.svg" width="35" height="35" />
           
 * Frontend language: JavaScript,Html5,Css,Php
