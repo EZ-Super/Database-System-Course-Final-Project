@@ -49,20 +49,12 @@
 ## 📆 Schedule
 * [History Schedule Link](https://github.com/EZ-Super/Database-System-Course-Final-Project/blob/main/schedule.md)
 ### 📝 This Week's Progress
-## Final Project Part II
-* Deadline: 2025-05-06 23:59:59
-  * 完整之資料庫Schema以SQL語法並舉例說明、修正ER Diagram及詳細說明
-    * 謝延偵 
-  * 完整之資料庫Schema以SQL語法並舉例說明、修正系統需求說明
-    * 楊峻朋
-  * 完整之資料庫Schema以SQL語法並舉例說明
-    * 李維誠
-  * 完整之資料庫Schema以SQL語法並舉例說明
-    * 鐘文瑀
+* Deadline: 2025-05-10 23:59:59
+ * 完成建立資料庫table
 
 |name|Done|
 |:--:|:--:|
 |楊峻朋|✅|
-|謝延偵|✅|
-|鐘文瑀|✅|
-|李維誠|✅|
+|謝延偵||
+|鐘文瑀||
+|李維誠||
