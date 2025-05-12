@@ -89,3 +89,30 @@
 | A01 | 宅配 |
 | A05 | 全家 |
 | A03 | 萊爾富 |
+
+## product - 李維誠
+| productNo | productName | serialNo | unitPrice | quantityOnHand | eorderLevel | reorderQuantity | eorderLeadTime | categoryNo|
+|-----------|-------------|----------|----------|-----------|----------------|-------------|-----------------|----------------|-----------|
+|ELEC-2024-TV001         | 家電            | ELEC-2024-TV001        | 10000       |    20       |       10         |      10       |       7          |       CAT001         |           
+|APP-M-WT-S001           | 服飾            | APP-M-WT-S001          | 500         |     50      |       25         |      25       |       3          |       CAT002         |           
+|ISBN-978-986-479-888-1  | 書籍            | ISBN-978-986-479-888-1 |  300        |   100       |       50         |      50       |       3          |       CAT003         |           
+|BUN-HAM-0123            | 建材            | BUN-HAM-0123           | 25000       |   1500      |       750        |      750      |       15         |       CAT004         |           
+|COS-LO-12345            | 化妝品          | COS-LO-12345           |  500        |   2000      |       1000       |      1000     |       2          |       CAT005         |
+
+## Shipment-李維誠
+| shipmentNo | quantity | shipmentDate | completeStatus | orderNo | productNo | employeeNo| sMethodNo |
+|            |          |              |                |            |           |            |            |
+|    shp-2025-05-12-1         |    2      |    2025-5-12          |      shipped           |   ORD-20250512-001          | PRD-TOOL-8802         |   E001         |  SM001          |
+|    shp-2025-05-12-2         |    1      |    2025-5-12          |      shipped           |   ORD-20250512-002          | PRD-ELEC-0420         |   E002         |  SM002          |
+|    shp-2025-05-12-3         |    5      |    2025-5-12          |      shipped           |   ORD-20250512-003          | PRD-APP-0001          |   E002         |  SM003          |
+|    shp-2025-05-12-4         |    4      |    2025-5-12          |      shipped           |   ORD-20250512-004          | PRD-GARD-305          |   E004         |  SM001          |
+|    shp-2025-05-12-5         |    3      |    2025-5-12          |      shipped           |   ORD-20250512-005          | PRD-COS-1023          |   E002         |  SM001          |
+
+## purches order-李維誠
+|  purchaseOrderNo |  purchaseOrderDescription | orderDate |  dateRequired | shippedDate |  freightCharge  |  supplierNo | employeeNo |
+|            |          |              |                |            |           |            |            |
+| PO-20250512-001          | 補足母親節促銷活動所需商品庫存          |  2025-05-12            | 2025-05-14               | 2025-05-13          | 60         | SUP-0001           | E001           |
+| PO-20250512-002          | 補足勞動節促銷活動所需商品庫存          |  2025-05-12            | 2025-05-16               | 2025-05-14          | 30         | SUP-0001           | E002           |
+| PO-SUP123-0456           | 向 SUP123 採購 500 支 MAC 口紅        |  2025-06-12            | 2025-06-16               | 2025-06-13          | 0          | SUP-INT-9999       | E003           |
+| PO-HQ-20250401           | 補足總部庫存                          |  2025-04-01            | 2025-04-15               | 2025-04-07          |  0         | SUP-TW-0001        | E002           |
+| PO-20250517-001          | 補足母親過後促銷活動所需商品庫存        |   2025-05-17           | 2025-05-20              |  2025-05-10          |  30        | SUP-0001           | E004           |
