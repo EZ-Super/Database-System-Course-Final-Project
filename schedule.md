@@ -1,13 +1,13 @@
 ### 完成課堂作業
 * Deadline: 2025-05-12 23:59:59
  * 謝延偵
-  * Customer 、Employee 、 Invoice
+   * Customer 、Employee 、 Invoice
  * 鐘文瑀
-  * Order 、 OrderDetail 、 PaymentMethod 、 ShipmentMethod
+   * Order 、 OrderDetail 、 PaymentMethod 、 ShipmentMethod
  * 李維誠
-  * Product 、 Shipment 、 PurchaseOrder
+   * Product 、 Shipment 、 PurchaseOrder
  * 楊峻朋
-  * Supplier 、 Transaction 、 Transaction
+   * Supplier 、 Transaction 、 Transaction
    
 |name|Done|
 |:--:|:--:|
