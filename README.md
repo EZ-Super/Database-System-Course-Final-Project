@@ -42,6 +42,15 @@
 |40843141|李維誠|[lii0423](https://github.com/EZ-Super/Database-System-Course-Final-Project/blob/main/Team%20Member/%E6%9D%8E%E7%B6%AD%E8%AA%A0.md)|
 
 
+### 分工表 
+|Student Name|前/後端||
+|:---:|:---:|:----:|
+|楊峻朋|Backend/Front|商品管理、AD、後端api/資料庫請求|
+|謝延偵|Front|用戶管理|
+|鍾文瑀|Front|物流與倉儲、數據分析|
+|李維誠|Front|訂單管理|
+
+
 ## 🖋️ HomeWork
  1. Homework I : [Click me 👇](https://github.com/EZ-Super/Database-System-Course-Final-Project/blob/main/HomeWork/%E4%BD%9C%E6%A5%AD%E4%B8%80.md)
  2. Homework II : [Click me 👇](https://github.com/EZ-Super/Database-System-Course-Final-Project/blob/main/HomeWork/%E4%BD%9C%E6%A5%AD%E4%BA%8C.md)
