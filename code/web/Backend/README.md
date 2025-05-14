@@ -17,7 +17,7 @@ Base URL: `/api`
 * 📥 請求格式
 ```json
 {
-  email : "HelloWorld@example.org",
-  password : "HelloWorld"
+  - email : "HelloWorld@example.org",
+  - password : "HelloWorld"
 }
 ```
