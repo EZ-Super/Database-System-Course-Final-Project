@@ -43,7 +43,7 @@
 
 
 ### 分工表 
-|Student Name|前/後端||
+|Student Name|前/後端|負責領域|
 |:---:|:---:|:----:|
 |楊峻朋|Backend/Front|商品管理、AD、後端api/資料庫請求|
 |謝延偵|Front|用戶管理|
