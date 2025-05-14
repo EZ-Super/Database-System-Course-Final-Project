@@ -444,23 +444,20 @@
 ## AD - 楊峻朋
 * users 資料表說明
 
-| 欄位名稱                     | 資料型別 | 說明                                |
-|------------------------------|----------|-------------------------------------|
-| user_id                      | int      | 使用者唯一編號，主鍵，自動遞增     |
-| sAMAccountName               | string   | 使用者帳號（AD帳號），唯一          |
-| mail                         | string   | 使用者電子郵件，唯一               |
-| department                   | string   | 所屬部門                            |
-| title                        | string   | 職稱                                |
-| physicalDeliveryOfficeName   | string   | 辦公室名稱                          |
-| accountEnabled               | boolean  | 帳號是否啟用（預設為 `true`）      |
-| pwdLastSet                   | int      | 密碼最後設定時間（Unix timestamp） |
-| organizationalUnit           | string   | 組織單位                            |
-| manager                      | int      | 上級主管的 `user_id`               |
-| whenCreated                  | timestamp| 建立帳戶時間（預設為目前時間）      |
-| whenChanged                  | timestamp| 上次修改時間（預設為目前時間）      |
-| userAccountControl           | int      | 帳戶控制碼，預設為 512             |
-| jwt                          | string   | JWT 權杖                            |
-| loginStatus                  | string   | 登入狀態，預設為 `'未登入'`|
+| 欄位名稱           | 資料型別 | 說明                                  |
+|--------------------|----------|---------------------------------------|
+| user_id            | int      | 使用者唯一編號，主鍵，自動遞增       |
+| sAMAccountName     | string   | 使用者帳號（AD 帳號），唯一，不可為空 |
+| mail               | string   | 使用者電子郵件，唯一，可為空         |
+| accountEnabled     | boolean  | 帳號啟用狀態（預設為 `true`）        |
+| pwdLastSet         | int      | 密碼最後設定時間（例如 Unix timestamp）|
+| whenCreated        | timestamp| 帳號建立時間（預設為現在）           |
+| whenChanged        | timestamp| 帳號上次修改時間（預設為現在）       |
+| userAccountControl | int      | 使用者帳號控制碼，預設為 `512`       |
+| jwt                | string   | JWT 權杖，可為空                      |
+| loginStatus        | string   | 登入狀態（預設為 `'未登入'`）        |
+| password_hash      | string   | 密碼雜湊，必填                        |
+| login_ip           | string   | 最近登入 IP 位址                      |
 
 
 * login_logs 資料表說明
