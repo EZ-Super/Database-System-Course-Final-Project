@@ -8,3 +8,16 @@ Base URL: `/api`
 
 ## 📥 相關 API 請求資訊
 
+### 👥 使用者管理 API 文件 (User Management API)
+
+#### 📌 登入使用者
+* 方法 : `POST`
+* 路徑 : `/api/login`
+* 描述 : 驗證使用者登入
+* 📥 請求格式
+```json
+{
+  email : "HelloWorld@example.org",
+  password : "HelloWorld"
+}
+```
