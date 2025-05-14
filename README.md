@@ -62,20 +62,21 @@
 ## 📆 Schedule
 * [History Schedule Link](https://github.com/EZ-Super/Database-System-Course-Final-Project/blob/main/schedule.md)
 ### 📝 This Week's Progress
-### 完成課堂作業
-* Deadline: 2025-05-12 23:59:59
+### 完成前端頁面
+* Deadline: 2025-05-18 23:59:59
    * 謝延偵
-     * Customer 、Employee 、 Invoice
+     * 買家 & 賣家、會員等級
    * 鐘文瑀
-     * Order 、 OrderDetail 、 PaymentMethod 、 ShipmentMethod
+     * 庫存分配介面
    * 李維誠
-     * Product 、 Shipment 、 PurchaseOrder
+     * 訂單顯示介面
+  ### 後端
    * 楊峻朋
-     * Supplier 、 Transaction 、 Transaction
+     * 完成部分api請求
    
 |name|Done|
 |:--:|:--:|
-|楊峻朋|✅|
-|謝延偵|✅|
-|鐘文瑀|✅|
-|李維誠|✅|
+|楊峻朋||
+|謝延偵||
+|鐘文瑀||
+|李維誠||
