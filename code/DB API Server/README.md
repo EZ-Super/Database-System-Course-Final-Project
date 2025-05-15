@@ -15,6 +15,15 @@
 * `A~Z`
 * `!#$%&'*+-/=?^_`{|}~"，並且不可為首尾字母`
 
+## 密碼規格
+* `0~9`
+* `a~z`
+* `A~Z`
+* `# % $ @`
+1.密碼設定長度至少為8個字元的字串。
+2.無法使用重複、過於簡單且易於猜測或與帳號相同的字母或數字 (例如：aaa、abc、123...)。
+3.必須包含一個特殊字元
+
 ## Phone 支援符號
 * `0~9`
 * 手機號碼開頭不可為 `0` 以外的數字
@@ -394,7 +403,82 @@
 ***
 
 
+## 商品管理 - 楊峻朋
+* products 資料表結構說明
 
+| 欄位名稱             | 資料型別   | 說明                       |
+|----------------------|------------|----------------------------|
+| product_id           | int        | 商品唯一編號，主鍵        |
+| product_name         | string     | 商品名稱，必填            |
+| sku                  | string     | 庫存單位，唯一識別碼      |
+| brand                | string     | 品牌名稱                  |
+| model                | string     | 型號                      |
+| description          | string     | 商品描述                  |
+| category_id          | int        | 所屬分類 ID，外鍵         |
+| variant_type         | string     | 商品變體型態（如顏色、尺寸）|
+| price                | decimal    | 商品價格，必填            |
+| promotional_price    | decimal    | 促銷價格（可為空）        |
+| promotion_start_date | timestamp  | 促銷開始時間              |
+| promotion_end_date   | timestamp  | 促銷結束時間              |
+| stock_quantity       | int        | 商品庫存數量（預設為 0）  |
+| seller_id            | int        | 販售者 ID，外鍵           |
+| shipping_weight      | decimal    | 運送重量（預設為 0）      |
+| image_url            | string     | 商品圖片 URL              |
+| barcode              | string     | 條碼                      |
+| reviews_count        | int        | 評論數（預設為 0）        |
+| favorites_count      | int        | 收藏數（預設為 0）|
+
+
+
+* reviews 資料表結構說明
+
+| 欄位名稱   | 資料型別  | 說明                              |
+|------------|-----------|-----------------------------------|
+| review_id  | int       | 評論唯一編號，主鍵，自動遞增     |
+| product_id | int       | 所屬商品 ID，外鍵                 |
+| user_id    | int       | 發表評論的使用者 ID，外鍵        |
+| rating     | int       | 評分（通常為 1～5），必填         |
+| comment    | string    | 評論內容，必填                    |
+| created_at | timestamp | 建立時間（預設為目前時間）        |
+
+
+* categories 資料表結構說明
+
+| 欄位名稱            | 資料型別 | 說明                           |
+|---------------------|----------|--------------------------------|
+| category_id         | int      | 分類唯一編號，主鍵，自動遞增 |
+| category_name       | string   | 分類名稱，唯一，必填         |
+| category_description| string   | 分類描述（可選）             |
+
+## AD - 楊峻朋
+* users 資料表說明
+
+| 欄位名稱           | 資料型別 | 說明                                  |
+|--------------------|----------|---------------------------------------|
+| user_id            | int      | 使用者唯一編號，主鍵，自動遞增       |
+| sAMAccountName     | string   | 使用者帳號（AD 帳號），唯一，不可為空 |
+| mail               | string   | 使用者電子郵件，唯一，可為空         |
+| accountEnabled     | boolean  | 帳號啟用狀態（預設為 `true`）        |
+| pwdLastSet         | int      | 密碼最後設定時間（例如 Unix timestamp）|
+| whenCreated        | timestamp| 帳號建立時間（預設為現在）           |
+| whenChanged        | timestamp| 帳號上次修改時間（預設為現在）       |
+| userAccountControl | int      | 使用者帳號控制碼，預設為 `512`       |
+| jwt                | string   | JWT 權杖，可為空                      |
+| loginStatus        | string   | 登入狀態（預設為 `'未登入'`）        |
+| password_hash      | string   | 密碼雜湊，必填                        |
+| login_ip           | string   | 最近登入 IP 位址                      |
+
+
+* login_logs 資料表說明
+
+| 欄位名稱   | 資料型別 | 說明                                |
+|------------|----------|-------------------------------------|
+| login_id   | int      | 登入紀錄唯一編號，主鍵              |
+| user_id    | int      | 對應 `users.user_id` 的外鍵         |
+| login_time | timestamp| 登入時間（預設為現在）              |
+| ip_address | string   | 登入的 IP 位址                      |
+| success    | boolean  | 是否登入成功                        |
+| jwt        | string   | 登入使用的 JWT 權杖                 |
 
 
 
