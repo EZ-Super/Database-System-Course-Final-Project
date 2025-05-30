@@ -42,7 +42,7 @@
 
 |Student Name|負責領域|
 |:---:|:----:|
-|楊峻朋|應用情境與使用案例、DataBase Tables、SQL語法|
+|楊峻朋|應用情境與使用案例、DataBase Schema、說明、完整性限制、SQL語法|
 |謝延偵|應用情境與使用案例、SQL語法|
 |鍾文瑀|SQL語法|
 |李維誠|SQL語法|
