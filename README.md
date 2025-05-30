@@ -18,7 +18,7 @@
     * 熱銷商品、價格走勢。
 
 ## 📝 應用情境與使用案例
-* [click me 👇](https://github.com/EZ-Super/Database-System-Course-Final-Project/blob/main/%E4%BD%9C%E6%A5%AD%E4%B8%80.md)
+* [click me 👇](https://github.com/EZ-Super/Database-System-Course-Final-Project/blob/main/HomeWork/%E4%BD%9C%E6%A5%AD%E4%B8%80.md)
 
 ## 👾 Team member
 |Student ID|Name|Personal Page|
