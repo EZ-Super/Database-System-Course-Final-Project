@@ -15,18 +15,18 @@
     * 熱銷商品、價格走勢。
 
 ## 📝 應用情境與使用案例
-* [click me 👇](https://github.com/EZ-Super/Database-System-Course-Final-Project/blob/main/HomeWork/%E4%BD%9C%E6%A5%AD%E4%B8%80.md)
+* [click me 👇](HomeWork/作業一.md)
 
 ## 📝 DataBase Tables (Schema、說明、完整性限制 )
-* [Click me 👇](https://github.com/EZ-Super/Database-System-Course-Final-Project/blob/main/code/DataIntegrityRequirements.md)
+* [Click me 👇](File/DataIntegrityRequirements.md)
 
 ## 📝 SQL語法
-* [Click me 👇](https://github.com/EZ-Super/Database-System-Course-Final-Project/blob/main/HomeWork/%E4%BD%9C%E6%A5%AD%E4%BA%8C.md)
+* [Click me 👇](HomeWork/作業二.md)
 
 ## 🖋️ HomeWork
- 1. Homework I : [Click me 👇](https://github.com/EZ-Super/Database-System-Course-Final-Project/blob/main/HomeWork/%E4%BD%9C%E6%A5%AD%E4%B8%80.md)
- 2. Homework II : [Click me 👇](https://github.com/EZ-Super/Database-System-Course-Final-Project/blob/main/HomeWork/%E4%BD%9C%E6%A5%AD%E4%BA%8C.md)
- 3. 課堂作業 : [Click me 👇 ](https://github.com/EZ-Super/Database-System-Course-Final-Project/blob/main/HomeWork/%E8%AA%B2%E5%A0%82%E4%BD%9C%E6%A5%AD%20I.md)
+ 1. Homework I : [Click me 👇](HomeWork/作業一.md)
+ 2. Homework II : [Click me 👇](HomeWork/作業二.md)
+ 3. 課堂作業 : [Click me 👇](HomeWork/課堂作業.md)
 
 ## 👾 Team member
 |Student ID|Name|Personal Page|
@@ -54,7 +54,7 @@
 
 
 ## 📆 Schedule
-* [History Schedule Link](https://github.com/EZ-Super/Database-System-Course-Final-Project/blob/main/schedule.md)
+* [History Schedule Link](schedule.md)
 ### 📝 This Week's Progress
 ### 完成前端頁面
 * Deadline: 2025-05-18 23:59:59
