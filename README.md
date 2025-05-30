@@ -15,10 +15,10 @@
     * 熱銷商品、價格走勢。
 
 ## 📝 應用情境與使用案例
-* [click me 👇](https://github.com/EZ-Super/Database-System-Course-Final-Project/blob/main/HomeWork/%E4%BD%9C%E6%A5%AD%E4%B8%80.md)
+* [click me 👇](HomeWork/作業一.md)
 
 ## 📝 DataBase Tables (Schema、說明、完整性限制 )
-* [Click me 👇](https://github.com/EZ-Super/Database-System-Course-Final-Project/blob/main/code/DataIntegrityRequirements.md)
+* [Click me 👇](https://github.com/EZ-Super/Database-System-Course-Final-Project/blob/main/File/DataIntegrityRequirements.md)
 
 ## 📝 SQL語法
 * [Click me 👇](https://github.com/EZ-Super/Database-System-Course-Final-Project/blob/main/HomeWork/%E4%BD%9C%E6%A5%AD%E4%BA%8C.md)
