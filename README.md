@@ -17,7 +17,7 @@
 ## 📝 應用情境與使用案例
 * [click me 👇](HomeWork/作業一.md)
 
-## 📝 DataBase Tables (Schema、說明、完整性限制 )
+## 📝 DataBase Tables (Schema、說明、完整性限制、商業規則 )
 * [Click me 👇](File/DataIntegrityRequirements.md)
 
 ## 📝 SQL語法
