@@ -20,6 +20,9 @@
 ## 📝 DataBase Tables (Schema、說明、完整性限制 )
 * [Click me 👇](https://github.com/EZ-Super/Database-System-Course-Final-Project/blob/main/code/DataIntegrityRequirements.md)
 
+## SQL語法
+* [Click me 👇](https://github.com/EZ-Super/Database-System-Course-Final-Project/blob/main/HomeWork/%E4%BD%9C%E6%A5%AD%E4%BA%8C.md)
+
 ## 👾 Team member
 |Student ID|Name|Personal Page|
 |:---:|:---:|:----:|
