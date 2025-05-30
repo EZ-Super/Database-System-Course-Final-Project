@@ -13,65 +13,70 @@
 
 # View 
 
-## membership_levels
+### `membership_levels` 欄位可視權限表
 
-| 欄位名稱         | Admin         | Seller | Customer              | Warehouse | Finance             | Marketing                   | Support                      | 欄位說明                       |
-|------------------|---------------|--------|------------------------|-----------|----------------------|-----------------------------|------------------------------|------------------------------|
-| `level_id`       | 可見           | ✘      | 可見                  | ✘         | 可見                | 可見                        | 可見                         | 會員等級的唯一識別碼           |
-| `level_name`     | 可見           | ✘      | 可見                  | ✘         | 可見                | 可見                        | 可見                         | 會員等級名稱   |
-| `required_points`| 可見           | ✘  ✘      | 可見                  | ✘         | ✘                   | 可見                        | 可見                         | 升級至該等級所需累積點數        |
-| `discount_rate`  | 可見           | ✘      | 可見（僅前台折扣顯示） | ✘         | 可見                | 可見                        | 可見                            | 該等級對應折扣率               |
-| `created_at`     | 可見           | ✘      | ✘                    | ✘         | ✘                   | ✘                           | ✘                            | 會員建立時間                   |
-| `updated_at`     | 可見           | ✘      | ✘                     | ✘         | ✘                   | ✘                           | ✘                            | 最後一次修改時間               |
+| 欄位名稱         | Admin | Seller | Customer | Warehouse | Finance | Marketing | Support |
+|------------------|:-----:|:------:|:--------:|:---------:|:-------:|:---------:|:-------:|
+| `level_id`       |  ✔   |   ✔   |    ✔     |     ✘     |    ✘    |     ✔     |    ✔    |
+| `level_name`     |  ✔   |   ✔   |    ✔     |     ✘     |    ✔    |     ✔     |    ✔    |
+| `required_points`|  ✔   |   ✔   |    ✔     |     ✘     |    ✘    |     ✔     |    ✔    |
+| `discount_rate`  |  ✔   |   ✔   |    ✔     |     ✘     |    ✔    |     ✔     |    ✔    |
+| `created_at`     |  ✔   |   ✘   |    ✘     |     ✘     |    ✘    |     ✔     |    ✘    |
+| `updated_at`     |  ✔   |   ✘   |    ✘     |     ✘     |    ✘    |     ✔     |    ✘    |
 
-
-1. 系統管理員（Admin）: 可讀取所有欄位，包含優惠與建立/更新時間
-
+1. 系統管理員（Admin）  
+> 用於管理會員等級與優惠調整設定  
 ```sql
-CREATE VIEW admin_all_membership_levels AS
+CREATE VIEW admin_membership_levels_view AS
 SELECT *
 FROM membership_levels;
 ```
+📌 用途：會員等級管理與稽核
 
-2. 賣家（Seller）
-> 不需要看到會員制度細節，不提供 View
-
-❌ 無需檢視會員等級資訊（該資訊應由平台管理與顧客互動）
-
-3. 顧客（Customer）
-> 僅可看到目前等級與折扣（不包含升級條件）
+2. 賣家（Seller）  
+> 了解顧客的會員等級與對應優惠  
 ```sql
-CREATE VIEW customer_membership_public_view AS
-SELECT level_id, level_name, discount_rate
-FROM membership_levels;
-```
-
-4. 倉儲人員（Warehouse）
-> 不需要使用會員等級，不提供 View
-
-❌ 無需接觸顧客與會員制度
-
-5. 財務人員（Finance）
-> 僅關注與優惠有關的折扣率（可做對帳、折扣分析）
-```sql
-CREATE VIEW finance_membership_discount_view AS
-SELECT level_id, level_name, discount_rate
-FROM membership_levels;
-```
-📌 用途：用於對帳與財務分析，檢視各級會員折扣結構
-
-6. 行銷／營運（Marketing）
-> 可查看等級與門檻（便於設計升級誘因）
-```sql
-CREATE VIEW marketing_membership_campaign_view AS
+CREATE VIEW seller_membership_levels_view AS
 SELECT level_id, level_name, required_points, discount_rate
 FROM membership_levels;
 ```
-📌 用途：設計行銷活動，決定升等點數門檻與優惠級距
-7. 客服人員（Support）
->需要查詢等級名稱與點數門檻，幫助顧客了解升級條件
+📌 用途：出貨/行銷依據的會員等級分析
+
+3. 顧客（Customer）  
+> 顧客查詢自身等級與升級條件、優惠資訊  
 ```sql
-CREATE VIEW support_membership_info_view AS
+CREATE VIEW customer_membership_levels_view AS
+SELECT level_id, level_name, required_points, discount_rate
+FROM membership_levels;
+```
+📌 用途：顧客等級查詢、升等動機引導
+
+4. 倉儲人員（Warehouse）  
+> 無會員等級存取需求  
+📌 用途：不授權存取會員等級資訊
+
+5. 財務人員（Finance）  
+> 僅需了解折扣率以計算財務報表  
+```sql
+CREATE VIEW finance_membership_levels_view AS
+SELECT level_name,discount_rate
+FROM membership_levels;
+```
+📌 用途：折扣率報表與銷售預估
+
+6. 行銷/營運（Marketing）  
+> 用於活動規劃與會員推升策略分析  
+```sql
+CREATE VIEW marketing_membership_levels_view AS
+SELECT level_id, level_name, required_points, discount_rate, created_at, updated_at
+FROM membership_levels;
+```
+📌 用途：等級制度設計與會員經營分析
+
+7. 客服人員（Support）  
+> 需要查詢等級名稱與點數門檻，幫助顧客了解升級條件  
+```sql
+CREATE VIEW support_membership_levels_view AS
 SELECT level_id, level_name, required_points
 FROM membership_levels;
 ```
@@ -80,7 +85,7 @@ FROM membership_levels;
 
 ## users
 
-### 🔍 欄位可視權限表（`users`）
+### `users` 欄位可視權限表
 
 | 欄位名稱             | Admin | Seller | Customer | Warehouse | Finance | Marketing | Support |
 |----------------------|:-----:|:------:|:--------:|:---------:|:-------:|:---------:|:-------:|
@@ -153,3 +158,73 @@ SELECT user_id, username, email, phone, registration_date, is_active, membership
 FROM users;
 ```
 📌 用途：協助顧客查詢等級、聯絡方式與註冊狀態
+
+### `sellers` 欄位可視權限表
+
+| 欄位名稱           | Admin | Seller | Customer | Warehouse | Finance | Marketing | Support |
+|--------------------|:-----:|:------:|:--------:|:---------:|:-------:|:---------:|:-------:|
+| `seller_id`        |  ✔   |   ✔   |    ✘     |     ✘     |    ✔    |     ✔     |    ✘    |
+| `user_id`          |  ✔   |   ✔   |    ✘     |     ✘     |    ✔    |     ✔     |    ✘    |
+| `store_name`       |  ✔   |   ✔   |    ✔     |     ✘     |    ✘    |     ✔     |    ✔    |
+| `store_description`|  ✔   |   ✔   |    ✔     |     ✘     |    ✘    |     ✔     |    ✔    |
+| `bank_account`     |  ✔   |   ✔   |    ✘     |     ✘     |    ✔    |     ✘     |    ✘    |
+| `created_at`       |  ✔   |   ✔   |    ✘     |     ✘     |    ✔    |     ✔     |    ✘    |
+| `updated_at`       |  ✔   |   ✔   |    ✘     |     ✘     |    ✔    |     ✔     |    ✘    |
+
+1. 系統管理員（Admin）  
+> 查看與管理賣家基本資料、帳戶資訊與商店營運狀況  
+```sql
+CREATE VIEW admin_seller_view AS
+SELECT *
+FROM sellers;
+```
+📌 用途：商店與賣家帳號管理、審核與稽核用途
+
+2. 賣家（Seller）  
+> 管理自己商店資訊  
+```sql
+CREATE VIEW seller_seller_view AS
+SELECT seller_id, user_id, store_name, store_description, bank_account, created_at, updated_at
+FROM sellers;
+```
+📌 用途：賣家查詢與維護自己的店家資訊與帳戶
+
+3. 顧客（Customer）  
+> 僅顯示店家名稱與簡介，用於商城展示  
+```sql
+CREATE VIEW customer_seller_view AS
+SELECT store_name, store_description
+FROM sellers;
+```
+📌 用途：商城店家頁面展示資訊
+
+4. 倉儲人員（Warehouse）  
+> 無賣家資料存取需求  
+📌 用途：不授權存取賣家資訊
+
+5. 財務人員（Finance）  
+> 用於查帳或轉帳賣家資訊  
+```sql
+CREATE VIEW finance_seller_view AS
+SELECT seller_id, user_id, bank_account, created_at, updated_at
+FROM sellers;
+```
+📌 用途：賣家出帳與匯款用途
+
+6. 行銷/營運（Marketing）  
+> 分析店家成長與營運時間分布  
+```sql
+CREATE VIEW marketing_seller_view AS
+SELECT seller_id, user_id, store_name, store_description, created_at, updated_at
+FROM sellers;
+```
+📌 用途：商店行銷活動規劃、營運統計與報告
+
+7. 客服人員（Support）  
+> 提供店家基本資訊給顧客查詢或處理爭議  
+```sql
+CREATE VIEW support_seller_view AS
+SELECT store_name, store_description
+FROM sellers;
+```
+📌 用途：客服查詢店家資訊以協助顧客
