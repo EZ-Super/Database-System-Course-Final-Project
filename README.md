@@ -23,6 +23,11 @@
 ## 📝 SQL語法
 * [Click me 👇](https://github.com/EZ-Super/Database-System-Course-Final-Project/blob/main/HomeWork/%E4%BD%9C%E6%A5%AD%E4%BA%8C.md)
 
+## 🖋️ HomeWork
+ 1. Homework I : [Click me 👇](https://github.com/EZ-Super/Database-System-Course-Final-Project/blob/main/HomeWork/%E4%BD%9C%E6%A5%AD%E4%B8%80.md)
+ 2. Homework II : [Click me 👇](https://github.com/EZ-Super/Database-System-Course-Final-Project/blob/main/HomeWork/%E4%BD%9C%E6%A5%AD%E4%BA%8C.md)
+ 3. 課堂作業 : [Click me 👇 ](https://github.com/EZ-Super/Database-System-Course-Final-Project/blob/main/HomeWork/%E8%AA%B2%E5%A0%82%E4%BD%9C%E6%A5%AD%20I.md)
+
 ## 👾 Team member
 |Student ID|Name|Personal Page|
 |:---:|:---:|:----:|
@@ -47,10 +52,6 @@
 |鍾文瑀|SQL語法|
 |李維誠|SQL語法|
 
-## 🖋️ HomeWork
- 1. Homework I : [Click me 👇](https://github.com/EZ-Super/Database-System-Course-Final-Project/blob/main/HomeWork/%E4%BD%9C%E6%A5%AD%E4%B8%80.md)
- 2. Homework II : [Click me 👇](https://github.com/EZ-Super/Database-System-Course-Final-Project/blob/main/HomeWork/%E4%BD%9C%E6%A5%AD%E4%BA%8C.md)
- 3. 課堂作業 : [Click me 👇 ](https://github.com/EZ-Super/Database-System-Course-Final-Project/blob/main/HomeWork/%E8%AA%B2%E5%A0%82%E4%BD%9C%E6%A5%AD%20I.md)
 
 ## 📆 Schedule
 * [History Schedule Link](https://github.com/EZ-Super/Database-System-Course-Final-Project/blob/main/schedule.md)
