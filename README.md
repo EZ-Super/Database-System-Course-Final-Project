@@ -32,9 +32,9 @@
 |Student ID|Name|Personal Page|
 |:---:|:---:|:----:|
 |41043229|楊峻朋|[EZ-Super](https://github.com/EZ-Super)|
-|41043205|謝延偵|[sunshine920602](Team Member/謝延偵.md)|
-|41143207|鍾文瑀|[Cf-space](Team Member/鍾文瑀.md)
-|40843141|李維誠|[lii0423](Team Member/李維誠.md)|
+|41043205|謝延偵|[sunshine920602](https://github.com/EZ-Super/Database-System-Course-Final-Project/blob/main/Team%20Member/%E8%AC%9D%E5%BB%B6%E5%81%B5.md)|
+|41143207|鍾文瑀|[Cf-space](https://github.com/EZ-Super/Database-System-Course-Final-Project/blob/main/Team%20Member/%E9%8D%BE%E6%96%87%E7%91%80.md)
+|40843141|李維誠|[lii0423](https://github.com/EZ-Super/Database-System-Course-Final-Project/blob/main/Team%20Member/%E6%9D%8E%E7%B6%AD%E8%AA%A0.md)|
 
 
 ### 分工表 
