@@ -20,19 +20,6 @@
 ## 📝 應用情境與使用案例
 * [click me 👇](https://github.com/EZ-Super/Database-System-Course-Final-Project/blob/main/%E4%BD%9C%E6%A5%AD%E4%B8%80.md)
 
-## 💻 Using Language
-* Database using MariaDB  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mariadb/mariadb-original-wordmark.svg" width="35" height="35"/>
-* Backend language: Golang   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/go/go-original.svg" width="35" height="35" />
-          
-* Frontend language: JavaScript,Html5,Css
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original-wordmark.svg" width="35" height="35"/>
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg" width="35" height="35"/>
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/css3/css3-original.svg"  width="35" height="35"/>
-  
-                 
-          
-
-
 ## 👾 Team member
 |Student ID|Name|Personal Page|
 |:---:|:---:|:----:|
@@ -56,8 +43,8 @@
  2. Homework II : [Click me 👇](https://github.com/EZ-Super/Database-System-Course-Final-Project/blob/main/HomeWork/%E4%BD%9C%E6%A5%AD%E4%BA%8C.md)
  3. 課堂作業 : [Click me 👇 ](https://github.com/EZ-Super/Database-System-Course-Final-Project/blob/main/HomeWork/%E8%AA%B2%E5%A0%82%E4%BD%9C%E6%A5%AD%20I.md)
 
-## 📝 DataBase Tables 
-* [Click me 👇](https://github.com/EZ-Super/Database-System-Course-Final-Project/blob/main/code/DB%20API%20Server/README.md)
+## 📝 DataBase Tables (Schema、說明、完整性限制 )
+* [Click me 👇](https://github.com/EZ-Super/Database-System-Course-Final-Project/blob/main/code/DataIntegrityRequirements.md)
 
 ## 📆 Schedule
 * [History Schedule Link](https://github.com/EZ-Super/Database-System-Course-Final-Project/blob/main/schedule.md)
