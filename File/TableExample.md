@@ -1,3 +1,5 @@
+## 商品管理
+
 * Product
 
 | product_id | product_name     | sku       | brand     | model       | price   | promotional_price | category_id | seller_id | reviews_count | favorites_count | date_added          | last_updated         |
@@ -27,3 +29,53 @@
 | 8           | 行動裝置配件      | 行動電源、充電線與手機架                 |
 | 9           | 穿戴裝置          | 智慧手錶、手環與健康監控設備             |
 | 10          | 智慧家電          | 家用物聯網設備、智慧插座、溫濕度感測器   |
+
+* review
+
+| review_id | product_id | user_id | rating | comment                                             | created_at          |
+|-----------|------------|---------|--------|------------------------------------------------------|---------------------|
+| 1         | 1          | 101     | 5      | 滑鼠非常靈敏，握感舒適，超值！                         | 2025-05-30 09:01:00 |
+| 2         | 2          | 102     | 4      | 鍵盤手感不錯，燈效很炫，但有點重                         | 2025-05-30 09:02:00 |
+| 3         | 3          | 103     | 5      | 耳機降噪效果超棒，聽音樂很有沉浸感                       | 2025-05-30 09:03:00 |
+| 4         | 4          | 104     | 3      | 螢幕解析度不錯，但底座不太穩                             | 2025-05-30 09:04:00 |
+| 5         | 5          | 105     | 4      | 筆電支架輕巧又方便，角度調整剛好                         | 2025-05-30 09:05:00 |
+| 6         | 6          | 106     | 5      | 傳輸速度超快！非常適合備份資料                           | 2025-05-30 09:06:00 |
+| 7         | 7          | 107     | 4      | 集線器支援功能多，但插孔間距有點擠                       | 2025-05-30 09:07:00 |
+| 8         | 8          | 108     | 5      | 腳架很穩，出外拍照必備                                  | 2025-05-30 09:08:00 |
+| 9         | 9          | 109     | 2      | 行動電源容量不如預期，使用兩次就沒電了                   | 2025-05-30 09:09:00 |
+| 10        | 10         | 110     | 5      | Apple Watch 很實用，健康追蹤功能很準                     | 2025-05-30 09:10:00 |
+
+
+## 驗證伺服器
+
+* users 
+
+| user_id | email               | password_hash        | account_enable | created_at          | failed_login_attempts | is_verified | updated_at          |
+|---------|---------------------|-----------------------|----------------|----------------------|------------------------|-------------|----------------------|
+| 101     | alice@example.com   | $2b$12$aliceHash      | true           | 2025-05-01 09:00:00 | 0                      | true        | 2025-05-01 09:00:00  |
+| 102     | bob@example.com     | $2b$12$bobHash        | true           | 2025-05-02 09:30:00 | 2                      | true        | 2025-05-28 13:00:00  |
+| 103     | charlie@example.com | $2b$12$charlieHash    | false          | 2025-05-03 08:50:00 | 5                      | true        | 2025-05-29 10:00:00  |
+| 104     | diana@example.com   | $2b$12$dianaHash      | false          | 2025-05-04 11:20:00 | 0                      | false       | 2025-05-30 08:00:00  |
+| 105     | ethan@example.com   | $2b$12$ethanHash      | true           | 2025-05-05 07:45:00 | 1                      | true        | 2025-05-30 07:45:00  |
+| 106     | fiona@example.com   | $2b$12$fionaHash      | true           | 2025-05-06 12:15:00 | 0                      | true        | 2025-05-06 12:15:00  |
+| 107     | george@example.com  | $2b$12$georgeHash     | true           | 2025-05-07 10:10:00 | 0                      | false       | 2025-05-30 08:17:00  |
+| 108     | hannah@example.com  | $2b$12$hannahHash     | true           | 2025-05-08 09:55:00 | 0                      | true        | 2025-05-08 09:55:00  |
+| 109     | ian@example.com     | $2b$12$ianHash        | true           | 2025-05-09 14:20:00 | 4                      | true        | 2025-05-29 18:00:00  |
+| 110     | jess@example.com    | $2b$12$jessHash       | true           | 2025-05-10 16:40:00 | 0                      | false       | 2025-05-10 16:40:00  |
+
+
+
+* login_logs
+
+| log_id | user_id | email                  | login_time          | ip_address      | user_agent                        | success | failure_reason           |
+|--------|---------|------------------------|----------------------|------------------|-----------------------------------|---------|--------------------------|
+| 1      | 101     | alice@example.com      | 2025-05-30 08:00:01 | 192.168.1.10     | Mozilla/5.0 (Windows NT 10.0)     | true    | NULL                     |
+| 2      | 102     | bob@example.com        | 2025-05-30 08:03:17 | 172.16.0.5       | Chrome/90.0 (Mac OS X 10.15)      | false   | Wrong password           |
+| 3      | 103     | charlie@example.com    | 2025-05-30 08:05:22 | 203.0.113.12     | Safari/13.1 (iPhone; iOS 14.4)    | true    | NULL                     |
+| 4      | 104     | diana@example.com      | 2025-05-30 08:07:10 | 10.0.0.8         | Firefox/88.0 (Ubuntu 20.04)       | false   | Account locked           |
+| 5      | 105     | ethan@example.com      | 2025-05-30 08:09:35 | 192.168.0.33     | Edge/92.0 (Windows 10)            | true    | NULL                     |
+| 6      | 101     | alice@example.com      | 2025-05-30 08:11:50 | 192.168.1.10     | Mozilla/5.0 (Windows NT 10.0)     | false   | Wrong password           |
+| 7      | 106     | fiona@example.com      | 2025-05-30 08:15:02 | 198.51.100.25    | Chrome/91.0 (Linux x86_64)        | true    | NULL                     |
+| 8      | 107     | george@example.com     | 2025-05-30 08:17:47 | 203.0.113.33     | Safari/14.0 (MacOS)               | false   | Invalid email format     |
+| 9      | 108     | hannah@example.com     | 2025-05-30 08:19:12 | 10.10.0.11       | Mozilla/5.0 (Android 11; Mobile)  | true    | NULL                     |
+| 10     | 109     | ian@example.com        | 2025-05-30 08:21:30 | 172.16.100.50    | Edge/93.0 (Windows 11)            | false   | Too many attempts        |
