@@ -18,23 +18,23 @@
 * [click me 👇](HomeWork/作業一.md)
 
 ## 📝 DataBase Tables (Schema、說明、完整性限制 )
-* [Click me 👇](https://github.com/EZ-Super/Database-System-Course-Final-Project/blob/main/File/DataIntegrityRequirements.md)
+* [Click me 👇](File/DataIntegrityRequirements.md)
 
 ## 📝 SQL語法
-* [Click me 👇](https://github.com/EZ-Super/Database-System-Course-Final-Project/blob/main/HomeWork/%E4%BD%9C%E6%A5%AD%E4%BA%8C.md)
+* [Click me 👇](HomeWork/作業二.md)
 
 ## 🖋️ HomeWork
- 1. Homework I : [Click me 👇](https://github.com/EZ-Super/Database-System-Course-Final-Project/blob/main/HomeWork/%E4%BD%9C%E6%A5%AD%E4%B8%80.md)
- 2. Homework II : [Click me 👇](https://github.com/EZ-Super/Database-System-Course-Final-Project/blob/main/HomeWork/%E4%BD%9C%E6%A5%AD%E4%BA%8C.md)
- 3. 課堂作業 : [Click me 👇 ](https://github.com/EZ-Super/Database-System-Course-Final-Project/blob/main/HomeWork/%E8%AA%B2%E5%A0%82%E4%BD%9C%E6%A5%AD%20I.md)
+ 1. Homework I : [Click me 👇](HomeWork/作業一.md)
+ 2. Homework II : [Click me 👇](HomeWork/作業二.md)
+ 3. 課堂作業 : [Click me 👇 ](HomeWork/課堂作業 I.md)
 
 ## 👾 Team member
 |Student ID|Name|Personal Page|
 |:---:|:---:|:----:|
 |41043229|楊峻朋|[EZ-Super](https://github.com/EZ-Super)|
-|41043205|謝延偵|[sunshine920602](https://github.com/EZ-Super/Database-System-Course-Final-Project/blob/main/Team%20Member/%E8%AC%9D%E5%BB%B6%E5%81%B5.md)|
-|41143207|鍾文瑀|[Cf-space](https://github.com/EZ-Super/Database-System-Course-Final-Project/blob/main/Team%20Member/%E9%8D%BE%E6%96%87%E7%91%80.md)
-|40843141|李維誠|[lii0423](https://github.com/EZ-Super/Database-System-Course-Final-Project/blob/main/Team%20Member/%E6%9D%8E%E7%B6%AD%E8%AA%A0.md)|
+|41043205|謝延偵|[sunshine920602](Team Member/謝延偵.md)|
+|41143207|鍾文瑀|[Cf-space](Team Member/鍾文瑀.md)
+|40843141|李維誠|[lii0423](Team Member/李維誠.md)|
 
 
 ### 分工表 
@@ -54,7 +54,7 @@
 
 
 ## 📆 Schedule
-* [History Schedule Link](https://github.com/EZ-Super/Database-System-Course-Final-Project/blob/main/schedule.md)
+* [History Schedule Link](schedule.md)
 ### 📝 This Week's Progress
 ### 完成前端頁面
 * Deadline: 2025-05-18 23:59:59
