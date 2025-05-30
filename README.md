@@ -44,7 +44,7 @@
  3. 課堂作業 : [Click me 👇 ](https://github.com/EZ-Super/Database-System-Course-Final-Project/blob/main/HomeWork/%E8%AA%B2%E5%A0%82%E4%BD%9C%E6%A5%AD%20I.md)
 
 ## 📝 DataBase Tables (Schema、說明、完整性限制 )
-* [Click me 👇]([https://github.com/EZ-Super/Database-System-Course-Final-Project/blob/main/code/DB%20API%20Server/README.md](https://github.com/EZ-Super/Database-System-Course-Final-Project/blob/main/code/DataIntegrityRequirements.md))
+* [Click me 👇](https://github.com/EZ-Super/Database-System-Course-Final-Project/blob/main/code/DataIntegrityRequirements.md)
 
 ## 📆 Schedule
 * [History Schedule Link](https://github.com/EZ-Super/Database-System-Course-Final-Project/blob/main/schedule.md)
