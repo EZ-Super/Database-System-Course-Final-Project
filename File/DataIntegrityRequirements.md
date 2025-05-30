@@ -134,12 +134,10 @@
 | promotional_price    | DECIMAL(10,2)    | N    | N        | 無                                   | 金額格式                               | 特價價格（如有）             |
 | promotion_start_date | TIMESTAMP        | N    | N        | 無                                   | -                                      | 特價開始時間                 |
 | promotion_end_date   | TIMESTAMP        | N    | N        | 無                                   | -                                      | 特價結束時間                 |
-| stock_quantity       | INT              | N    | Y        | 0                                    | 正整數                                 | 商品目前庫存量               |
 | seller_id            | BIGINT UNSIGNED  | N    | N        | 無                                   | 外鍵參照 `sellers` 表                 | 所屬賣家 ID                  |
 | shipping_weight      | DECIMAL(10,2)    | N    | N        | 0                                    | 單位：公斤                             | 運送重量                     |
 | image_url            | STRING(255)      | N    | N        | 無                                   | URL 格式                               | 商品主圖網址                 |
 | barcode              | STRING(50)       | N    | N        | 無                                   | 可為 EAN / UPC                         | 商品條碼                     |
-| reviews_count        | INT              | N    | N        | 0                                    | 正整數                                 | 評論總數                     |
 | favorites_count      | INT              | N    | N        | 0                                    | 正整數                                 | 被加入最愛次數               |
 | date_added           | TIMESTAMP        | N    | N        | CURRENT_TIMESTAMP                    | 系統時間                               | 建立時間                     |
 | last_updated         | TIMESTAMP        | N    | N        | CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP | 自動更新時間           | 最後更新時間                 |
