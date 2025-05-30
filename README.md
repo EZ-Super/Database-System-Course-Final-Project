@@ -26,7 +26,7 @@
 ## 🖋️ HomeWork
  1. Homework I : [Click me 👇](HomeWork/作業一.md)
  2. Homework II : [Click me 👇](HomeWork/作業二.md)
- 3. 課堂作業 : [Click me 👇 ](HomeWork/課堂作業 I.md)
+ 3. 課堂作業 : [Click me 👇](HomeWork/課堂作業.md)
 
 ## 👾 Team member
 |Student ID|Name|Personal Page|
