@@ -42,10 +42,10 @@
 
 |Student Name|負責領域|
 |:---:|:----:|
-|楊峻朋|應用情境與使用案例、DataBase Tables|
-|謝延偵|應用情境與使用案例|
-|鍾文瑀|物流與倉儲、數據分析|
-|李維誠|訂單管理|
+|楊峻朋|應用情境與使用案例、DataBase Tables、SQL語法|
+|謝延偵|應用情境與使用案例、SQL語法|
+|鍾文瑀|SQL語法|
+|李維誠|SQL語法|
 
 ## 🖋️ HomeWork
  1. Homework I : [Click me 👇](https://github.com/EZ-Super/Database-System-Course-Final-Project/blob/main/HomeWork/%E4%BD%9C%E6%A5%AD%E4%B8%80.md)
