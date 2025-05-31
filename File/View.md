@@ -1359,3 +1359,252 @@ SELECT user_id, email, account_enable,
 FROM users;
 ```
 📌 用途：帳號問題排查與處理 
+
+## 訂單管理
+
+### `Orders` 欄位可視權限表
+| 欄位            | Admin | Seller | Customer | Warehouse | Finance | Marketing | Support |
+|-----------------|:-----:|:------:|:--------:|:---------:|:-------:|:---------:|:-------:|
+| order_id        |  ✔   |   ✔   |    ✔     |     ✘     |    ✔    |     ✘     |    ✔    |
+| customer_id     |  ✔   |   ✘   |    ✔     |     ✘     |    ✔    |     ✘     |    ✔    |
+| order_status    |  ✔   |   ✔   |    ✔     |     ✔     |    ✔    |     ✘     |    ✔    |
+| total_amount    |  ✔   |   ✔   |    ✔     |     ✘     |    ✔    |     ✘     |    ✔    |
+| created_at      |  ✔   |   ✔   |    ✔     |     ✘     |    ✔    |     ✘     |    ✔    |
+| updated_at      |  ✔   |   ✔   |    ✔     |     ✘     |    ✔    |     ✘     |    ✔    |
+| shipping_fee    |  ✔   |   ✔   |    ✔     |     ✔     |    ✔    |     ✘     |    ✔    |
+| discount        |  ✔   |   ✔   |    ✔     |     ✘     |    ✔    |     ✘     |    ✔    |
+| payment_id      |  ✔   |   ✘   |    ✔     |     ✘     |    ✔    |     ✘     |    ✔    |
+| shipping_id     |  ✔   |   ✔   |    ✔     |     ✔     |    ✘    |     ✘     |    ✔    |
+| coupon_id       |  ✔   |   ✔   |    ✔     |     ✘     |    ✔    |     ✔     |    ✔    |
+
+1. 系統管理員（Admin）  
+> 所有訂單完整資訊
+```sql
+CREATE VIEW admin_orders_view AS
+SELECT * FROM orders;
+```
+📌 用途：訂單全生命周期管理與審計 
+
+2. 賣家（Seller）  
+> 賣家相關訂單資訊
+```sql
+CREATE VIEW seller_orders_view AS
+SELECT o.order_id, o.customer_id, o.order_status, 
+       o.total_amount, o.created_at, o.updated_at,
+       o.shipping_fee, o.discount, o.coupon_id
+FROM orders o
+JOIN order_items oi ON o.order_id = oi.order_id
+JOIN products p ON oi.product_id = p.product_id
+WHERE p.seller_id = CURRENT_USER_ID()
+GROUP BY o.order_id;
+```
+📌 用途：訂單處理與出貨管理 
+
+3. 顧客（Customer）  
+> 顧客個人訂單記錄
+```sql
+CREATE VIEW customer_orders_view AS
+SELECT order_id, order_status, total_amount, 
+       created_at, updated_at, shipping_fee,
+       discount, coupon_id
+FROM orders
+WHERE customer_id = CURRENT_USER_ID();
+```
+📌 用途：訂單狀態追蹤與歷史查詢 
+
+4. 財務人員（Finance）  
+> 訂單財務相關資訊
+```sql
+CREATE VIEW finance_orders_view AS
+SELECT order_id, customer_id, total_amount,
+       created_at, shipping_fee, discount,
+       payment_id, coupon_id
+FROM orders;
+```
+📌 用途：收入確認與財務報表 
+
+5. 客服人員（Support）  
+> 訂單服務查詢資訊
+```sql
+CREATE VIEW support_orders_view AS
+SELECT order_id, customer_id, order_status,
+       total_amount, created_at, updated_at,
+       shipping_id, coupon_id
+FROM orders;
+```
+📌 用途：客戶訂單問題處理 
+
+### `Order_items` 欄位可視權限表
+| 欄位            | Admin | Seller | Customer | Warehouse | Finance | Marketing | Support |
+|-----------------|:-----:|:------:|:--------:|:---------:|:-------:|:---------:|:-------:|
+| order_item_id   |  ✔   |   ✔   |    ✔     |     ✘     |    ✔    |     ✘     |    ✔    |
+| order_id        |  ✔   |   ✔   |    ✔     |     ✘     |    ✔    |     ✘     |    ✔    |
+| product_id      |  ✔   |   ✔   |    ✔     |     ✔     |    ✘    |     ✔     |    ✔    |
+| quantity        |  ✔   |   ✔   |    ✔     |     ✔     |    ✔    |     ✔     |    ✔    |
+| unit_price      |  ✔   |   ✔   |    ✔     |     ✘     |    ✔    |     ✔     |    ✔    |
+| subtotal        |  ✔   |   ✔   |    ✔     |     ✘     |    ✔    |     ✔     |    ✔    |
+
+1. 系統管理員（Admin）  
+> 所有訂單商品明細
+```sql
+CREATE VIEW admin_order_items_view AS
+SELECT * FROM order_items;
+```
+📌 用途：訂單商品全面分析 
+
+2. 賣家（Seller）  
+> 賣家商品訂購明細
+```sql
+CREATE VIEW seller_order_items_view AS
+SELECT oi.order_item_id, oi.order_id, oi.product_id,
+       oi.quantity, oi.unit_price, oi.subtotal
+FROM order_items oi
+JOIN products p ON oi.product_id = p.product_id
+WHERE p.seller_id = CURRENT_USER_ID();
+```
+📌 用途：銷售統計與庫存預測 
+
+3. 顧客（Customer）  
+> 個人訂單商品明細
+```sql
+CREATE VIEW customer_order_items_view AS
+SELECT oi.order_item_id, oi.order_id, oi.product_id,
+       oi.quantity, oi.unit_price, oi.subtotal
+FROM order_items oi
+JOIN orders o ON oi.order_id = o.order_id
+WHERE o.customer_id = CURRENT_USER_ID();
+```
+📌 用途：訂單詳情查看與再次購買 
+
+4. 財務人員（Finance）  
+> 訂單商品財務數據
+```sql
+CREATE VIEW finance_order_items_view AS
+SELECT order_item_id, order_id, product_id,
+       quantity, unit_price, subtotal
+FROM order_items;
+```
+📌 用途：收入分攤與成本核算
+
+5. 客服人員（Support）  
+> 訂單商品查詢資訊
+```sql
+CREATE VIEW support_order_items_view AS
+SELECT order_item_id, order_id, product_id,
+       quantity, unit_price, subtotal
+FROM order_items;
+```
+📌 用途：退換貨與訂單爭議處理 
+
+### `Payments` 欄位可視權限表
+| 欄位            | Admin | Seller | Customer | Warehouse | Finance | Marketing | Support |
+|-----------------|:-----:|:------:|:--------:|:---------:|:-------:|:---------:|:-------:|
+| payment_id      |  ✔   |   ✘   |    ✔     |     ✘     |    ✔    |     ✘     |    ✔    |
+| order_id        |  ✔   |   ✘   |    ✔     |     ✘     |    ✔    |     ✘     |    ✔    |
+| payment_method  |  ✔   |   ✘   |    ✔     |     ✘     |    ✔    |     ✘     |    ✔    |
+| payment_status  |  ✔   |   ✘   |    ✔     |     ✘     |    ✔    |     ✘     |    ✔    |
+| amount          |  ✔   |   ✘   |    ✔     |     ✘     |    ✔    |     ✘     |    ✔    |
+| payment_date    |  ✔   |   ✘   |    ✔     |     ✘     |    ✔    |     ✘     |    ✔    |
+
+1. 系統管理員（Admin）  
+> 所有付款交易記錄
+```sql
+CREATE VIEW admin_payments_view AS
+SELECT * FROM payments;
+```
+📌 用途：支付全流程監控與異常處理 
+
+2. 顧客（Customer）  
+> 個人支付記錄
+```sql
+CREATE VIEW customer_payments_view AS
+SELECT p.payment_id, p.order_id, p.payment_method,
+       p.payment_status, p.amount, p.payment_date
+FROM payments p
+JOIN orders o ON p.order_id = o.order_id
+WHERE o.customer_id = CURRENT_USER_ID();
+```
+📌 用途：支付憑證查詢與退款申請 
+
+3. 財務人員（Finance）  
+> 完整付款財務資料
+```sql
+CREATE VIEW finance_payments_view AS
+SELECT payment_id, order_id, payment_method,
+       payment_status, amount, payment_date
+FROM payments;
+```
+📌 用途：賬務處理與銀行對賬 
+
+4. 客服人員（Support）  
+> 客戶支付查詢介面
+```sql
+CREATE VIEW support_payments_view AS
+SELECT payment_id, order_id, payment_method,
+       payment_status, amount, payment_date
+FROM payments;
+```
+📌 用途：支付問題排查與退款處理 
+
+### `Return_refunds` 欄位可視權限表
+| 欄位            | Admin | Seller | Customer | Warehouse | Finance | Marketing | Support |
+|-----------------|:-----:|:------:|:--------:|:---------:|:-------:|:---------:|:-------:|
+| refund_id       |  ✔   |   ✔   |    ✔     |     ✘     |    ✔    |     ✘     |    ✔    |
+| order_id        |  ✔   |   ✔   |    ✔     |     ✘     |    ✔    |     ✘     |    ✔    |
+| product_id      |  ✔   |   ✔   |    ✔     |     ✘     |    ✘    |     ✘     |    ✔    |
+| reason          |  ✔   |   ✔   |    ✔     |     ✘     |    ✘    |     ✘     |    ✔    |
+| status          |  ✔   |   ✔   |    ✔     |     ✘     |    ✔    |     ✘     |    ✔    |
+| refund_amount   |  ✔   |   ✔   |    ✔     |     ✘     |    ✔    |     ✘     |    ✔    |
+| created_at      |  ✔   |   ✔   |    ✔     |     ✘     |    ✔    |     ✘     |    ✔    |
+
+1. 系統管理員（Admin）  
+> 所有退貨退款記錄
+```sql
+CREATE VIEW admin_return_refunds_view AS
+SELECT * FROM return_refunds;
+```
+📌 用途：退貨率分析與流程優化 
+
+2. 賣家（Seller）  
+> 賣家商品退貨申請
+```sql
+CREATE VIEW seller_return_refunds_view AS
+SELECT rr.refund_id, rr.order_id, rr.product_id,
+       rr.reason, rr.status, rr.refund_amount, rr.created_at
+FROM return_refunds rr
+JOIN products p ON rr.product_id = p.product_id
+WHERE p.seller_id = CURRENT_USER_ID();
+```
+📌 用途：退貨審核與庫存恢復 
+
+3. 顧客（Customer）  
+> 個人退貨退款記錄
+```sql
+CREATE VIEW customer_return_refunds_view AS
+SELECT rr.refund_id, rr.order_id, rr.product_id,
+       rr.reason, rr.status, rr.refund_amount, rr.created_at
+FROM return_refunds rr
+JOIN orders o ON rr.order_id = o.order_id
+WHERE o.customer_id = CURRENT_USER_ID();
+```
+📌 用途：退貨進度查詢與追蹤 
+
+5. 財務人員（Finance）  
+> 退款財務資料
+```sql
+CREATE VIEW finance_return_refunds_view AS
+SELECT refund_id, order_id, product_id,
+       status, refund_amount, created_at
+FROM return_refunds;
+```
+📌 用途：退款處理與賬務調整 
+
+7. 客服人員（Support）  
+> 退貨退款全資訊
+```sql
+CREATE VIEW support_return_refunds_view AS
+SELECT refund_id, order_id, product_id,
+       reason, status, refund_amount, created_at
+FROM return_refunds;
+```
+📌 用途：退貨流程處理與客戶溝通 
