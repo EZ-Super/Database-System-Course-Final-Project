@@ -23,6 +23,9 @@
 ## 📝 SQL語法
 * [Click me 👇](HomeWork/作業二.md)
 
+## 📝 View
+* [Click me 👇](File/View.md)
+
 ## 🖋️ HomeWork
  1. Homework I : [Click me 👇](HomeWork/作業一.md)
  2. Homework II : [Click me 👇](HomeWork/作業二.md)
@@ -56,21 +59,3 @@
 ## 📆 Schedule
 * [History Schedule Link](schedule.md)
 ### 📝 This Week's Progress
-### 完成前端頁面
-* Deadline: 2025-05-18 23:59:59
-   * 謝延偵
-     * 買家 & 賣家、會員等級
-   * 鐘文瑀
-     * 庫存分配介面
-   * 李維誠
-     * 訂單顯示介面
-  ### 後端
-   * 楊峻朋
-     * 完成部分api請求
-   
-|name|Done|
-|:--:|:--:|
-|楊峻朋||
-|謝延偵||
-|鐘文瑀||
-|李維誠||
