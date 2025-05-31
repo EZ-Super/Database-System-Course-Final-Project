@@ -1110,3 +1110,252 @@ FROM Customer_Feedback_Stats;
 ```
 📌 用途：服務品質提升、客訴預防 
 
+## 商品管理 & 驗證伺服器
+
+### `Products` 欄位可視權限表
+| 欄位                | Admin | Seller | Customer | Warehouse | Finance | Marketing | Support |
+|---------------------|:-----:|:------:|:--------:|:---------:|:-------:|:---------:|:-------:|
+| product_id          |  ✔   |   ✔   |    ✔     |     ✔     |    ✘    |     ✔     |    ✔    |
+| product_name        |  ✔   |   ✔   |    ✔     |     ✔     |    ✘    |     ✔     |    ✔    |
+| sku                 |  ✔   |   ✔   |    ✘     |     ✔     |    ✘    |     ✔     |    ✔    |
+| brand               |  ✔   |   ✔   |    ✔     |     ✔     |    ✘    |     ✔     |    ✔    |
+| model               |  ✔   |   ✔   |    ✔     |     ✔     |    ✘    |     ✔     |    ✔    |
+| description         |  ✔   |   ✔   |    ✔     |     ✔     |    ✘    |     ✔     |    ✔    |
+| category_id         |  ✔   |   ✔   |    ✔     |     ✔     |    ✘    |     ✔     |    ✔    |
+| variant_type        |  ✔   |   ✔   |    ✔     |     ✔     |    ✘    |     ✔     |    ✔    |
+| price               |  ✔   |   ✔   |    ✔     |     ✔     |    ✔    |     ✔     |    ✔    |
+| promotional_price   |  ✔   |   ✔   |    ✔     |     ✔     |    ✔    |     ✔     |    ✔    |
+| promotion_start_date|  ✔   |   ✔   |    ✔     |     ✔     |    ✘    |     ✔     |    ✔    |
+| promotion_end_date  |  ✔   |   ✔   |    ✔     |     ✔     |    ✘    |     ✔     |    ✔    |
+| seller_id           |  ✔   |   ✔   |    ✘     |     ✘     |    ✘    |     ✔     |    ✔    |
+| shipping_weight     |  ✔   |   ✔   |    ✔     |     ✔     |    ✘    |     ✘     |    ✘    |
+| image_url           |  ✔   |   ✔   |    ✔     |     ✔     |    ✘    |     ✔     |    ✔    |
+| barcode             |  ✔   |   ✔   |    ✘     |     ✔     |    ✘    |     ✘     |    ✘    |
+| reviews_count       |  ✔   |   ✔   |    ✔     |     ✘     |    ✘    |     ✔     |    ✔    |
+| favorites_count     |  ✔   |   ✔   |    ✔     |     ✘     |    ✘    |     ✔     |    ✔    |
+| date_added          |  ✔   |   ✔   |    ✔     |     ✔     |    ✘    |     ✔     |    ✔    |
+| last_updated        |  ✔   |   ✔   |    ✔     |     ✔     |    ✘    |     ✔     |    ✔    |
+
+1. 系統管理員（Admin）  
+> 所有產品完整資訊
+```sql
+CREATE VIEW admin_products_view AS
+SELECT * FROM products;
+```
+📌 用途：產品全生命周期管理與審計 
+
+2. 賣家（Seller）  
+> 賣家自有產品管理介面
+```sql
+CREATE VIEW seller_products_view AS
+SELECT product_id, product_name, sku, brand, model, description, 
+       category_id, variant_type, price, promotional_price, 
+       promotion_start_date, promotion_end_date, shipping_weight,
+       image_url, barcode, reviews_count, favorites_count,
+       date_added, last_updated
+FROM products
+WHERE seller_id = CURRENT_USER_ID();
+```
+📌 用途：商品上架、價格調整與庫存管理 
+
+3. 顧客（Customer）  
+> 顧客可見產品資訊
+```sql
+CREATE VIEW customer_products_view AS
+SELECT product_id, product_name, brand, model, description,
+       category_id, variant_type, price, promotional_price,
+       promotion_start_date, promotion_end_date, image_url,
+       reviews_count, favorites_count
+FROM products
+WHERE (promotion_end_date IS NULL OR promotion_end_date >= NOW());
+```
+📌 用途：商品瀏覽與購買決策 
+
+4. 倉儲人員（Warehouse）  
+> 產品物流相關資訊
+```sql
+CREATE VIEW warehouse_products_view AS
+SELECT product_id, product_name, sku, shipping_weight, 
+       barcode, last_updated
+FROM products;
+```
+📌 用途：揀貨、包裝與庫存管理 
+
+5. 行銷/營運（Marketing）  
+> 產品銷售分析數據
+```sql
+CREATE VIEW marketing_products_view AS
+SELECT product_id, product_name, brand, category_id,
+       price, promotional_price, reviews_count,
+       favorites_count, date_added
+FROM products;
+```
+📌 用途：市場定位與促銷策略制定 
+
+6. 客服人員（Support）  
+> 產品基本查詢資訊
+```sql
+CREATE VIEW support_products_view AS
+SELECT product_id, product_name, brand, model,
+       category_id, price, image_url, seller_id
+FROM products;
+```
+📌 用途：客戶諮詢與爭議處理 
+
+### `Reviews` 欄位可視權限表
+| 欄位         | Admin | Seller | Customer | Warehouse | Finance | Marketing | Support |
+|--------------|:-----:|:------:|:--------:|:---------:|:-------:|:---------:|:-------:|
+| review_id    |  ✔   |   ✔   |    ✔     |     ✘     |    ✘    |     ✔     |    ✔    |
+| product_id   |  ✔   |   ✔   |    ✔     |     ✘     |    ✘    |     ✔     |    ✔    |
+| user_id      |  ✔   |   ✘   |    ✔     |     ✘     |    ✘    |     ✘     |    ✔    |
+| rating       |  ✔   |   ✔   |    ✔     |     ✘     |    ✘    |     ✔     |    ✔    |
+| comment      |  ✔   |   ✔   |    ✔     |     ✘     |    ✘    |     ✔     |    ✔    |
+| created_at   |  ✔   |   ✔   |    ✔     |     ✘     |    ✘    |     ✔     |    ✔    |
+
+1. 系統管理員（Admin）  
+> 所有產品評論記錄
+```sql
+CREATE VIEW admin_reviews_view AS
+SELECT * FROM reviews;
+```
+📌 用途：評論內容審核與管理 
+
+2. 賣家（Seller）  
+> 賣家產品相關評論
+```sql
+CREATE VIEW seller_reviews_view AS
+SELECT r.review_id, r.product_id, r.rating, r.comment, r.created_at
+FROM reviews r
+JOIN products p ON r.product_id = p.product_id
+WHERE p.seller_id = CURRENT_USER_ID();
+```
+📌 用途：產品改進與客戶反饋分析 
+
+3. 顧客（Customer）  
+> 所有公開產品評論
+```sql
+CREATE VIEW customer_reviews_view AS
+SELECT review_id, product_id, rating, comment, created_at
+FROM reviews;
+```
+📌 用途：購買決策參考 
+
+4. 行銷/營運（Marketing）  
+> 評論統計分析數據
+```sql
+CREATE VIEW marketing_reviews_view AS
+SELECT review_id, product_id, rating, created_at
+FROM reviews;
+```
+📌 用途：產品滿意度評估 
+
+5. 客服人員（Support）  
+> 評論完整資訊
+```sql
+CREATE VIEW support_reviews_view AS
+SELECT review_id, product_id, user_id, rating, 
+       comment, created_at
+FROM reviews;
+```
+📌 用途：不當評論處理與客戶溝通 
+
+### `Categories ` 欄位可視權限表
+| 欄位                | Admin | Seller | Customer | Warehouse | Finance | Marketing | Support |
+|---------------------|:-----:|:------:|:--------:|:---------:|:-------:|:---------:|:-------:|
+| category_id         |  ✔   |   ✔   |    ✔     |     ✔     |    ✘    |     ✔     |    ✔    |
+| category_name       |  ✔   |   ✔   |    ✔     |     ✔     |    ✘    |     ✔     |    ✔    |
+| category_description|  ✔   |   ✔   |    ✔     |     ✔     |    ✘    |     ✔     |    ✔    |
+
+1. 系統管理員（Admin）  
+> 所有產品分類資訊
+```sql
+CREATE VIEW admin_categories_view AS
+SELECT * FROM categories;
+```
+📌 用途：分類體系管理與調整 
+
+2. 賣家（Seller）  
+> 產品分類結構
+```sql
+CREATE VIEW seller_categories_view AS
+SELECT category_id, category_name, category_description
+FROM categories;
+```
+📌 用途：商品上架分類選擇 
+
+3. 顧客（Customer）  
+> 顧客可見分類資訊
+```sql
+CREATE VIEW customer_categories_view AS
+SELECT category_id, category_name
+FROM categories;
+```
+📌 用途：商品分類瀏覽 
+
+4. 行銷/營運（Marketing）  
+> 分類完整數據
+```sql
+CREATE VIEW marketing_categories_view AS
+SELECT category_id, category_name, category_description
+FROM categories;
+```
+📌 用途：分類銷售分析與促銷規劃 
+
+### `Login_logs ` 欄位可視權限表
+| 欄位            | Admin | Seller | Customer | Warehouse | Finance | Marketing | Support |
+|-----------------|:-----:|:------:|:--------:|:---------:|:-------:|:---------:|:-------:|
+| log_id          |  ✔   |   ✘   |    ✘     |     ✘     |    ✘    |     ✘     |    ✘    |
+| user_id         |  ✔   |   ✘   |    ✘     |     ✘     |    ✘    |     ✘     |    ✘    |
+| email           |  ✔   |   ✘   |    ✘     |     ✘     |    ✘    |     ✘     |    ✘    |
+| login_time      |  ✔   |   ✘   |    ✘     |     ✘     |    ✘    |     ✘     |    ✘    |
+| ip_address      |  ✔   |   ✘   |    ✘     |     ✘     |    ✘    |     ✘     |    ✘    |
+| user_agent      |  ✔   |   ✘   |    ✘     |     ✘     |    ✘    |     ✘     |    ✘    |
+| success         |  ✔   |   ✘   |    ✘     |     ✘     |    ✘    |     ✘     |    ✘    |
+| failure_reason  |  ✔   |   ✘   |    ✘     |     ✘     |    ✘    |     ✘     |    ✘    |
+
+1. 系統管理員（Admin）  
+> 所有用戶登入記錄
+```sql
+CREATE VIEW admin_login_logs_view AS
+SELECT * FROM login_logs;
+```
+📌 用途：安全審計與異常登入監控 
+
+2. 客服人員（Support）  
+> 用戶登入狀態查詢
+```sql
+CREATE VIEW support_login_logs_view AS
+SELECT log_id, user_id, login_time, success
+FROM login_logs;
+```
+📌 用途：帳號問題排查 
+
+### `Users ` 欄位可視權限表
+| 欄位                  | Admin | Seller | Customer | Warehouse | Finance | Marketing | Support |
+|-----------------------|:-----:|:------:|:--------:|:---------:|:-------:|:---------:|:-------:|
+| user_id               |  ✔   |   ✘   |    ✘     |     ✘     |    ✘    |     ✘     |    ✘    |
+| email                 |  ✔   |   ✘   |    ✘     |     ✘     |    ✘    |     ✘     |    ✔    |
+| password_hash         |  ✔   |   ✘   |    ✘     |     ✘     |    ✘    |     ✘     |    ✘    |
+| account_enable        |  ✔   |   ✘   |    ✘     |     ✘     |    ✘    |     ✘     |    ✔    |
+| created_at            |  ✔   |   ✘   |    ✘     |     ✘     |    ✘    |     ✘     |    ✔    |
+| failed_login_attempts |  ✔   |   ✘   |    ✘     |     ✘     |    ✘    |     ✘     |    ✔    |
+| is_verified           |  ✔   |   ✘   |    ✘     |     ✘     |    ✘    |     ✘     |    ✔    |
+| updated_at            |  ✔   |   ✘   |    ✘     |     ✘     |    ✘    |     ✘     |    ✔    |
+
+1. 系統管理員（Admin）  
+> 所有用戶完整資料
+```sql
+CREATE VIEW admin_users_view AS
+SELECT * FROM users;
+```
+📌 用途：帳號全權限管理 
+
+2. 客服人員（Support）  
+> 用戶基本服務資訊
+```sql
+CREATE VIEW support_users_view AS
+SELECT user_id, email, account_enable, 
+       created_at, is_verified
+FROM users;
+```
+📌 用途：帳號問題排查與處理 
