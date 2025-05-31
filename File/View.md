@@ -229,6 +229,181 @@ FROM sellers;
 ```
 📌 用途：客服查詢店家資訊以協助顧客
 
+### `Points` 欄位可視權限表
+| 欄位            | Admin | Seller | Customer | Warehouse | Finance | Marketing | Support |
+|-----------------|:-----:|:------:|:--------:|:---------:|:-------:|:---------:|:-------:|
+| point_id        |  ✔   |   ✘   |    ✔     |     ✘     |    ✔    |     ✘     |    ✔    |
+| user_id         |  ✔   |   ✘   |    ✔     |     ✘     |    ✔    |     ✘     |    ✔    |
+| points_earned   |  ✔   |   ✘   |    ✔     |     ✘     |    ✔    |     ✘     |    ✔    |
+| transaction_date|  ✔   |   ✘   |    ✔     |     ✘     |    ✔    |     ✘     |    ✔    |
+| description     |  ✔   |   ✘   |    ✔     |     ✘     |    ✘    |     ✘     |    ✔    |
+
+1. 系統管理員（Admin）  
+> 所有用戶點數交易記錄
+```sql
+CREATE VIEW admin_points_view AS
+SELECT * FROM points;
+```
+📌 用途：點數系統全面監控與稽核 
+
+3. 顧客（Customer）  
+> 個人點數獲取與使用記錄
+```sql
+CREATE VIEW customer_points_view AS
+SELECT point_id, user_id, points_earned, transaction_date, description
+FROM points
+WHERE user_id = CURRENT_USER();
+```
+📌 用途：點數餘額查詢與兌換追蹤 
+
+5. 財務人員（Finance）  
+> 點數發放與使用記錄
+```sql
+CREATE VIEW finance_points_view AS
+SELECT point_id, user_id, points_earned, transaction_date
+FROM points;
+```
+📌 用途：點數資產負債核算 
+
+7. 客服人員（Support）  
+> 客戶點數交易記錄
+```sql
+CREATE VIEW support_points_view AS
+SELECT point_id, user_id, points_earned, transaction_date, description
+FROM points;
+```
+📌 用途：點數問題排查與補償處理 
+
+
+### `Coupons` 欄位可視權限表
+| 欄位            | Admin | Seller | Customer | Warehouse | Finance | Marketing | Support |
+|-----------------|:-----:|:------:|:--------:|:---------:|:-------:|:---------:|:-------:|
+| coupon_id       |  ✔   |   ✘   |    ✘     |     ✘     |    ✘    |     ✔     |    ✘    |
+| coupon_code     |  ✔   |   ✘   |    ✔     |     ✘     |    ✘    |     ✔     |    ✘    |
+| discount_amount |  ✔   |   ✘   |    ✔     |     ✘     |    ✔    |     ✔     |    ✘    |
+| expiry_date     |  ✔   |   ✘   |    ✔     |     ✘     |    ✘    |     ✔     |    ✘    |
+| usage_limit     |  ✔   |   ✘   |    ✘     |     ✘     |    ✘    |     ✔     |    ✘    |
+| is_active       |  ✔   |   ✘   |    ✘     |     ✘     |    ✘    |     ✔     |    ✘    |
+| coupon_type     |  ✔   |   ✘   |    ✘     |     ✘     |    ✘    |     ✔     |    ✘    |
+| created_at      |  ✔   |   ✘   |    ✘     |     ✘     |    ✘    |     ✔     |    ✘    |
+
+1. 系統管理員（Admin）  
+> 所有優惠券完整資訊
+```sql
+CREATE VIEW admin_coupons_view AS
+SELECT * FROM coupons;
+```
+📌 用途：優惠活動全面管理與分析 
+
+6. 行銷/營運（Marketing）  
+> 優惠券活動數據
+```sql
+CREATE VIEW marketing_coupons_view AS
+SELECT coupon_id, coupon_code, discount_amount, expiry_date, 
+       usage_limit, is_active, coupon_type, created_at
+FROM coupons;
+```
+📌 用途：促銷活動規劃與效果追蹤 
+
+3. 顧客（Customer）  
+> 當前有效優惠券列表
+```sql
+CREATE VIEW customer_coupons_view AS
+SELECT coupon_id, coupon_code, discount_amount, expiry_date
+FROM coupons
+WHERE is_active = TRUE AND (expiry_date IS NULL OR expiry_date >= CURDATE());
+```
+📌 用途：優惠券查詢與結帳使用 
+
+### `Messages` 欄位可視權限表
+| 欄位            | Admin | Seller | Customer | Warehouse | Finance | Marketing | Support |
+|-----------------|:-----:|:------:|:--------:|:---------:|:-------:|:---------:|:-------:|
+| message_id      |  ✔   |   ✔   |    ✔     |     ✘     |    ✘    |     ✘     |    ✔    |
+| sender_id       |  ✔   |   ✔   |    ✔     |     ✘     |    ✘    |     ✘     |    ✔    |
+| receiver_id     |  ✔   |   ✔   |    ✔     |     ✘     |    ✘    |     ✘     |    ✔    |
+| message_content |  ✔   |   ✔   |    ✔     |     ✘     |    ✘    |     ✘     |    ✔    |
+| send_time       |  ✔   |   ✔   |    ✔     |     ✘     |    ✘    |     ✘     |    ✔    |
+| is_read         |  ✔   |   ✔   |    ✔     |     ✘     |    ✘    |     ✘     |    ✔    |
+
+1. 系統管理員（Admin）  
+> 所有用戶間通訊記錄
+```sql
+CREATE VIEW admin_messages_view AS
+SELECT * FROM messages;
+```
+📌 用途：通訊安全監控與爭議處理 
+
+3. 顧客（Customer）  
+> 個人收發訊息記錄
+```sql
+CREATE VIEW customer_messages_view AS
+SELECT message_id, sender_id, receiver_id, message_content, send_time, is_read
+FROM messages
+WHERE sender_id = CURRENT_USER() OR receiver_id = CURRENT_USER();
+```
+📌 用途：買賣雙方溝通歷史查詢 
+
+7. 客服人員（Support）  
+> 訊息元數據查詢
+```sql
+CREATE VIEW support_messages_view AS
+SELECT message_id, sender_id, receiver_id, send_time, is_read
+FROM messages;
+```
+📌 用途：糾紛調解與通訊異常處理 
+
+### `Notifications` 欄位可視權限表
+| 欄位            | Admin | Seller | Customer | Warehouse | Finance | Marketing | Support |
+|-----------------|:-----:|:------:|:--------:|:---------:|:-------:|:---------:|:-------:|
+| notification_id |  ✔   |   ✘   |    ✔     |     ✘     |    ✘    |     ✔     |    ✔    |
+| user_id         |  ✔   |   ✘   |    ✔     |     ✘     |    ✘    |     ✔     |    ✔    |
+| notification_type| ✔   |   ✘   |    ✔     |     ✘     |    ✘    |     ✔     |    ✔    |
+| subject         |  ✔   |   ✘   |    ✔     |     ✘     |    ✘    |     ✔     |    ✔    |
+| message         |  ✔   |   ✘   |    ✔     |     ✘     |    ✘    |     ✔     |    ✔    |
+| sent_at         |  ✔   |   ✘   |    ✔     |     ✘     |    ✘    |     ✔     |    ✔    |
+| is_read         |  ✔   |   ✘   |    ✔     |     ✘     |    ✘    |     ✘     |    ✔    |
+| related_entity  |  ✔   |   ✘   |    ✔     |     ✘     |    ✘    |     ✔     |    ✔    |
+| related_entity_id| ✔   |   ✘   |    ✔     |     ✘     |    ✘    |     ✔     |    ✔    |
+
+1. 系統管理員（Admin）  
+> 所有系統通知記錄
+```sql
+CREATE VIEW admin_notifications_view AS
+SELECT * FROM notifications;
+```
+📌 用途：通知系統效能監控與分析 
+
+3. 顧客（Customer）  
+> 個人系統通知列表
+```sql
+CREATE VIEW customer_notifications_view AS
+SELECT notification_id, notification_type, subject, 
+       message, sent_at, is_read, related_entity, related_entity_id
+FROM notifications
+WHERE user_id = CURRENT_USER();
+```
+📌 用途：訂單狀態更新與活動通知查閱 
+
+6. 行銷/營運（Marketing）  
+> 通知發送統計數據
+```sql
+CREATE VIEW marketing_notifications_view AS
+SELECT notification_id, user_id, notification_type, 
+       sent_at, related_entity
+FROM notifications;
+```
+📌 用途：用戶觸達效果分析與優化 
+
+7. 客服人員（Support）  
+> 客戶通知記錄
+```sql
+CREATE VIEW support_notifications_view AS
+SELECT notification_id, user_id, notification_type, 
+       subject, sent_at, is_read
+FROM notifications;
+```
+📌 用途：通知補發與客戶查詢處理 
+
 ## 倉庫管理
 
 ### `Warehouses` 欄位可視權限表
