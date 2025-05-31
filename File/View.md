@@ -243,57 +243,20 @@ FROM sellers;
 | created_at     |  ✔   |   ✘   |    ✘     |     ✔     |    ✘    |     ✘     |    ✘    |
 
 1. 系統管理員（Admin）
->完整掌控倉儲設置與管理資訊
+>完整倉庫管理資訊
 ```sql
 CREATE VIEW admin_warehouses_view AS
-SELECT *
-FROM Warehouses;
+SELECT * FROM Warehouses;
 ```
-📌 用途：倉儲基本資訊設定與全域監控
+📌 用途：系統後台進行倉庫全面管理與稽核
 
-2. 賣家（Seller）
->可查詢倉庫與其聯繫資訊，以安排出入貨
-```sql
-CREATE VIEW seller_warehouses_view AS
-SELECT warehouse_id, warehouse_name, location, contact_info
-FROM Warehouses;
-```
-📌 用途：出貨地點確認與聯繫窗口查詢
-
-3. 顧客（Customer）
->無倉儲資訊存取需求
-📌 用途：不授權存取倉儲資訊
-
-4. 倉儲人員（Warehouse）
->需要查詢完整倉儲資料以進行管理
-```sql
+2. 倉儲人員（Warehouse）
+>倉庫基本運營資訊
+```spl
 CREATE VIEW warehouse_warehouses_view AS
-SELECT warehouse_id, warehouse_name, location, capacity, manager_id, contact_info
-FROM Warehouses;
+SELECT * FROM Warehouses;
 ```
-📌 用途：倉庫人員內部管理作業
-
-5. 財務人員（Finance）
->無倉儲詳細存取需求
-📌 用途：不授權存取倉儲資訊
-
-6. 行銷/營運（Marketing）
->可查詢倉庫容量與地點進行物流策略規劃
-```sql
-CREATE VIEW marketing_warehouses_view AS
-SELECT warehouse_id, location, capacity
-FROM Warehouses;
-```
-📌 用途：營運佈局與地區分布分析
-
-7. 客服人員（Support）
->僅查詢倉庫名稱與聯絡資訊，便於處理物流問題
-```sql
-CREATE VIEW support_warehouses_view AS
-SELECT warehouse_id, warehouse_name, contact_info
-FROM Warehouses;
-```
-📌 用途：客訴處理與物流聯絡支援
+📌 用途：日常倉庫管理與維護作業
 
 ### `Inventory` 欄位可視權限表
 | 欄位            | Admin | Seller | Customer | Warehouse | Finance | Marketing | Support |
