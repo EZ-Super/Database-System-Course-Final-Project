@@ -229,7 +229,7 @@ FROM sellers;
 ```
 📌 用途：客服查詢店家資訊以協助顧客
 
-## Warehouses
+## 倉庫管理
 
 ### `Warehouses` 欄位可視權限表
 | 欄位            | Admin | Seller | Customer | Warehouse | Finance | Marketing | Support |
@@ -346,7 +346,7 @@ FROM sellers;
 | refund_amount  |  ✔   |   ✔   |    ✔     |     ✘     |    ✔    |     ✘     |    ✔    |
 | created_at     |  ✔   |   ✔   |    ✔     |     ✘     |    ✔    |     ✘     |    ✔    |
 
-## 銷售分析
+## 數據分析
 
 ### `Sales_Analysis` 欄位可視權限表
 | 欄位            | Admin | Seller | Customer | Warehouse | Finance | Marketing | Support |
