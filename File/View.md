@@ -232,11 +232,21 @@ FROM sellers;
 ### `Warehouses` 欄位可視權限表
 | 欄位	| Admin	| Seller	 | Customer	| Warehouse	| Finance	| Marketing	| Support |
 |----|---------|----------|----------|----------|----------|-----------|----------|
-|　warehouse_id	|　✔　|	✗　|	　✗　|	　✓　|	　✗　|	　✗　|	　✗　|
+|　warehouse_id	|　✓　|	✗　|	　✗　|	　✓　|	　✗　|	　✗　|	　✗　|
 | warehouse_name	| ✓ | ✗ |	✗ |	✓ |	✗ |	✗ |	✗ |
 | location	| ✓ |	✗ |	✗ |	✓ |	✗ |	✗ |	✗ |
 | capacity	| ✓ |	✗ |	✗ |	✓ |	✗ |	✗ |	✗ |
 | manager_id | ✓ |	✗ |	✗ |	✓ |	✗ |	✗ |	✗ |
 | contact_info	| ✓	| ✗	| ✗	| ✓	| ✗ |	✗ |	✗ |
 | created_at	| ✓ |	✗ |	✗ |	✓ |	✗ |	✗ |	✗ |
+
+| 欄位            | Admin | Seller | Customer | Warehouse | Finance | Marketing | Support |
+|-----------------|:-----:|:------:|:--------:|:---------:|:-------:|:---------:|:-------:|
+| warehouse_id    |  ✔   |   ✘   |    ✘     |     ✔     |    ✘    |     ✘     |    ✘    |
+| warehouse_name  |  ✔   |   ✘   |    ✘     |     ✔     |    ✘    |     ✘     |    ✘    |
+| location       |  ✔   |   ✘   |    ✘     |     ✔     |    ✘    |     ✘     |    ✘    |
+| capacity       |  ✔   |   ✘   |    ✘     |     ✔     |    ✘    |     ✘     |    ✘    |
+| manager_id     |  ✔   |   ✘   |    ✘     |     ✔     |    ✘    |     ✘     |    ✘    |
+| contact_info   |  ✔   |   ✘   |    ✘     |     ✔     |    ✘    |     ✘     |    ✘    |
+| created_at     |  ✔   |   ✘   |    ✘     |     ✔     |    ✘    |     ✘     |    ✘    |
 
