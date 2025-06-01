@@ -1110,3 +1110,659 @@ FROM Customer_Feedback_Stats;
 ```
 📌 用途：服務品質提升、客訴預防 
 
+
+
+### `products` 欄位可視權限表
+
+| 欄位名稱               | Admin | Seller | Customer | Warehouse | Finance | Marketing | Support |
+|------------------------|:-----:|:------:|:--------:|:---------:|:-------:|:---------:|:-------:|
+| `product_id`           |  ✔   |   ✔   |    ✔     |     ✔     |    ✔    |     ✔     |    ✔    |
+| `product_name`         |  ✔   |   ✔   |    ✔     |     ✔     |    ✔    |     ✔     |    ✔    |
+| `sku`                  |  ✔   |   ✔   |    ✔     |     ✔     |    ✔    |     ✘     |    ✔    |
+| `brand`                |  ✔   |   ✔   |    ✔     |     ✔     |    ✔    |     ✔     |    ✔    |
+| `model`                |  ✔   |   ✔   |    ✔     |     ✔     |    ✔    |     ✔     |    ✔    |
+| `description`          |  ✔   |   ✔   |    ✔     |     ✘     |    ✘    |     ✔     |    ✔    |
+| `category_id`          |  ✔   |   ✔   |    ✔     |     ✘     |    ✘    |     ✔     |    ✔    |
+| `variant_type`         |  ✔   |   ✔   |    ✔     |     ✘     |    ✘    |     ✔     |    ✔    |
+| `price`                |  ✔   |   ✔   |    ✔     |     ✘     |    ✔    |     ✔     |    ✔    |
+| `promotional_price`    |  ✔   |   ✔   |    ✔     |     ✘     |    ✔    |     ✔     |    ✔    |
+| `promotion_start_date` |  ✔   |   ✔   |    ✔     |     ✘     |    ✘    |     ✔     |    ✔    |
+| `promotion_end_date`   |  ✔   |   ✔   |    ✔     |     ✘     |    ✘    |     ✔     |    ✔    |
+| `seller_id`            |  ✔   |   ✘   |    ✘     |     ✘     |    ✔    |     ✔     |    ✔    |
+| `shipping_weight`      |  ✔   |   ✔   |    ✔     |     ✔     |    ✔    |     ✘     |    ✘    |
+| `image_url`            |  ✔   |   ✔   |    ✔     |     ✘     |    ✘    |     ✔     |    ✔    |
+| `barcode`              |  ✔   |   ✔   |    ✘     |     ✔     |    ✔    |     ✘     |    ✘    |
+| `reviews_count`        |  ✔   |   ✔   |    ✔     |     ✘     |    ✘    |     ✔     |    ✔    |
+| `favorites_count`      |  ✔   |   ✔   |    ✔     |     ✘     |    ✘    |     ✔     |    ✔    |
+| `date_added`           |  ✔   |   ✔   |    ✘     |     ✔     |    ✔    |     ✔     |    ✔    |
+| `last_updated`         |  ✔   |   ✔   |    ✘     |     ✔     |    ✔    |     ✔     |    ✔    |
+
+1. 系統管理員（Admin）  
+> 檢視所有商品詳細資訊以便管理或審查  
+```sql
+CREATE VIEW admin_product_view AS
+SELECT *
+FROM products;
+```
+📌 用途：商品全面監管、資料驗證與系統稽核
+
+2. 賣家（Seller）  
+> 管理自己商店的商品庫存、價格、促銷設定  
+```sql
+CREATE VIEW seller_product_view AS
+SELECT product_id, product_name,sku,brand,model,description,
+       category_id,variant_type,price,promotional_price,shipping_weight,
+       image_url,barcode,reviews_count, favorites_count,date_added,last_updated
+FROM products
+WHERE seller_id = CURRENT_USER_ID();
+```
+📌 用途：賣家商品管理與促銷調整（可配合登入身分過濾）
+
+3. 顧客（Customer）  
+> 商品展示所需資訊  
+```sql
+CREATE VIEW customer_product_view AS
+SELECT product_id, product_name, brand, model, description, category_id,
+       variant_type, price, promotional_price, promotion_start_date,
+       promotion_end_date, image_url, reviews_count, favorites_count,
+       sku,shipping_weight
+FROM products;
+```
+📌 用途：商城前台商品頁面資訊展示
+
+4. 倉儲人員（Warehouse）  
+> 管理實體庫存與包裝需要資訊  
+```sql
+CREATE VIEW warehouse_product_view AS
+SELECT product_id, product_name, sku, brand, model, shipping_weight, barcode, date_added, last_updated
+FROM products;
+```
+📌 用途：出貨包裝、儲位管理與存貨識別
+
+5. 財務人員（Finance）  
+> 商品價格與財報相關資訊  
+```sql
+CREATE VIEW finance_product_view AS
+SELECT product_id, sku, price, promotional_price, shipping_weight, seller_id, barcode, date_added, last_updated
+FROM products;
+```
+📌 用途：商品售價、成本與物流財報整合
+
+6. 行銷/營運（Marketing）  
+> 用於促銷活動與商品分析  
+```sql
+CREATE VIEW marketing_product_view AS
+SELECT product_id, product_name, brand, model, category_id, variant_type,
+       price, promotional_price, promotion_start_date, promotion_end_date,
+       image_url, reviews_count, favorites_count, seller_id, date_added, last_updated
+FROM products;
+```
+📌 用途：促銷行銷活動設計與商品熱度追蹤
+
+7. 客服人員（Support）  
+> 協助顧客查詢商品資訊或處理退貨相關問題  
+```sql
+CREATE VIEW support_product_view AS
+SELECT product_id, product_name, brand, model, description, category_id,
+       variant_type, price, promotional_price, promotion_start_date,
+       promotion_end_date, image_url, reviews_count, favorites_count,
+       seller_id,sku,date_added,last_updated
+FROM products;
+```
+📌 用途：客服輔助顧客進行商品查詢與說明
+
+
+### `reviews` 欄位可視權限表
+
+| 欄位名稱      | Admin | Seller | Customer | Warehouse | Finance | Marketing | Support |
+|---------------|:-----:|:------:|:--------:|:---------:|:-------:|:---------:|:-------:|
+| `review_id`   |  ✔   |   ✔   |    ✔     |     ✘     |    ✘    |     ✔     |    ✔    |
+| `product_id`  |  ✔   |   ✔   |    ✔     |     ✘     |    ✘    |     ✔     |    ✔    |
+| `user_id`     |  ✔   |   ✔   |    ✔     |     ✘     |    ✘    |     ✘     |    ✔    |
+| `rating`      |  ✔   |   ✔   |    ✔     |     ✘     |    ✘    |     ✔     |    ✔    |
+| `comment`     |  ✔   |   ✔   |    ✔     |     ✘     |    ✘    |     ✔     |    ✔    |
+| `created_at`  |  ✔   |   ✔   |    ✔     |     ✘     |    ✘    |     ✔     |    ✔    |
+
+1. 系統管理員（Admin）  
+> 全面監控評價內容，必要時刪除惡意留言或偽造評論  
+```sql
+CREATE VIEW admin_reviews_view AS
+SELECT *
+FROM reviews;
+```
+📌 用途：管理評價品質與用戶行為審核
+
+2. 賣家（Seller）  
+> 查看自家商品的評價內容（⚠️ 請在程式層過濾 seller 自家商品）  
+```sql
+CREATE VIEW seller_reviews_view AS
+SELECT review_id, product_id, user_id, rating, comment, created_at
+FROM reviews;
+```
+📌 用途：追蹤顧客對商品的回饋（需搭配商品歸屬驗證）
+
+3. 顧客（Customer）  
+> 查看自己的歷史評論或他人商品評論  
+```sql
+CREATE VIEW customer_reviews_view AS
+SELECT review_id, product_id, user_id, rating, comment, created_at
+FROM reviews;
+```
+📌 用途：查詢/撰寫商品評價，並回顧自己過往留言
+
+4. 倉儲人員（Warehouse）  
+> 無需存取顧客評價  
+📌 用途：不授權存取商品評論資料
+
+5. 財務人員（Finance）  
+> 無需存取顧客評價  
+📌 用途：不授權存取商品評論資料
+
+6. 行銷/營運（Marketing）  
+> 分析評價分數與評論內容，評估商品/活動效益  
+```sql
+CREATE VIEW marketing_reviews_view AS
+SELECT review_id, product_id, rating, comment, created_at
+FROM reviews;
+```
+📌 用途：回饋收集與評價分數統計、詞頻分析等
+
+7. 客服人員（Support）  
+> 查看顧客留言與用戶 ID，便於處理抱怨或負評  
+```sql
+CREATE VIEW support_reviews_view AS
+SELECT review_id, product_id, user_id, rating, comment, created_at
+FROM reviews;
+```
+📌 用途：處理顧客爭議、負評回覆與使用者行為追蹤
+
+### `categories` 欄位可視權限表
+
+| 欄位名稱             | Admin | Seller | Customer | Warehouse | Finance | Marketing | Support |
+|----------------------|:-----:|:------:|:--------:|:---------:|:-------:|:---------:|:-------:|
+| `category_id`        |  ✔   |   ✔   |    ✔     |     ✔     |    ✘    |     ✔     |    ✔    |
+| `category_name`      |  ✔   |   ✔   |    ✔     |     ✔     |    ✘    |     ✔     |    ✔    |
+| `category_description`| ✔   |   ✔   |    ✔     |     ✘     |    ✘    |     ✔     |    ✔    |
+
+1. 系統管理員（Admin）  
+> 管理商品分類與說明文字，維護分類邏輯與結構  
+```sql
+CREATE VIEW admin_categories_view AS
+SELECT *
+FROM categories;
+```
+📌 用途：商品分類資料完整管理與稽核
+
+2. 賣家（Seller）  
+> 查看可用的分類名稱與描述以便上架商品  
+```sql
+CREATE VIEW seller_categories_view AS
+SELECT category_id, category_name, category_description
+FROM categories;
+```
+📌 用途：商品上架時分類選擇參考
+
+3. 顧客（Customer）  
+> 查看商城可選的商品分類與說明  
+```sql
+CREATE VIEW customer_categories_view AS
+SELECT category_id, category_name, category_description
+FROM categories;
+```
+📌 用途：商城前台顯示分類資訊與過濾功能
+
+4. 倉儲人員（Warehouse）  
+> 僅需基本分類 ID 與名稱以標記實體倉位  
+```sql
+CREATE VIEW warehouse_categories_view AS
+SELECT category_id, category_name
+FROM categories;
+```
+📌 用途：分類編碼與實體分類標籤對應用途
+
+5. 財務人員（Finance）  
+> 無分類資訊存取需求  
+📌 用途：不授權存取商品分類資料
+
+6. 行銷/營運（Marketing）  
+> 用於分類相關活動設計與商品分析統計  
+```sql
+CREATE VIEW marketing_categories_view AS
+SELECT *
+FROM categories;
+```
+📌 用途：促銷分類規劃與分類別商品成效分析
+
+7. 客服人員（Support）  
+>   
+```sql
+CREATE VIEW support_categories_view AS
+SELECT category_id, category_name, category_description
+FROM categories;
+```
+📌 用途：客服對應商品分類協助查詢與說明
+
+### `login_logs` 欄位可視權限表
+
+| 欄位名稱         | Admin | Seller | Customer | Warehouse | Finance | Marketing | Support |
+|------------------|:-----:|:------:|:--------:|:---------:|:-------:|:---------:|:-------:|
+| `log_id`         |  ✔   |   ✘   |    ✔     |     ✘     |    ✘    |     ✘     |    ✔    |
+| `user_id`        |  ✔   |   ✘   |    ✔     |     ✘     |    ✘    |     ✘     |    ✔    |
+| `email`          |  ✔   |   ✘   |    ✔     |     ✘     |    ✘    |     ✘     |    ✔    |
+| `login_time`     |  ✔   |   ✘   |    ✔     |     ✘     |    ✘    |     ✘     |    ✔    |
+| `ip_address`     |  ✔   |   ✘   |    ✘     |     ✘     |    ✘    |     ✘     |    ✔    |
+| `user_agent`     |  ✔   |   ✘   |    ✘     |     ✘     |    ✘    |     ✘     |    ✔    |
+| `success`        |  ✔   |   ✘   |    ✔     |     ✘     |    ✘    |     ✘     |    ✔    |
+| `failure_reason` |  ✔   |   ✘   |    ✔     |     ✘     |    ✘    |     ✘     |    ✔    |
+
+1. 系統管理員（Admin）  
+> 查看所有用戶登入紀錄與異常行為以偵測資安風險  
+```sql
+CREATE VIEW admin_login_logs_view AS
+SELECT *
+FROM login_logs;
+```
+📌 用途：資安稽核、帳號活動監控、異常登入偵測
+
+2. 賣家（Seller）  
+> 無法查閱 ，透過使用者(customer)查閱
+📌 用途：賣家登入追蹤與帳號安全檢視
+
+3. 顧客（Customer）  
+> 查看自己的登入紀錄（僅成功與時間）  
+```sql
+CREATE VIEW customer_login_logs_view AS
+SELECT log_id, user_id, email, login_time, success
+FROM login_logs
+WHERE user_id = CURRENT_USER_ID(); -- ⚠️ 應用層過濾
+```
+📌 用途：顧客登入活動查詢與自我監控
+
+4. 倉儲人員（Warehouse）  
+> 無登入紀錄存取需求  
+📌 用途：不授權存取登入行為資料
+
+5. 財務人員（Finance）  
+> 無登入紀錄存取需求  
+📌 用途：不授權存取登入行為資料
+
+6. 行銷/營運（Marketing）  
+> 無登入紀錄存取需求  
+📌 用途：不授權存取登入行為資料
+
+7. 客服人員（Support）  
+> 協助顧客處理登入問題，查詢失敗原因與時間  
+```sql
+CREATE VIEW support_login_logs_view AS
+SELECT log_id, user_id, email, login_time, ip_address, user_agent, success, failure_reason
+FROM login_logs;
+```
+📌 用途：客服協助查詢登入失敗、帳號遭駭或異常使用情境分析
+
+### `users` 欄位可視權限表（強化安全版）
+
+| 欄位名稱               | Admin | Seller | Customer | Warehouse | Finance | Marketing | Support |
+|------------------------|:-----:|:------:|:--------:|:---------:|:-------:|:---------:|:-------:|
+| `user_id`              |  ✔   |   ✔   |    ✔     |     ✘     |    ✔    |     ✔     |    ✘    |
+| `email`                |  ✔   |   ✔   |    ✔     |     ✘     |    ✔    |     ✔     |    ✔    |
+| `password_hash`        |  ✔   |   ✘   |    ✘     |     ✘     |    ✘    |     ✘     |    ✘    |
+| `account_enable`       |  ✔   |   ✔   |    ✔     |     ✘     |    ✘    |     ✘     |    ✔    |
+| `created_at`           |  ✔   |   ✔   |    ✔     |     ✘     |    ✘    |     ✔     |    ✔    |
+| `failed_login_attempts`|  ✔   |   ✔   |    ✔     |     ✘     |    ✘    |     ✘     |    ✔    |
+| `is_verified`          |  ✔   |   ✔   |    ✔     |     ✘     |    ✘    |     ✔     |    ✔    |
+| `updated_at`           |  ✔   |   ✔   |    ✔     |     ✘     |    ✘    |     ✔     |    ✔    |
+
+1. 系統管理員（Admin）  
+> 全面管理所有用戶狀態、帳號安全與權限驗證  
+```sql
+CREATE VIEW admin_secure_users_view AS
+SELECT *
+FROM users;
+```
+📌 用途：帳號控管、安全分析、資料一致性維護
+
+2. 賣家（Seller）  
+> 僅可查詢基本資料（不可見密碼與登入失敗）  
+```sql
+CREATE VIEW seller_secure_users_view AS
+SELECT user_id, email, account_enable, created_at, is_verified, updated_at
+FROM users
+WHERE user_id = CURRENT_USER_ID(); -- ⚠️ 應由應用層過濾自身資料
+```
+📌 用途：供內部關聯查詢與管理自己帳號狀態
+
+3. 顧客（Customer）  
+> 查詢自己帳號的基本註冊與驗證狀態  
+```sql
+CREATE VIEW seller_secure_users_view AS
+SELECT user_id, email, account_enable, created_at, is_verified, updated_at
+FROM users;
+WHERE user_id = CURRENT_USER_ID(); -- ⚠️ 應由應用層過濾自身資料
+```
+📌 用途：顧客介面顯示「帳號是否啟用、是否驗證」
+
+4. 倉儲人員（Warehouse）  
+> 無用戶存取需求  
+📌 用途：不授權存取任何帳號資訊
+
+5. 財務人員（Finance）  
+> 僅可查 email 與帳號啟用狀態以處理帳務通知  
+```sql
+CREATE VIEW finance_secure_users_view AS
+SELECT user_id, email, account_enable
+FROM users;
+```
+📌 用途：帳務通知或退款需聯絡時使用
+
+6. 行銷/營運（Marketing）  
+> 查詢用戶建立時間與驗證狀況，進行用戶漏斗分析  
+```sql
+CREATE VIEW marketing_secure_users_view AS
+SELECT user_id, email, created_at, is_verified, updated_at
+FROM users;
+```
+📌 用途：行銷分析用戶轉換率與活躍程度
+
+7. 客服人員（Support）  
+> 查詢用戶帳號狀態、啟用與登入問題排解  
+```sql
+CREATE VIEW support_secure_users_view AS
+SELECT user_id, email, account_enable, failed_login_attempts, is_verified, created_at, updated_at
+FROM users;
+```
+📌 用途：協助用戶排解帳號鎖定、驗證失敗等問題
+
+
+
+### `orders` 欄位可視權限表
+
+| 欄位名稱       | Admin | Seller | Customer | Warehouse | Finance | Marketing | Support |
+|----------------|:-----:|:------:|:--------:|:---------:|:-------:|:---------:|:-------:|
+| `order_id`     |  ✔   |   ✔   |    ✔     |     ✔     |    ✔    |     ✔     |    ✔    |
+| `customer_id`  |  ✔   |   ✔   |    ✔     |     ✘     |    ✔    |     ✔     |    ✔    |
+| `order_status` |  ✔   |   ✔   |    ✔     |     ✔     |    ✔    |     ✔     |    ✔    |
+| `total_amount` |  ✔   |   ✔   |    ✔     |     ✔     |    ✔    |     ✔     |    ✔    |
+| `created_at`   |  ✔   |   ✔   |    ✔     |     ✔     |    ✔    |     ✔     |    ✔    |
+| `updated_at`   |  ✔   |   ✔   |    ✘     |     ✘     |    ✔    |     ✔     |    ✔    |
+| `shipping_fee` |  ✔   |   ✔   |    ✔     |     ✘     |    ✔    |     ✔     |    ✔    |
+| `discount`     |  ✔   |   ✔   |    ✔     |     ✘     |    ✔    |     ✔     |    ✔    |
+| `payment_id`   |  ✔   |   ✘   |    ✘     |     ✘     |    ✔    |     ✘     |    ✔    |
+| `shipping_id`  |  ✔   |   ✔   |    ✔     |     ✔     |    ✔    |     ✘     |    ✔    |
+| `coupon_id`    |  ✔   |   ✔   |    ✔     |     ✘     |    ✔    |     ✔     |    ✔    |
+
+1. 系統管理員（Admin）  
+> 完整存取訂單資訊與跨部門管理用於監控、稽核  
+```sql
+CREATE VIEW admin_orders_view AS
+SELECT *
+FROM orders;
+```
+📌 用途：全面訂單稽核、跨部門資料整合分析
+
+2. 賣家（Seller）  
+> 查看來自顧客的訂單狀態與出貨需求（⚠️ 以商品對應查詢訂單）  
+```sql
+CREATE VIEW seller_orders_view AS
+SELECT order_id, customer_id, order_status, total_amount, created_at, updated_at,
+       shipping_fee, discount, shipping_id, coupon_id
+FROM orders;
+```
+📌 用途：銷售訂單管理與出貨排程參考
+
+3. 顧客（Customer）  
+> 查詢個人訂單記錄與付款、運送狀態  
+```sql
+CREATE VIEW customer_orders_view AS
+SELECT order_id, order_status, total_amount, created_at, shipping_fee, discount, shipping_id, coupon_id
+FROM orders
+WHERE customer_id = CURRENT_USER_ID(); -- ⚠️ 由應用層顧客識別
+```
+📌 用途：顧客訂單查詢、促銷與運費資訊查閱
+
+4. 倉儲人員（Warehouse）  
+> 查詢出貨所需的訂單資訊  
+```sql
+CREATE VIEW warehouse_orders_view AS
+SELECT order_id, order_status, created_at, shipping_id,total_amount
+FROM orders;
+```
+📌 用途：物流出貨排程與配送作業依據
+
+5. 財務人員（Finance）  
+> 查詢付款、金額、運費與折扣等資訊  
+```sql
+CREATE VIEW finance_orders_view AS
+SELECT order_id, customer_id, total_amount, shipping_fee, discount, payment_id, created_at, updated_at
+FROM orders;
+```
+📌 用途：財務對帳、收支報表、折扣與運費成本分析
+
+6. 行銷/營運（Marketing）  
+> 查詢訂單金額、促銷與優惠券使用狀況  
+```sql
+CREATE VIEW marketing_orders_view AS
+SELECT order_id, customer_id, total_amount, discount, coupon_id, order_status, created_at
+FROM orders;
+```
+📌 用途：行銷活動成效評估與顧客轉換分析
+
+7. 客服人員（Support）  
+> 協助查詢顧客訂單進度、付款與配送問題  
+```sql
+CREATE VIEW support_orders_view AS
+SELECT order_id, customer_id, order_status, total_amount, shipping_fee, discount,
+       created_at, updated_at, payment_id, shipping_id, coupon_id
+FROM orders;
+```
+📌 用途：客服用於追蹤訂單流程與處理顧客疑問
+
+
+### `order_items` 欄位可視權限表
+
+| 欄位名稱       | Admin | Seller | Customer | Warehouse | Finance | Marketing | Support |
+|----------------|:-----:|:------:|:--------:|:---------:|:-------:|:---------:|:-------:|
+| `order_item_id`|  ✔   |   ✔   |    ✔     |     ✔     |    ✔    |     ✔     |    ✔    |
+| `order_id`     |  ✔   |   ✔   |    ✔     |     ✔     |    ✔    |     ✔     |    ✔    |
+| `product_id`   |  ✔   |   ✔   |    ✔     |     ✔     |    ✔    |     ✔     |    ✔    |
+| `quantity`     |  ✔   |   ✔   |    ✔     |     ✔     |    ✔    |     ✔     |    ✔    |
+| `unit_price`   |  ✔   |   ✔   |    ✔     |     ✘     |    ✔    |     ✔     |    ✔    |
+| `subtotal`     |  ✔   |   ✔   |    ✔     |     ✘     |    ✔    |     ✔     |    ✔    |
+
+1. 系統管理員（Admin）  
+> 查看所有訂單品項資訊與金額，確保資料一致性  
+```sql
+CREATE VIEW admin_order_items_view AS
+SELECT *
+FROM order_items;
+```
+📌 用途：品項級訂單監控、數據驗證、疑異偵測
+
+2. 賣家（Seller）  
+> 查詢出貨的品項、數量與金額（⚠️ 需配合商品對應過濾 seller）  
+```sql
+CREATE VIEW seller_order_items_view AS
+SELECT order_item_id, order_id, product_id, quantity, unit_price, subtotal
+FROM order_items;
+```
+📌 用途：對應自己商品的訂單明細、出貨處理
+
+3. 顧客（Customer）  
+> 查詢自己訂單的商品明細、數量與單價  
+```sql
+CREATE VIEW customer_order_items_view AS
+SELECT order_item_id, order_id, product_id, quantity, unit_price, subtotal
+FROM order_items
+WHERE order_id IN (
+  SELECT order_id FROM orders WHERE customer_id = CURRENT_USER_ID()
+);
+```
+📌 用途：顧客訂單查詢，顯示商品品項與計價明細
+
+4. 倉儲人員（Warehouse）  
+> 查詢出貨品項與數量，但不含價格資訊  
+```sql
+CREATE VIEW warehouse_order_items_view AS
+SELECT order_item_id, order_id, product_id, quantity
+FROM order_items;
+```
+📌 用途：根據品項與數量安排出貨與包裝作業
+
+5. 財務人員（Finance）  
+> 查詢每筆品項的單價、數量與小計以進行對帳  
+```sql
+CREATE VIEW finance_order_items_view AS
+SELECT order_item_id, order_id, product_id, quantity, unit_price, subtotal
+FROM order_items;
+```
+📌 用途：商品級別銷售金額統計與利潤分析
+
+6. 行銷/營運（Marketing）  
+> 分析各品項數量、價格與銷售小計，評估熱門商品  
+```sql
+CREATE VIEW marketing_order_items_view AS
+SELECT order_item_id, order_id, product_id, quantity, unit_price, subtotal
+FROM order_items;
+```
+📌 用途：活動成效分析、商品熱銷排行與推薦系統資料來源
+
+7. 客服人員（Support）  
+> 查詢訂單商品明細協助處理顧客問題或退換貨  
+```sql
+CREATE VIEW support_order_items_view AS
+SELECT order_item_id, order_id, product_id, quantity, unit_price, subtotal
+FROM order_items;
+```
+📌 用途：客服查詢顧客下單內容、對應退換貨品項處理
+
+
+### `payments` 欄位可視權限表
+
+| 欄位名稱         | Admin | Seller | Customer | Warehouse | Finance | Marketing | Support |
+|------------------|:-----:|:------:|:--------:|:---------:|:-------:|:---------:|:-------:|
+| `payment_id`     |  ✔   |   ✘   |    ✔     |     ✘     |    ✔    |     ✘     |    ✔    |
+| `order_id`       |  ✔   |   ✘   |    ✔     |     ✘     |    ✔    |     ✘     |    ✔    |
+| `payment_method` |  ✔   |   ✘   |    ✔     |     ✘     |    ✔    |     ✘     |    ✔    |
+| `payment_status` |  ✔   |   ✘   |    ✔     |     ✘     |    ✔    |     ✘     |    ✔    |
+| `amount`         |  ✔   |   ✘   |    ✔     |     ✘     |    ✔    |     ✘     |    ✔    |
+| `payment_date`   |  ✔   |   ✘   |    ✔     |     ✘     |    ✔    |     ✘     |    ✔    |
+
+1. 系統管理員（Admin）  
+> 查看所有訂單的付款狀態與交易資訊  
+```sql
+CREATE VIEW admin_payments_view AS
+SELECT *
+FROM payments;
+```
+📌 用途：付款異常排查、金流整體管理與稽核
+
+2. 賣家（Seller）  
+> 無直接金流存取權限（付款由平台統一處理）  
+📌 用途：不授權存取付款紀錄（避免敏感資訊外洩）
+
+3. 顧客（Customer）  
+> 查詢自己訂單的付款狀態與方式  
+```sql
+CREATE VIEW customer_payments_view AS
+SELECT payment_id, order_id, payment_method, payment_status, amount, payment_date
+FROM payments
+WHERE order_id IN (
+  SELECT order_id FROM orders WHERE customer_id = CURRENT_USER_ID()
+);
+```
+📌 用途：查詢付款是否完成、付款方式與金額確認
+
+4. 倉儲人員（Warehouse）  
+> 無付款資訊存取需求  
+📌 用途：不授權存取付款資訊
+
+5. 財務人員（Finance）  
+> 查詢付款方式、金額與狀態進行帳務對帳  
+```sql
+CREATE VIEW finance_payments_view AS
+SELECT payment_id, order_id, payment_method, payment_status, amount, payment_date
+FROM payments;
+```
+📌 用途：每日/每月金流報表與付款狀態確認
+
+6. 行銷/營運（Marketing）  
+> 無需存取付款細節（避免金流資訊外洩）  
+📌 用途：不授權存取付款紀錄資料
+
+7. 客服人員（Support）  
+> 協助查詢顧客付款狀況，處理付款失敗與爭議問題  
+```sql
+CREATE VIEW support_payments_view AS
+SELECT payment_id, order_id, payment_method, payment_status, amount, payment_date
+FROM payments;
+```
+📌 用途：協助顧客處理付款問題、查詢狀態與申訴
+
+
+### `return_refunds` 欄位可視權限表
+
+| 欄位名稱        | Admin | Seller | Customer | Warehouse | Finance | Marketing | Support |
+|-----------------|:-----:|:------:|:--------:|:---------:|:-------:|:---------:|:-------:|
+| `refund_id`     |  ✔   |   ✔   |    ✔     |     ✘     |    ✔    |     ✘     |    ✔    |
+| `order_id`      |  ✔   |   ✔   |    ✔     |     ✘     |    ✔    |     ✘     |    ✔    |
+| `product_id`    |  ✔   |   ✔   |    ✔     |     ✔     |    ✔    |     ✘     |    ✔    |
+| `reason`        |  ✔   |   ✔   |    ✔     |     ✘     |    ✘    |     ✘     |    ✔    |
+| `status`        |  ✔   |   ✔   |    ✔     |     ✘     |    ✔    |     ✘     |    ✔    |
+| `refund_amount` |  ✔   |   ✔   |    ✔     |     ✘     |    ✔    |     ✘     |    ✔    |
+| `created_at`    |  ✔   |   ✔   |    ✔     |     ✘     |    ✔    |     ✘     |    ✔    |
+
+1. 系統管理員（Admin）  
+> 管理退貨退款申請並監督流程進度  
+```sql
+CREATE VIEW admin_return_refunds_view AS
+SELECT *
+FROM return_refunds;
+```
+📌 用途：稽核退貨退款流程與用戶行為監控
+
+2. 賣家（Seller）  
+> 查看顧客退貨請求與狀態以進行審核處理  
+```sql
+CREATE VIEW seller_return_refunds_view AS
+SELECT refund_id, order_id, product_id, reason, status, refund_amount, created_at
+FROM return_refunds;
+```
+📌 用途：賣家接收處理退貨需求與撥款流程
+
+3. 顧客（Customer）  
+> 查詢個人退貨紀錄與進度  
+```sql
+CREATE VIEW customer_return_refunds_view AS
+SELECT refund_id, order_id, product_id, reason, status, refund_amount, created_at
+FROM return_refunds
+WHERE order_id IN (
+  SELECT order_id FROM orders WHERE customer_id = CURRENT_USER_ID()
+);
+```
+📌 用途：顧客追蹤退貨申請與退款金額
+
+4. 倉儲人員（Warehouse）  
+> 無需存取退貨資料  
+📌 用途：不授權存取退貨退款資訊
+
+5. 財務人員（Finance）  
+> 查詢退款金額與狀態以安排出款  
+```sql
+CREATE VIEW finance_return_refunds_view AS
+SELECT refund_id, order_id, product_id, refund_amount, status, created_at
+FROM return_refunds;
+```
+📌 用途：確認退款流程與金額資料以安排退款
+
+6. 行銷/營運（Marketing）  
+> 無需存取退貨資料（避免洩漏顧客敏感行為）  
+📌 用途：不授權存取退貨退款資訊
+
+7. 客服人員（Support）  
+> 協助顧客追蹤退貨申請與問題處理  
+```sql
+CREATE VIEW support_return_refunds_view AS
+SELECT refund_id, order_id, product_id, reason, status, refund_amount, created_at
+FROM return_refunds;
+```
+📌 用途：客服處理退貨進度、退款失敗與商品糾紛
+
