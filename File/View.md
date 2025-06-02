@@ -31,6 +31,7 @@ CREATE VIEW admin_membership_levels_view AS
 SELECT *
 FROM membership_levels;
 ```
+
 📌 用途：會員等級管理與稽核
 
 2. 賣家（Seller）  
@@ -421,7 +422,7 @@ FROM notifications;
 >完整倉庫管理資訊
 ```sql
 CREATE VIEW admin_warehouses_view AS
-SELECT * FROM Warehouses;
+SELECT * FROM warehouses;
 ```
 📌 用途：系統後台進行倉庫全面管理與稽核
 
@@ -429,7 +430,7 @@ SELECT * FROM Warehouses;
 >倉庫基本運營資訊
 ```spl
 CREATE VIEW warehouse_warehouses_view AS
-SELECT * FROM Warehouses;
+SELECT * FROM warehouses;
 ```
 📌 用途：日常倉庫管理與維護作業
 
@@ -447,7 +448,7 @@ SELECT * FROM Warehouses;
 >完整庫存狀態監控
 ```sql
 CREATE VIEW admin_inventory_view AS
-SELECT * FROM Inventory;
+SELECT * FROM inventory;
 ```
 
 📌 用途：全局庫存分析與異常監測
@@ -457,7 +458,7 @@ SELECT * FROM Inventory;
 ```sql
 CREATE VIEW seller_inventory_view AS
 SELECT inventory_id, warehouse_id, product_id, stock_quantity, reorder_level, last_updated
-FROM Inventory;
+FROM inventory;
 ```
 
 📌 用途：商品備貨與補貨決策依據
@@ -466,7 +467,7 @@ FROM Inventory;
 >實時庫存操作介面
 ```sql
 CREATE VIEW warehouse_inventory_view AS
-SELECT * FROM Inventory;
+SELECT * FROM inventory;
 ```
 📌 用途：每日盤點與庫位管理
 
@@ -484,7 +485,7 @@ SELECT * FROM Inventory;
 供應商完整檔案
 ```sql
 CREATE VIEW admin_suppliers_view AS
-SELECT * FROM Suppliers;
+SELECT * FROM suppliers;
 ```
 📌 用途：供應鏈全生命周期管理
 
@@ -503,7 +504,7 @@ FROM Suppliers;
 ```sql
 CREATE VIEW warehouse_suppliers_view AS
 SELECT supplier_id, supplier_name, contact_info, country, rating
-FROM Suppliers;
+FROM suppliers;
 ```
 
 📌 用途：到貨異常時緊急聯絡
@@ -523,7 +524,7 @@ FROM Suppliers;
 >完整入庫流水記錄
 ```sql
 CREATE VIEW admin_inbound_view AS
-SELECT * FROM Inbound_Shipments;
+SELECT * FROM inbound_shipments;
 ```
 📌 用途：入庫流程審計與分析
 
@@ -532,7 +533,7 @@ SELECT * FROM Inbound_Shipments;
 ```sql
 CREATE VIEW seller_inbound_view AS
 SELECT inbound_id, supplier_id, warehouse_id, product_id, quantity, arrival_date, status
-FROM Inbound_Shipments;
+FROM inbound_shipments;
 ```
 
 📌 用途：追蹤採購單到貨情況
@@ -541,7 +542,7 @@ FROM Inbound_Shipments;
 > 入庫作業明細
 ```sql
 CREATE VIEW warehouse_inbound_view AS
-SELECT * FROM Inbound_Shipments;
+SELECT * FROM inbound_shipments;
 ```
 
 📌 用途：實際收貨與驗收入庫
@@ -561,7 +562,7 @@ SELECT * FROM Inbound_Shipments;
 >完整出庫歷史記錄
 ```sql
 CREATE VIEW admin_outbound_view AS
-SELECT * FROM Outbound_Shipments;
+SELECT * FROM outbound_shipments;
 ```
 
 📌 用途：出庫異常分析與追溯
@@ -571,7 +572,7 @@ SELECT * FROM Outbound_Shipments;
 ```sql
 CREATE VIEW seller_outbound_view AS
 SELECT outbound_id, order_id, warehouse_id, product_id, quantity, dispatch_date, status
-FROM Outbound_Shipments;
+FROM outbound_shipments;
 ```
 
 📌 用途：訂單履約進度追蹤
@@ -580,7 +581,7 @@ FROM Outbound_Shipments;
 >出庫作業單據
 ```sql
 CREATE VIEW warehouse_outbound_view AS
-SELECT * FROM Outbound_Shipments;
+SELECT * FROM outbound_shipments;
 ```
 📌 用途：實際揀貨與出庫作業
 
@@ -589,127 +590,12 @@ SELECT * FROM Outbound_Shipments;
 ```sql
 CREATE VIEW support_outbound_view AS
 SELECT outbound_id, order_id, product_id, quantity, dispatch_date, status
-FROM Outbound_Shipments;
+FROM outbound_shipments;
 ```
 
 📌 用途：解答客戶物流進度問題
 
-### `Orders` 欄位可視權限表
-| 欄位            | Admin | Seller | Customer | Warehouse | Finance | Marketing | Support |
-|-----------------|:-----:|:------:|:--------:|:---------:|:-------:|:---------:|:-------:|
-| order_id        |  ✔   |   ✔   |    ✔     |     ✘     |    ✔    |     ✘     |    ✔    |
-| customer_name   |  ✔   |   ✔   |    ✔     |     ✘     |    ✔    |     ✘     |    ✔    |
-| order_status    |  ✔   |   ✔   |    ✔     |     ✘     |    ✔    |     ✘     |    ✔    |
-| total_amount    |  ✔   |   ✔   |    ✔     |     ✘     |    ✔    |     ✘     |    ✔    |
-| created_at      |  ✔   |   ✔   |    ✔     |     ✘     |    ✔    |     ✘     |    ✔    |
 
-1. 系統管理員（Admin）  
->平台所有訂單數據
-```sql
-CREATE VIEW admin_orders_view AS
-SELECT * FROM Orders;
-```
-
-📌 用途：訂單全生命周期管理
-
-2. 賣家（Seller）  
->關聯訂單基本資訊
-```sql
-CREATE VIEW seller_orders_view AS
-SELECT order_id, customer_name, order_status, total_amount, created_at
-FROM Orders;
-```
-
-📌 用途：訂單處理與客戶溝通
-
-3. 顧客（Customer）  
->個人歷史訂單查詢
-```sql
-CREATE VIEW customer_orders_view AS
-SELECT order_id, customer_name, order_status, total_amount, created_at
-FROM Orders
-WHERE customer_name = CURRENT_USER();
-```
-
-📌 用途：訂單狀態自主追蹤
-
-4. 財務人員（Finance）  
->訂單金額資訊
-```sql
-CREATE VIEW finance_orders_view AS
-SELECT order_id, customer_name, total_amount, created_at
-FROM Orders;
-```
-
-📌 用途：收入確認與報表生成
-
-5. 客服人員（Support）  
->客戶訂單查詢介面
-```sql
-CREATE VIEW support_orders_view AS
-SELECT order_id, customer_name, order_status, total_amount, created_at
-FROM Orders;
-```
-
-📌 用途：訂單問題排查與處理
-
-### `Order_Items` 欄位可視權限表
-| 欄位            | Admin | Seller | Customer | Warehouse | Finance | Marketing | Support |
-|-----------------|:-----:|:------:|:--------:|:---------:|:-------:|:---------:|:-------:|
-| order_item_id   |  ✔   |   ✔   |    ✔     |     ✘     |    ✔    |     ✘     |    ✔    |
-| order_id        |  ✔   |   ✔   |    ✔     |     ✘     |    ✔    |     ✘     |    ✔    |
-| product_id      |  ✔   |   ✔   |    ✔     |     ✘     |    ✔    |     ✘     |    ✔    |
-| quantity        |  ✔   |   ✔   |    ✔     |     ✘     |    ✔    |     ✘     |    ✔    |
-| price           |  ✔   |   ✔   |    ✔     |     ✘     |    ✔    |     ✘     |    ✔    |
-
-1. 系統管理員（Admin）  
->所有訂單商品明細
-```sql
-CREATE VIEW admin_order_items_view AS
-SELECT * FROM Order_Items;
-```
-
-📌 用途：商品銷售分析、組合推薦
-
-2. 賣家（Seller）  
->賣家相關訂單商品
-```sql
-CREATE VIEW seller_order_items_view AS
-SELECT order_item_id, order_id, product_id, quantity, price
-FROM Order_Items;
-```
-
-📌 用途：銷售統計、庫存預測 
-
-3. 顧客（Customer）  
->個人訂購商品明細
-```sql
-CREATE VIEW customer_order_items_view AS
-SELECT oi.order_item_id, oi.order_id, oi.product_id, oi.quantity, oi.price
-FROM Order_Items oi
-JOIN Orders o ON oi.order_id = o.order_id
-WHERE o.customer_name = CURRENT_USER();
-```
-
-📌 用途：訂單詳情查看、再次購買 
-
-4. 財務人員（Finance）  
-> 訂單商品金額明細
-```sql
-CREATE VIEW finance_order_items_view AS
-SELECT order_item_id, order_id, product_id, quantity, price
-FROM Order_Items;
-```
-
-📌 用途：收入分攤、成本計算 
-
-5. 客服人員（Support）  
-> 訂單商品查詢介面
-```sql
-CREATE VIEW support_order_items_view AS
-SELECT order_item_id, order_id, product_id, quantity, price
-FROM Order_Items;
-```
 
 📌 用途：退換貨處理、訂單爭議解決 
 
@@ -729,7 +615,7 @@ FROM Order_Items;
 > 所有物流配送記錄
 ```sql
 CREATE VIEW admin_shipments_view AS
-SELECT * FROM Shipments;
+SELECT * FROM shipments;
 ```
 
 📌 用途：物流效能分析、運費結算 
@@ -739,7 +625,7 @@ SELECT * FROM Shipments;
 ```sql
 CREATE VIEW seller_shipments_view AS
 SELECT shipment_id, order_id, tracking_number, shipment_status, estimated_delivery, actual_delivery, carrier
-FROM Shipments;
+FROM shipments;
 ```
 
 📌 用途：物流進度追蹤、客戶通知 
@@ -750,7 +636,7 @@ FROM Shipments;
 CREATE VIEW customer_shipments_view AS
 SELECT s.shipment_id, s.order_id, s.tracking_number, s.shipment_status, 
        s.estimated_delivery, s.actual_delivery, s.carrier
-FROM Shipments s
+FROM shipments s
 JOIN Orders o ON s.order_id = o.order_id
 WHERE o.customer_name = CURRENT_USER();
 ```
@@ -762,7 +648,7 @@ WHERE o.customer_name = CURRENT_USER();
 ```sql
 CREATE VIEW warehouse_shipments_view AS
 SELECT shipment_id, order_id, tracking_number, shipment_status, carrier
-FROM Shipments;
+FROM shipments;
 ```
 
 📌 用途：物流交接、運單打印 
@@ -773,7 +659,7 @@ FROM Shipments;
 CREATE VIEW support_shipments_view AS
 SELECT shipment_id, order_id, tracking_number, shipment_status, 
        estimated_delivery, actual_delivery, carrier
-FROM Shipments;
+FROM shipments;
 ```
 
 📌 用途：物流異常處理、客戶諮詢 
@@ -793,7 +679,7 @@ FROM Shipments;
 > 所有倉庫調撥記錄
 ```sql
 CREATE VIEW admin_transfers_view AS
-SELECT * FROM Warehouse_Transfers;
+SELECT * FROM warehouse_transfers;
 ```
 
 📌 用途：庫存調度分析、倉庫效能評估 
@@ -802,66 +688,10 @@ SELECT * FROM Warehouse_Transfers;
 > 倉庫間調撥作業單
 ```sql
 CREATE VIEW warehouse_transfers_view AS
-SELECT * FROM Warehouse_Transfers;
+SELECT * FROM warehouse_transfers;
 ```
 
-📌 用途：庫存調撥執行、在途庫存管理 
 
-### `Payments` 欄位可視權限表
-| 欄位            | Admin | Seller | Customer | Warehouse | Finance | Marketing | Support |
-|-----------------|:-----:|:------:|:--------:|:---------:|:-------:|:---------:|:-------:|
-| payment_id      |  ✔   |   ✔   |    ✔     |     ✘     |    ✔    |     ✘     |    ✔    |
-| order_id        |  ✔   |   ✔   |    ✔     |     ✘     |    ✔    |     ✘     |    ✔    |
-| payment_method  |  ✔   |   ✔   |    ✔     |     ✘     |    ✔    |     ✘     |    ✔    |
-| payment_status  |  ✔   |   ✔   |    ✔     |     ✘     |    ✔    |     ✘     |    ✔    |
-| amount          |  ✔   |   ✔   |    ✔     |     ✘     |    ✔    |     ✘     |    ✔    |
-| payment_date    |  ✔   |   ✔   |    ✔     |     ✘     |    ✔    |     ✘     |    ✔    |
-
-1. 系統管理員（Admin）  
-> 所有支付交易記錄
-```sql
-CREATE VIEW admin_payments_view AS
-SELECT * FROM Payments;
-```
-
-📌 用途：支付全流程監控、異常處理 
-
-2. 賣家（Seller）  
-> 關聯訂單支付狀態
-```sql
-CREATE VIEW seller_payments_view AS
-SELECT payment_id, order_id, payment_method, payment_status, amount, payment_date
-FROM Payments;
-```
-📌 用途：銷售款項確認、財務對賬 
-
-3. 顧客（Customer）  
-> 個人支付記錄
-```sql
-CREATE VIEW customer_payments_view AS
-SELECT p.payment_id, p.order_id, p.payment_method, p.payment_status, p.amount, p.payment_date
-FROM Payments p
-JOIN Orders o ON p.order_id = o.order_id
-WHERE o.customer_name = CURRENT_USER();
-```
-📌 用途：支付憑證查詢、退款申請 
-
-4. 財務人員（Finance）  
-> 完整支付財務資料
-```sql
-CREATE VIEW finance_payments_view AS
-SELECT * FROM Payments;
-```
-📌 用途：賬務處理、銀行對賬、報表生成 
-
-5. 客服人員（Support）  
-> 客戶支付查詢介面
-```sql
-CREATE VIEW support_payments_view AS
-SELECT payment_id, order_id, payment_method, payment_status, amount, payment_date
-FROM Payments;
-```
-📌 用途：支付問題排查、退款處理 
 
 ### `Returns_Refunds` 欄位可視權限表
 | 欄位            | Admin | Seller | Customer | Warehouse | Finance | Marketing | Support |
@@ -878,7 +708,7 @@ FROM Payments;
 > 所有退貨退款記錄
 ```sql
 CREATE VIEW admin_returns_view AS
-SELECT * FROM Returns_Refunds;
+SELECT * FROM returns_refunds;
 ```
 📌 用途：退貨率分析、流程優化 
 
@@ -887,7 +717,7 @@ SELECT * FROM Returns_Refunds;
 ```sql
 CREATE VIEW seller_returns_view AS
 SELECT return_id, order_id, product_id, reason, status, refund_amount, created_at
-FROM Returns_Refunds;
+FROM returns_refunds;
 ```
 📌 用途：退貨審核、庫存恢復 
 
@@ -897,7 +727,7 @@ FROM Returns_Refunds;
 CREATE VIEW customer_returns_view AS
 SELECT rr.return_id, rr.order_id, rr.product_id, rr.reason, rr.status, rr.refund_amount, rr.created_at
 FROM Returns_Refunds rr
-JOIN Orders o ON rr.order_id = o.order_id
+JOIN orders o ON rr.order_id = o.order_id
 WHERE o.customer_name = CURRENT_USER();
 ```
 📌 用途：退貨進度查詢、退款追蹤 
@@ -907,7 +737,7 @@ WHERE o.customer_name = CURRENT_USER();
 ```sql
 CREATE VIEW finance_returns_view AS
 SELECT return_id, order_id, product_id, status, refund_amount, created_at
-FROM Returns_Refunds;
+FROM returns_refunds;
 ```
 📌 用途：退款處理、賬務調整 
 
@@ -915,7 +745,7 @@ FROM Returns_Refunds;
 > 退貨退款全資訊
 ```sql
 CREATE VIEW support_returns_view AS
-SELECT * FROM Returns_Refunds;
+SELECT * FROM returns_refunds;
 ```
 📌 用途：退貨流程處理、客戶溝通 
 
@@ -936,7 +766,7 @@ SELECT * FROM Returns_Refunds;
 > 完整銷售分析數據
 ```sql
 CREATE VIEW admin_sales_analysis_view AS
-SELECT * FROM Sales_Analysis;
+SELECT * FROM sales_analysis;
 ```
 📌 用途：業務決策支持、績效評估 
 
@@ -945,7 +775,7 @@ SELECT * FROM Sales_Analysis;
 ```sql
 CREATE VIEW seller_sales_analysis_view AS
 SELECT record_id, date, product_id, category_id, total_sales, revenue, average_price
-FROM Sales_Analysis;
+FROM sales_analysis;
 ```
 📌 用途：銷售策略調整、商品優化 
 
@@ -953,7 +783,7 @@ FROM Sales_Analysis;
 > 銷售趨勢分析數據
 ```sql
 CREATE VIEW marketing_sales_analysis_view AS
-SELECT * FROM Sales_Analysis;
+SELECT * FROM sales_analysis;
 ```
 📌 用途：促銷活動規劃、市場定位 
 
@@ -982,7 +812,7 @@ SELECT * FROM Inventory_Analytics;
 ```sql
 CREATE VIEW seller_inventory_analytics_view AS
 SELECT record_id, date, warehouse_id, product_id, starting_stock, ending_stock, sold_units, received_units
-FROM Inventory_Analytics;
+FROM inventory_analytics;
 ```
 📌 用途：庫存健康度監測、補貨預測 
 
@@ -990,7 +820,7 @@ FROM Inventory_Analytics;
 > 庫存操作效能數據
 ```sql
 CREATE VIEW warehouse_inventory_analytics_view AS
-SELECT * FROM Inventory_Analytics;
+SELECT * FROM inventory_analytics;
 ```
 📌 用途：倉儲效率優化、作業排程 
 
@@ -999,7 +829,7 @@ SELECT * FROM Inventory_Analytics;
 ```sql
 CREATE VIEW marketing_inventory_analytics_view AS
 SELECT record_id, date, warehouse_id, product_id, sold_units, received_units
-FROM Inventory_Analytics;
+FROM inventory_analytics;
 ```
 📌 用途：促銷商品選擇、清倉規劃 
 
@@ -1016,7 +846,7 @@ FROM Inventory_Analytics;
 > 完整轉換漏斗數據
 ```sql
 CREATE VIEW admin_conversion_stats_view AS
-SELECT * FROM Order_Conversion_Stats;
+SELECT * FROM order_conversion_stats;
 ```
 📌 用途：網站效能評估、業務健康度 
 
@@ -1024,7 +854,7 @@ SELECT * FROM Order_Conversion_Stats;
 > 訂單轉換率趨勢
 ```sql
 CREATE VIEW marketing_conversion_stats_view AS
-SELECT * FROM Order_Conversion_Stats;
+SELECT * FROM order_conversion_stats;
 ```
 📌 用途：廣告投放優化、用戶體驗改進 
 
@@ -1043,7 +873,7 @@ SELECT * FROM Order_Conversion_Stats;
 > 物流全維度效能數據
 ```sql
 CREATE VIEW admin_shipment_performance_view AS
-SELECT * FROM Shipment_Performance;
+SELECT * FROM shipment_performance;
 ```
 📌 用途：物流商評估、配送策略 
 
@@ -1052,7 +882,7 @@ SELECT * FROM Shipment_Performance;
 ```sql
 CREATE VIEW warehouse_shipment_performance_view AS
 SELECT record_id, date, carrier, total_shipments, on_time_deliveries, late_deliveries, average_delivery_time
-FROM Shipment_Performance;
+FROM shipment_performance;
 ```
 📌 用途：出庫流程優化、物流商協調 
 
@@ -1061,7 +891,7 @@ FROM Shipment_Performance;
 ```sql
 CREATE VIEW marketing_shipment_performance_view AS
 SELECT record_id, date, carrier, total_shipments, on_time_deliveries, late_deliveries
-FROM Shipment_Performance;
+FROM shipment_performance;
 ```
 📌 用途：服務承諾設計、客戶溝通 
 
@@ -1080,7 +910,7 @@ FROM Shipment_Performance;
 > 完整客戶反饋數據
 ```sql
 CREATE VIEW admin_feedback_stats_view AS
-SELECT * FROM Customer_Feedback_Stats;
+SELECT * FROM customer_feedback_stats;
 ```
 📌 用途：服務品質監控、全面改進 
 
@@ -1089,7 +919,7 @@ SELECT * FROM Customer_Feedback_Stats;
 ```sql
 CREATE VIEW seller_feedback_stats_view AS
 SELECT record_id, date, product_id, total_reviews, average_rating, positive_reviews, negative_reviews
-FROM Customer_Feedback_Stats;
+FROM customer_feedback_stats;
 ```
 📌 用途：商品改進、評價管理 
 
@@ -1097,7 +927,7 @@ FROM Customer_Feedback_Stats;
 > 客戶體驗分析數據
 ```sql
 CREATE VIEW marketing_feedback_stats_view AS
-SELECT * FROM Customer_Feedback_Stats;
+SELECT * FROM customer_feedback_stats;
 ```
 📌 用途：品牌形象管理、忠誠度計劃 
 
@@ -1106,7 +936,7 @@ SELECT * FROM Customer_Feedback_Stats;
 ```sql
 CREATE VIEW support_feedback_stats_view AS
 SELECT record_id, date, product_id, total_reviews, average_rating
-FROM Customer_Feedback_Stats;
+FROM customer_feedback_stats;
 ```
 📌 用途：服務品質提升、客訴預防 
 
