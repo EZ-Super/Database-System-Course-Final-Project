@@ -96,6 +96,8 @@ FROM membership_levels;
 ```
 📌 用途：客服說明「您還差 XX 點就升等」等功能
 
+![image](https://github.com/user-attachments/assets/31618129-6fad-4ded-b82e-399a9f10f567)
+
 
 ## users
 
@@ -123,6 +125,8 @@ FROM users;
 ```
 📌 用途：完整帳號管理、稽核與驗證
 
+![image](https://github.com/user-attachments/assets/3d40d66b-1a97-48c6-be4c-4003a5116777)
+
 
 2. 賣家（Seller）
 > 用於查看顧客的聯絡方式與收貨資訊，以處理訂單出貨
@@ -133,6 +137,9 @@ FROM users;
 ```
 📌 用途：顧客出貨資訊、會員等級追蹤
 
+![image](https://github.com/user-attachments/assets/379a5063-45b8-4395-b054-26e25f181611)
+
+
 3. 顧客（Customer）
 > 用於顧客查看個人資料
 ```sql
@@ -141,6 +148,8 @@ SELECT username, email, phone, registration_date, membership_level_id, shipping_
 FROM users;
 ```
 📌 用途：顧客個資查詢與修改介面
+
+![image](https://github.com/user-attachments/assets/3839a0de-7d0e-4c7d-8f9b-d97c7aa322a6)
 
 4. 倉儲人員（Warehouse）
 > 無使用者資訊存取需求
@@ -155,6 +164,8 @@ FROM users;
 ```
 📌 用途：帳務聯繫與帳單寄送
 
+![image](https://github.com/user-attachments/assets/88e1fd18-1c68-41c1-8ff9-91a020926ec8)
+
 6. 行銷/營運（Marketing）
 > 分析會員活躍度與聯絡管道
 ```sql
@@ -164,6 +175,9 @@ FROM users;
 ```
 📌 用途：會員成長與行銷策略追蹤
 
+![image](https://github.com/user-attachments/assets/4df7f737-daac-4d5e-bdf9-468e9ea96b90)
+
+
 7. 客服人員（Support）
 > 查看顧客聯絡方式與會員等級以協助處理問題
 ```sql
@@ -172,6 +186,8 @@ SELECT user_id, username, email, phone, registration_date, is_active, membership
 FROM users;
 ```
 📌 用途：協助顧客查詢等級、聯絡方式與註冊狀態
+
+![image](https://github.com/user-attachments/assets/80aa2a52-501d-4ce1-906e-b414a5fdaa5e)
 
 ### `sellers` 欄位可視權限表
 
@@ -194,6 +210,8 @@ FROM sellers;
 ```
 📌 用途：商店與賣家帳號管理、審核與稽核用途
 
+![image](https://github.com/user-attachments/assets/32dd74cb-26b9-48d1-8ed9-a6a241dbabb5)
+
 2. 賣家（Seller）  
 > 管理自己商店資訊  
 ```sql
@@ -203,6 +221,8 @@ FROM sellers;
 ```
 📌 用途：賣家查詢與維護自己的店家資訊與帳戶
 
+![image](https://github.com/user-attachments/assets/b726b406-e701-4bdb-82c4-9e7e6edd05fe)
+
 3. 顧客（Customer）  
 > 僅顯示店家名稱與簡介，用於商城展示  
 ```sql
@@ -211,6 +231,9 @@ SELECT store_name, store_description
 FROM sellers;
 ```
 📌 用途：商城店家頁面展示資訊
+
+![image](https://github.com/user-attachments/assets/c2f72627-63b4-4d9a-a2b4-8d3c7f021d66)
+
 
 4. 倉儲人員（Warehouse）  
 > 無賣家資料存取需求  
