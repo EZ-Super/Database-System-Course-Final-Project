@@ -32,6 +32,7 @@ SELECT *
 FROM membership_levels;
 ```
 📌 用途：會員等級管理與稽核
+
 ![image](https://github.com/user-attachments/assets/4e12792a-4674-4f20-9f3b-4ab1534b229b)
 
 2. 賣家（Seller）  
@@ -42,6 +43,7 @@ SELECT level_id, level_name, required_points, discount_rate
 FROM membership_levels;
 ```
 📌 用途：出貨/行銷依據的會員等級分析
+
 ![image](https://github.com/user-attachments/assets/bfc273d6-d198-40b6-846c-499dbaf15c6f)
 
 
@@ -53,6 +55,7 @@ SELECT level_id, level_name, required_points, discount_rate
 FROM membership_levels;
 ```
 📌 用途：顧客等級查詢、升等動機引導
+
 ![image](https://github.com/user-attachments/assets/400b5958-e82c-4587-b55b-56a2f1abcd5c)
 
 
@@ -68,6 +71,7 @@ SELECT level_name,discount_rate
 FROM membership_levels;
 ```
 📌 用途：折扣率報表與銷售預估
+
 ![image](https://github.com/user-attachments/assets/c4bd5250-ed7a-468b-8ab5-858e1511511a)
 
 
@@ -79,6 +83,7 @@ SELECT level_id, level_name, required_points, discount_rate, created_at, updated
 FROM membership_levels;
 ```
 📌 用途：等級制度設計與會員經營分析
+
 ![image](https://github.com/user-attachments/assets/caa263fb-0b1b-47d5-8d26-39644684e4c4)
 
 
