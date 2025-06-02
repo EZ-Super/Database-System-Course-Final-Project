@@ -31,10 +31,8 @@ CREATE VIEW admin_membership_levels_view AS
 SELECT *
 FROM membership_levels;
 ```
-![image](https://github.com/user-attachments/assets/4e12792a-4674-4f20-9f3b-4ab1534b229b)
-
-
 📌 用途：會員等級管理與稽核
+![image](https://github.com/user-attachments/assets/4e12792a-4674-4f20-9f3b-4ab1534b229b)
 
 2. 賣家（Seller）  
 > 了解顧客的會員等級與對應優惠  
@@ -44,6 +42,8 @@ SELECT level_id, level_name, required_points, discount_rate
 FROM membership_levels;
 ```
 📌 用途：出貨/行銷依據的會員等級分析
+![image](https://github.com/user-attachments/assets/bfc273d6-d198-40b6-846c-499dbaf15c6f)
+
 
 3. 顧客（Customer）  
 > 顧客查詢自身等級與升級條件、優惠資訊  
@@ -53,6 +53,8 @@ SELECT level_id, level_name, required_points, discount_rate
 FROM membership_levels;
 ```
 📌 用途：顧客等級查詢、升等動機引導
+![image](https://github.com/user-attachments/assets/400b5958-e82c-4587-b55b-56a2f1abcd5c)
+
 
 4. 倉儲人員（Warehouse）  
 > 無會員等級存取需求  
@@ -66,6 +68,8 @@ SELECT level_name,discount_rate
 FROM membership_levels;
 ```
 📌 用途：折扣率報表與銷售預估
+![image](https://github.com/user-attachments/assets/c4bd5250-ed7a-468b-8ab5-858e1511511a)
+
 
 6. 行銷/營運（Marketing）  
 > 用於活動規劃與會員推升策略分析  
@@ -75,6 +79,8 @@ SELECT level_id, level_name, required_points, discount_rate, created_at, updated
 FROM membership_levels;
 ```
 📌 用途：等級制度設計與會員經營分析
+![image](https://github.com/user-attachments/assets/caa263fb-0b1b-47d5-8d26-39644684e4c4)
+
 
 7. 客服人員（Support）  
 > 需要查詢等級名稱與點數門檻，幫助顧客了解升級條件  
