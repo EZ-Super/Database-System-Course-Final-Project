@@ -397,6 +397,9 @@ SELECT * FROM messages;
 ```
 📌 用途：通訊安全監控與爭議處理 
 
+![image](https://github.com/user-attachments/assets/e41873c0-e356-4780-a8a3-497fdd558b9c)
+
+
 3. 顧客（Customer）  
 > 個人收發訊息記錄
 ```sql
@@ -405,6 +408,9 @@ SELECT message_id, sender_id, receiver_id, message_content, send_time, is_read
 FROM messages
 WHERE sender_id = CURRENT_USER() OR receiver_id = CURRENT_USER();
 ```
+![image](https://github.com/user-attachments/assets/196eabf1-7aa3-4ea1-a1a0-0529a375023d)
+
+
 📌 用途：買賣雙方溝通歷史查詢 
 
 7. 客服人員（Support）  
@@ -415,6 +421,9 @@ SELECT message_id, sender_id, receiver_id, send_time, is_read
 FROM messages;
 ```
 📌 用途：糾紛調解與通訊異常處理 
+
+![image](https://github.com/user-attachments/assets/aeab6f20-83bd-4dea-b462-abd05dad0bcb)
+
 
 ### `Notifications` 欄位可視權限表
 | 欄位            | Admin | Seller | Customer | Warehouse | Finance | Marketing | Support |
@@ -437,15 +446,21 @@ SELECT * FROM notifications;
 ```
 📌 用途：通知系統效能監控與分析 
 
+![image](https://github.com/user-attachments/assets/16c77dd9-0aff-4943-9868-bd2220677d4c)
+
+
 3. 顧客（Customer）  
 > 個人系統通知列表
 ```sql
-CREATE VIEW customer_notifications_view AS
+CREATE OR REPLACE VIEW customer_notifications_view AS
 SELECT notification_id, notification_type, subject, 
-       message, sent_at, is_read, related_entity, related_entity_id
+       message, sent_at, is_read, related_entity, related_entity_id,user_id
 FROM notifications
 WHERE user_id = CURRENT_USER();
 ```
+![image](https://github.com/user-attachments/assets/177bc196-b2b5-4ac5-a319-73df0b162a15)
+
+
 📌 用途：訂單狀態更新與活動通知查閱 
 
 6. 行銷/營運（Marketing）  
@@ -458,6 +473,8 @@ FROM notifications;
 ```
 📌 用途：用戶觸達效果分析與優化 
 
+![image](https://github.com/user-attachments/assets/815ed792-70e4-4afd-8522-9b849aecd0ec)
+
 7. 客服人員（Support）  
 > 客戶通知記錄
 ```sql
@@ -467,6 +484,9 @@ SELECT notification_id, user_id, notification_type,
 FROM notifications;
 ```
 📌 用途：通知補發與客戶查詢處理 
+
+![image](https://github.com/user-attachments/assets/e439822a-2280-471d-be60-34063c85834e)
+
 
 ## 倉庫管理
 
@@ -489,6 +509,9 @@ SELECT * FROM warehouses;
 ```
 📌 用途：系統後台進行倉庫全面管理與稽核
 
+![image](https://github.com/user-attachments/assets/63a3d32a-e350-401e-a0fc-a9198c6ec383)
+
+
 2. 倉儲人員（Warehouse）
 >倉庫基本運營資訊
 ```spl
@@ -496,6 +519,9 @@ CREATE VIEW warehouse_warehouses_view AS
 SELECT * FROM warehouses;
 ```
 📌 用途：日常倉庫管理與維護作業
+
+![image](https://github.com/user-attachments/assets/8ef68b4b-e4eb-4535-9cea-d6f68f38af13)
+
 
 ### `Inventory` 欄位可視權限表
 | 欄位            | Admin | Seller | Customer | Warehouse | Finance | Marketing | Support |
