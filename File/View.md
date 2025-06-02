@@ -291,6 +291,8 @@ SELECT * FROM points;
 ```
 📌 用途：點數系統全面監控與稽核 
 
+![image](https://github.com/user-attachments/assets/cfe3a182-5f1c-4212-b741-0092deac9b4f)
+
 3. 顧客（Customer）  
 > 個人點數獲取與使用記錄
 ```sql
@@ -300,6 +302,10 @@ FROM points
 WHERE user_id = CURRENT_USER();
 ```
 📌 用途：點數餘額查詢與兌換追蹤 
+* 以user 2 為例
+* 
+![image](https://github.com/user-attachments/assets/5eda139e-b3ee-4baa-8db3-5e5ec7b93c4d)
+
 
 5. 財務人員（Finance）  
 > 點數發放與使用記錄
@@ -310,6 +316,8 @@ FROM points;
 ```
 📌 用途：點數資產負債核算 
 
+![image](https://github.com/user-attachments/assets/ca0edec8-f920-4a4f-96f7-687da9972b66)
+
 7. 客服人員（Support）  
 > 客戶點數交易記錄
 ```sql
@@ -318,6 +326,8 @@ SELECT point_id, user_id, points_earned, transaction_date, description
 FROM points;
 ```
 📌 用途：點數問題排查與補償處理 
+
+![image](https://github.com/user-attachments/assets/7f45d41d-53c9-4c96-9d38-5ffde2363641)
 
 
 ### `Coupons` 欄位可視權限表
@@ -340,6 +350,9 @@ SELECT * FROM coupons;
 ```
 📌 用途：優惠活動全面管理與分析 
 
+![image](https://github.com/user-attachments/assets/14adf1b8-6e79-4df5-893a-bfe080466ca2)
+
+
 6. 行銷/營運（Marketing）  
 > 優惠券活動數據
 ```sql
@@ -350,6 +363,9 @@ FROM coupons;
 ```
 📌 用途：促銷活動規劃與效果追蹤 
 
+![image](https://github.com/user-attachments/assets/a1191345-ab71-4702-a94f-983975306db5)
+
+
 3. 顧客（Customer）  
 > 當前有效優惠券列表
 ```sql
@@ -359,6 +375,9 @@ FROM coupons
 WHERE is_active = TRUE AND (expiry_date IS NULL OR expiry_date >= CURDATE());
 ```
 📌 用途：優惠券查詢與結帳使用 
+
+![image](https://github.com/user-attachments/assets/30876a08-3213-43e6-a259-f212313294bb)
+
 
 ### `Messages` 欄位可視權限表
 | 欄位            | Admin | Seller | Customer | Warehouse | Finance | Marketing | Support |
