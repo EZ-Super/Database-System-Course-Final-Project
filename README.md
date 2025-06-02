@@ -51,7 +51,7 @@
 |Student Name|負責領域|
 |:---:|:----:|
 |楊峻朋|應用情境與使用案例、系統需求說明、完整性限制、SQL語法、完整DB Schema與說明、View、報告文件撰寫|
-|謝延偵|ER Diagram及詳細說明、SQL語法、報告文件撰寫、完整DB Schema與說明|
+|謝延偵|應用情境與使用案例、ER Diagram及詳細說明、SQL語法、報告文件撰寫|
 |鍾文瑀|SQL語法、View|
 |李維誠|SQL語法|
 
