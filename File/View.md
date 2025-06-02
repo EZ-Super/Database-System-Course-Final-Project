@@ -539,6 +539,7 @@ SELECT * FROM warehouses;
 CREATE VIEW admin_inventory_view AS
 SELECT * FROM inventory;
 ```
+![image](https://github.com/user-attachments/assets/2875d759-2e47-420a-9773-7203ddfd8f7b)
 
 📌 用途：全局庫存分析與異常監測
 
@@ -550,6 +551,9 @@ SELECT inventory_id, warehouse_id, product_id, stock_quantity, reorder_level, la
 FROM inventory;
 ```
 
+![image](https://github.com/user-attachments/assets/3dcb4165-5c82-413c-974d-9cd74fa82bef)
+
+
 📌 用途：商品備貨與補貨決策依據
 
 3. 倉儲人員（Warehouse）
@@ -558,7 +562,11 @@ FROM inventory;
 CREATE VIEW warehouse_inventory_view AS
 SELECT * FROM inventory;
 ```
+
 📌 用途：每日盤點與庫位管理
+
+![image](https://github.com/user-attachments/assets/aafec53c-bf5a-46d0-9cd3-daa6404bf09d)
+
 
 ### `Suppliers` 欄位可視權限表
 | 欄位            | Admin | Seller | Customer | Warehouse | Finance | Marketing | Support |
@@ -578,13 +586,18 @@ SELECT * FROM suppliers;
 ```
 📌 用途：供應鏈全生命周期管理
 
+![image](https://github.com/user-attachments/assets/ada18f49-03e8-48f8-8641-1420d56660bc)
+
+
 2. 賣家（Seller）
 >合作供應商基本資料
 ```sql
 CREATE VIEW seller_suppliers_view AS
 SELECT supplier_id, supplier_name, contact_info, country, rating, created_at
-FROM Suppliers;
+FROM suppliers;
 ```
+![image](https://github.com/user-attachments/assets/bf8c5a78-8d7e-4fcd-81f0-e990cab005b9)
+
 
 📌 用途：採購決策與供應商評估
 
@@ -595,6 +608,9 @@ CREATE VIEW warehouse_suppliers_view AS
 SELECT supplier_id, supplier_name, contact_info, country, rating
 FROM suppliers;
 ```
+
+![image](https://github.com/user-attachments/assets/d583817a-80a1-4ad9-bf32-231c2f2c518f)
+
 
 📌 用途：到貨異常時緊急聯絡
 
@@ -617,6 +633,9 @@ SELECT * FROM inbound_shipments;
 ```
 📌 用途：入庫流程審計與分析
 
+![image](https://github.com/user-attachments/assets/cc24f134-b332-4c2c-88b5-2d8f5e79c672)
+
+
 2. 賣家（Seller）  
 > 商品採購入庫狀態
 ```sql
@@ -627,12 +646,17 @@ FROM inbound_shipments;
 
 📌 用途：追蹤採購單到貨情況
 
+![image](https://github.com/user-attachments/assets/c4392cf2-e53b-41b4-bf7a-748d4ebbbc45)
+
+
 3. 倉儲人員（Warehouse）  
 > 入庫作業明細
 ```sql
 CREATE VIEW warehouse_inbound_view AS
 SELECT * FROM inbound_shipments;
 ```
+![image](https://github.com/user-attachments/assets/66a8362e-c79f-4d80-b818-aea5e2ddf6b7)
+
 
 📌 用途：實際收貨與驗收入庫
 
@@ -654,6 +678,9 @@ CREATE VIEW admin_outbound_view AS
 SELECT * FROM outbound_shipments;
 ```
 
+![image](https://github.com/user-attachments/assets/9a64db8b-bf15-4120-a3c0-e93a428480f7)
+
+
 📌 用途：出庫異常分析與追溯
 
 2. 賣家（Seller）  
@@ -663,6 +690,9 @@ CREATE VIEW seller_outbound_view AS
 SELECT outbound_id, order_id, warehouse_id, product_id, quantity, dispatch_date, status
 FROM outbound_shipments;
 ```
+
+![image](https://github.com/user-attachments/assets/d3505bd4-9f1f-4d3e-aa2e-d767246125fd)
+
 
 📌 用途：訂單履約進度追蹤
 
@@ -674,6 +704,9 @@ SELECT * FROM outbound_shipments;
 ```
 📌 用途：實際揀貨與出庫作業
 
+![image](https://github.com/user-attachments/assets/d1bfc204-3721-49e8-b7b2-324c5b7db3fe)
+
+
 4. 客服人員（Support）  
 >客戶出庫查詢介面
 ```sql
@@ -683,6 +716,9 @@ FROM outbound_shipments;
 ```
 
 📌 用途：解答客戶物流進度問題
+
+![image](https://github.com/user-attachments/assets/4cd9a1ea-a64c-4532-9f9b-94c605f21abe)
+
 
 
 
@@ -709,6 +745,9 @@ SELECT * FROM shipments;
 
 📌 用途：物流效能分析、運費結算 
 
+![image](https://github.com/user-attachments/assets/9c8f3e14-76f9-408a-9679-c61045ee7dd4)
+
+
 2. 賣家（Seller）  
 > 賣家相關物流資訊
 ```sql
@@ -719,16 +758,21 @@ FROM shipments;
 
 📌 用途：物流進度追蹤、客戶通知 
 
+![image](https://github.com/user-attachments/assets/69b14d6c-c60a-42ec-be04-3f0a84a320ba)
+
+
 3. 顧客（Customer）  
 > 個人訂單物流狀態
 ```sql
 CREATE VIEW customer_shipments_view AS
 SELECT s.shipment_id, s.order_id, s.tracking_number, s.shipment_status, 
-       s.estimated_delivery, s.actual_delivery, s.carrier
+       s.estimated_delivery, s.actual_delivery, s.carrier,o.customer_name
 FROM shipments s
-JOIN Orders o ON s.order_id = o.order_id
-WHERE o.customer_name = CURRENT_USER();
+JOIN orders o ON s.order_id = o.order_id
+WHERE o.customer_id = CURRENT_USER();
 ```
+![image](https://github.com/user-attachments/assets/7127aced-1a17-4c9c-83a7-9b569652f634)
+
 
 📌 用途：包裹追蹤、收貨準備 
 
@@ -740,6 +784,9 @@ SELECT shipment_id, order_id, tracking_number, shipment_status, carrier
 FROM shipments;
 ```
 
+![image](https://github.com/user-attachments/assets/2e0a2577-f028-4315-ad15-b8d8cb1d2076)
+
+
 📌 用途：物流交接、運單打印 
 
 5. 客服人員（Support）  
@@ -750,6 +797,9 @@ SELECT shipment_id, order_id, tracking_number, shipment_status,
        estimated_delivery, actual_delivery, carrier
 FROM shipments;
 ```
+
+![image](https://github.com/user-attachments/assets/5c56b118-b637-4390-8126-fe520bd49900)
+
 
 📌 用途：物流異常處理、客戶諮詢 
 
@@ -770,6 +820,9 @@ FROM shipments;
 CREATE VIEW admin_transfers_view AS
 SELECT * FROM warehouse_transfers;
 ```
+
+![image](https://github.com/user-attachments/assets/a60b5e04-82e5-4519-9d41-505ff9991778)
+
 
 📌 用途：庫存調度分析、倉庫效能評估 
 
