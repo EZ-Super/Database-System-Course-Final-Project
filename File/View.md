@@ -31,6 +31,8 @@ CREATE VIEW admin_membership_levels_view AS
 SELECT *
 FROM membership_levels;
 ```
+![image](https://github.com/user-attachments/assets/4e12792a-4674-4f20-9f3b-4ab1534b229b)
+
 
 📌 用途：會員等級管理與稽核
 
