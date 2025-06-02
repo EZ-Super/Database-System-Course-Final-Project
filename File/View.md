@@ -832,64 +832,9 @@ SELECT * FROM warehouse_transfers;
 CREATE VIEW warehouse_transfers_view AS
 SELECT * FROM warehouse_transfers;
 ```
+![image](https://github.com/user-attachments/assets/d21ff1bf-7d0e-4e2f-b3e8-ef64e8a2a50b)
 
 
-
-### `Returns_Refunds` 欄位可視權限表
-| 欄位            | Admin | Seller | Customer | Warehouse | Finance | Marketing | Support |
-|-----------------|:-----:|:------:|:--------:|:---------:|:-------:|:---------:|:-------:|
-| return_id       |  ✔   |   ✔   |    ✔     |     ✘     |    ✔    |     ✘     |    ✔    |
-| order_id        |  ✔   |   ✔   |    ✔     |     ✘     |    ✔    |     ✘     |    ✔    |
-| product_id      |  ✔   |   ✔   |    ✔     |     ✘     |    ✔    |     ✘     |    ✔    |
-| reason         |  ✔   |   ✔   |    ✔     |     ✘     |    ✔    |     ✘     |    ✔    |
-| status         |  ✔   |   ✔   |    ✔     |     ✘     |    ✔    |     ✘     |    ✔    |
-| refund_amount  |  ✔   |   ✔   |    ✔     |     ✘     |    ✔    |     ✘     |    ✔    |
-| created_at     |  ✔   |   ✔   |    ✔     |     ✘     |    ✔    |     ✘     |    ✔    |
-
-1. 系統管理員（Admin）  
-> 所有退貨退款記錄
-```sql
-CREATE VIEW admin_returns_view AS
-SELECT * FROM returns_refunds;
-```
-📌 用途：退貨率分析、流程優化 
-
-2. 賣家（Seller）  
-> 關聯商品退貨申請
-```sql
-CREATE VIEW seller_returns_view AS
-SELECT return_id, order_id, product_id, reason, status, refund_amount, created_at
-FROM returns_refunds;
-```
-📌 用途：退貨審核、庫存恢復 
-
-3. 顧客（Customer）  
-> 個人退貨退款記錄
-```sql
-CREATE VIEW customer_returns_view AS
-SELECT rr.return_id, rr.order_id, rr.product_id, rr.reason, rr.status, rr.refund_amount, rr.created_at
-FROM Returns_Refunds rr
-JOIN orders o ON rr.order_id = o.order_id
-WHERE o.customer_name = CURRENT_USER();
-```
-📌 用途：退貨進度查詢、退款追蹤 
-
-4. 財務人員（Finance）  
-> 退款財務資料
-```sql
-CREATE VIEW finance_returns_view AS
-SELECT return_id, order_id, product_id, status, refund_amount, created_at
-FROM returns_refunds;
-```
-📌 用途：退款處理、賬務調整 
-
-5. 客服人員（Support）  
-> 退貨退款全資訊
-```sql
-CREATE VIEW support_returns_view AS
-SELECT * FROM returns_refunds;
-```
-📌 用途：退貨流程處理、客戶溝通 
 
 ## 數據分析
 
@@ -912,6 +857,8 @@ SELECT * FROM sales_analysis;
 ```
 📌 用途：業務決策支持、績效評估 
 
+![image](https://github.com/user-attachments/assets/8408af8d-4791-413b-995b-e18e1f56db94)
+
 2. 賣家（Seller）  
 > 賣家銷售績效數據
 ```sql
@@ -921,6 +868,9 @@ FROM sales_analysis;
 ```
 📌 用途：銷售策略調整、商品優化 
 
+![image](https://github.com/user-attachments/assets/c74fd2b2-07b9-44dc-900a-3f6344e11ce1)
+
+
 3. 行銷/營運（Marketing）  
 > 銷售趨勢分析數據
 ```sql
@@ -928,6 +878,9 @@ CREATE VIEW marketing_sales_analysis_view AS
 SELECT * FROM sales_analysis;
 ```
 📌 用途：促銷活動規劃、市場定位 
+
+![image](https://github.com/user-attachments/assets/db4c3172-8998-4877-98c1-bf4f8a84d722)
+
 
 ### `Inventory_Analytics` 欄位可視權限表
 | 欄位            | Admin | Seller | Customer | Warehouse | Finance | Marketing | Support |
@@ -945,9 +898,12 @@ SELECT * FROM sales_analysis;
 > 完整庫存流動數據
 ```sql
 CREATE VIEW admin_inventory_analytics_view AS
-SELECT * FROM Inventory_Analytics;
+SELECT * FROM inventory_analytics;
 ```
 📌 用途：庫存周轉分析、採購策略 
+
+![image](https://github.com/user-attachments/assets/facb037c-75fb-41c0-a05b-795e0a42c67a)
+
 
 2. 賣家（Seller）  
 > 商品庫存流動趨勢
@@ -958,6 +914,9 @@ FROM inventory_analytics;
 ```
 📌 用途：庫存健康度監測、補貨預測 
 
+![image](https://github.com/user-attachments/assets/2742b941-da33-4a08-b80b-af37a64e82de)
+
+
 3. 倉儲人員（Warehouse）  
 > 庫存操作效能數據
 ```sql
@@ -965,6 +924,9 @@ CREATE VIEW warehouse_inventory_analytics_view AS
 SELECT * FROM inventory_analytics;
 ```
 📌 用途：倉儲效率優化、作業排程 
+
+![image](https://github.com/user-attachments/assets/7740ed91-3898-4626-bcfa-b6540af9eb84)
+
 
 4. 行銷/營運（Marketing）  
 > 商品流動關聯數據
@@ -974,6 +936,9 @@ SELECT record_id, date, warehouse_id, product_id, sold_units, received_units
 FROM inventory_analytics;
 ```
 📌 用途：促銷商品選擇、清倉規劃 
+
+![image](https://github.com/user-attachments/assets/28ed8a22-955b-42d1-96b1-64cb90d4f507)
+
 
 ### `Order_Conversion_Stats` 欄位可視權限表
 | 欄位            | Admin | Seller | Customer | Warehouse | Finance | Marketing | Support |
@@ -992,6 +957,9 @@ SELECT * FROM order_conversion_stats;
 ```
 📌 用途：網站效能評估、業務健康度 
 
+![image](https://github.com/user-attachments/assets/e1469d50-7d38-46ca-aeca-517bced1c074)
+
+
 2. 行銷/營運（Marketing）  
 > 訂單轉換率趨勢
 ```sql
@@ -999,6 +967,9 @@ CREATE VIEW marketing_conversion_stats_view AS
 SELECT * FROM order_conversion_stats;
 ```
 📌 用途：廣告投放優化、用戶體驗改進 
+
+![image](https://github.com/user-attachments/assets/f503882d-e320-4a27-9843-bb3995987996)
+
 
 ### `Shipment_Performance` 欄位可視權限表
 | 欄位                    | Admin | Seller | Customer | Warehouse | Finance | Marketing | Support |
@@ -1019,6 +990,9 @@ SELECT * FROM shipment_performance;
 ```
 📌 用途：物流商評估、配送策略 
 
+![image](https://github.com/user-attachments/assets/f90366a4-5fb6-415a-a122-6e6fd997b91c)
+
+
 2. 倉儲人員（Warehouse）  
 > 物流操作效能指標
 ```sql
@@ -1028,6 +1002,9 @@ FROM shipment_performance;
 ```
 📌 用途：出庫流程優化、物流商協調 
 
+![image](https://github.com/user-attachments/assets/fd470bf4-79e7-49bf-8000-9bfe889a3fd3)
+
+
 3. 行銷/營運（Marketing）  
 > 客戶配送體驗數據
 ```sql
@@ -1036,6 +1013,9 @@ SELECT record_id, date, carrier, total_shipments, on_time_deliveries, late_deliv
 FROM shipment_performance;
 ```
 📌 用途：服務承諾設計、客戶溝通 
+
+![image](https://github.com/user-attachments/assets/41b7d5f9-e3cf-454e-ba2f-2a711d7924e2)
+
 
 ### `Customer_Feedback_Stats` 欄位可視權限表
 | 欄位                | Admin | Seller | Customer | Warehouse | Finance | Marketing | Support |
