@@ -248,6 +248,8 @@ FROM sellers;
 ```
 📌 用途：賣家出帳與匯款用途
 
+![image](https://github.com/user-attachments/assets/24f89e5d-467f-458a-8fcd-f5597b93d142)
+
 6. 行銷/營運（Marketing）  
 > 分析店家成長與營運時間分布  
 ```sql
@@ -257,6 +259,9 @@ FROM sellers;
 ```
 📌 用途：商店行銷活動規劃、營運統計與報告
 
+![image](https://github.com/user-attachments/assets/6286145d-ed66-4b1e-9cb4-7f616204749d)
+
+
 7. 客服人員（Support）  
 > 提供店家基本資訊給顧客查詢或處理爭議  
 ```sql
@@ -265,6 +270,9 @@ SELECT store_name, store_description
 FROM sellers;
 ```
 📌 用途：客服查詢店家資訊以協助顧客
+
+![image](https://github.com/user-attachments/assets/72f246db-abe6-4163-8e88-49060ca5ee4e)
+
 
 ### `Points` 欄位可視權限表
 | 欄位            | Admin | Seller | Customer | Warehouse | Finance | Marketing | Support |
