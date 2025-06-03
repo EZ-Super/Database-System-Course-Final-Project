@@ -1385,7 +1385,7 @@ FROM users;
 ### `orders` 欄位可視權限表
 | 欄位            | Admin | Seller | Customer | Warehouse | Finance | Marketing | Support |
 |-----------------|:-----:|:------:|:--------:|:---------:|:-------:|:---------:|:-------:|
-| order_id        |  ✔   |   ✔   |    ✔     |     ✘     |    ✔    |     ✘     |    ✔    |
+| order_id        |  ✔   |   ✔   |    ✔     |    ✔     |    ✔    |     ✘     |    ✔    |
 | customer_id     |  ✔   |   ✔   |    ✔     |     ✘     |    ✔    |     ✘     |    ✔    |
 | order_status    |  ✔   |   ✔   |    ✔     |     ✔     |    ✔    |     ✘     |    ✔    |
 | total_amount    |  ✔   |   ✔   |    ✔     |     ✔     |    ✔    |     ✘     |    ✔    |
@@ -1469,8 +1469,8 @@ FROM orders;
 6.倉儲人員(Warehouse)
 > 訂單倉儲查詢
 ```sql
-CREATE VIEW warehouse_orders_view AS
-SELECT order_status,total_amount,shipping_fee,shipping_id
+CREATE  VIEW warehouse_orders_view AS
+SELECT order_id,order_status,total_amount,shipping_fee,shipping_id
 FROM orders;
 ```
 
