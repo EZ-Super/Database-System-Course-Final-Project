@@ -367,9 +367,122 @@ INSERT INTO login_logs (log_id, user_id, email, login_time, ip_address, user_age
 ```
 
 
+## 倉庫管裡
+* Warehouses 
 
-# Outbound_Shipments 測試資料
+|   warehouse_id | warehouse_name   | location       |   capacity |   manager_id | contact_info            | created_at          |
+|---------------:|:-----------------|:---------------|-----------:|-------------:|:------------------------|:--------------------|
+|              1 | 倉庫1            | 台灣 1 號  |       1815 |          107 | manager1@warehouse.com  | 2025-05-07 00:00:00 |
+|              2 | 倉庫2            | 台灣 2 號  |       4737 |          109 | manager2@warehouse.com  | 2025-01-23 00:00:00 |
+|              3 | 倉庫3            | 台灣 3 號  |       2565 |          110 | manager3@warehouse.com  | 2025-01-31 00:00:00 |
+|              4 | 倉庫4            | 台灣 4 號  |       1967 |          102 | manager4@warehouse.com  | 2025-05-22 00:00:00 |
+|              5 | 倉庫5            | 台灣 5 號  |       2088 |          106 | manager5@warehouse.com  | 2025-03-26 00:00:00 |
+|              6 | 倉庫6            | 台灣 6 號  |       3755 |          103 | manager6@warehouse.com  | 2025-01-02 00:00:00 |
+|              7 | 倉庫7            | 台灣 7 號  |       1688 |          110 | manager7@warehouse.com  | 2025-02-13 00:00:00 |
+|              8 | 倉庫8            | 台灣 8 號  |       1248 |          110 | manager8@warehouse.com  | 2025-02-10 00:00:00 |
+|              9 | 倉庫9            | 台灣 9 號  |       1491 |          105 | manager9@warehouse.com  | 2025-01-17 00:00:00 |
+|             10 | 倉庫10           | 台灣 10 號 |       3980 |          106 | manager10@warehouse.com | 2025-05-27 00:00:00 |
 
+```sql
+
+INSERT INTO `warehouses` (`warehouse_id`, `warehouse_name`, `location`, `capacity`, `manager_id`, `contact_info`, `created_at`) VALUES
+(1, '倉庫1', '台灣 1 號', 1815, 1, 'manager1@warehouse.com', '2025-05-07 00:00:00'),
+(2, '倉庫2', '台灣 2 號', 4737, 2, 'manager2@warehouse.com', '2025-01-23 00:00:00'),
+(3, '倉庫3', '台灣 3 號', 2565, 3, 'manager3@warehouse.com', '2025-01-31 00:00:00'),
+(4, '倉庫4', '台灣 4 號', 1967, 4, 'manager4@warehouse.com', '2025-05-22 00:00:00'),
+(5, '倉庫5', '台灣 5 號', 2088, 5, 'manager5@warehouse.com', '2025-03-26 00:00:00'),
+(6, '倉庫6', '台灣 6 號', 3755, 6, 'manager6@warehouse.com', '2025-01-02 00:00:00'),
+(7, '倉庫7', '台灣 7 號', 1688, 7, 'manager7@warehouse.com', '2025-02-13 00:00:00'),
+(8, '倉庫8', '台灣 8 號', 1248, 8, 'manager8@warehouse.com', '2025-02-10 00:00:00'),
+(9, '倉庫9', '台灣 9 號', 1491, 9, 'manager9@warehouse.com', '2025-01-17 00:00:00'),
+(10, '倉庫10', '台灣 10 號', 3980, 10, 'manager10@warehouse.com', '2025-05-27 00:00:00');
+```
+
+* Inventory
+
+|   inventory_id |   warehouse_id |   product_id |   stock_quantity |   reorder_level | last_updated        |
+|---------------:|---------------:|-------------:|-----------------:|----------------:|:--------------------|
+|              1 |              4 |            1 |              383 |               8 | 2025-05-04 00:00:00 |
+|              2 |              6 |            4 |              326 |              10 | 2025-04-25 00:00:00 |
+|              3 |              6 |            3 |              207 |              10 | 2025-03-16 00:00:00 |
+|              4 |              4 |            7 |              258 |              13 | 2025-04-02 00:00:00 |
+|              5 |              8 |           10 |              298 |               6 | 2025-05-04 00:00:00 |
+|              6 |              2 |            6 |              283 |               9 | 2025-05-07 00:00:00 |
+|              7 |              4 |            5 |              424 |               7 | 2025-01-23 00:00:00 |
+|              8 |              8 |            3 |               28 |               6 | 2025-02-22 00:00:00 |
+|              9 |              1 |            3 |              393 |              18 | 2025-05-25 00:00:00 |
+|             10 |              1 |            3 |              134 |              15 | 2025-04-21 00:00:00 |
+
+```sql
+INSERT INTO `Inventory` (`inventory_id`, `warehouse_id`, `product_id`, `stock_quantity`, `reorder_level`, `last_updated`) VALUES
+(1, 4, 1, 383, 8, '2025-05-04 00:00:00'),
+(2, 6, 4, 326, 10, '2025-04-25 00:00:00'),
+(3, 6, 3, 207, 10, '2025-03-16 00:00:00'),
+(4, 4, 7, 258, 13, '2025-04-02 00:00:00'),
+(5, 8, 10, 298, 6, '2025-05-04 00:00:00'),
+(6, 2, 6, 283, 9, '2025-05-07 00:00:00'),
+(7, 4, 5, 424, 7, '2025-01-23 00:00:00'),
+(8, 8, 3, 28, 6, '2025-02-22 00:00:00'),
+(9, 1, 3, 393, 18, '2025-05-25 00:00:00'),
+(10, 1, 3, 134, 15, '2025-04-21 00:00:00');
+```
+
+* Suppliers
+
+|   supplier_id | supplier_name   | contact_info           | country   |   rating | created_at          |
+|--------------:|:----------------|:-----------------------|:----------|---------:|:--------------------|
+|             1 | 供應商1         | contact1@supplier.com  | 台灣      |        4 | 2025-01-23 00:00:00 |
+|             2 | 供應商2         | contact2@supplier.com  | 台灣      |        2 | 2025-02-02 00:00:00 |
+|             3 | 供應商3         | contact3@supplier.com  | 台灣      |        2 | 2025-03-19 00:00:00 |
+|             4 | 供應商4         | contact4@supplier.com  | 台灣      |        4 | 2025-04-07 00:00:00 |
+|             5 | 供應商5         | contact5@supplier.com  | 台灣      |        1 | 2025-03-03 00:00:00 |
+|             6 | 供應商6         | contact6@supplier.com  | 台灣      |        5 | 2025-04-26 00:00:00 |
+|             7 | 供應商7         | contact7@supplier.com  | 台灣      |        2 | 2025-05-07 00:00:00 |
+|             8 | 供應商8         | contact8@supplier.com  | 台灣      |        4 | 2025-04-09 00:00:00 |
+|             9 | 供應商9         | contact9@supplier.com  | 台灣      |        2 | 2025-05-18 00:00:00 |
+|            10 | 供應商10        | contact10@supplier.com | 台灣      |        3 | 2025-01-28 00:00:00 |
+
+```sql
+INSERT INTO `suppliers` (`supplier_id`, `supplier_name`, `contact_info`, `country`, `rating`, `created_at`) VALUES
+(1, '供應商1', 'contact1@supplier.com', '台灣', 4, '2025-01-23 00:00:00'),
+(2, '供應商2', 'contact2@supplier.com', '台灣', 2, '2025-02-02 00:00:00'),
+(3, '供應商3', 'contact3@supplier.com', '台灣', 2, '2025-03-19 00:00:00'),
+(4, '供應商4', 'contact4@supplier.com', '台灣', 4, '2025-04-07 00:00:00'),
+(5, '供應商5', 'contact5@supplier.com', '台灣', 1, '2025-03-03 00:00:00'),
+(6, '供應商6', 'contact6@supplier.com', '台灣', 5, '2025-04-26 00:00:00'),
+(7, '供應商7', 'contact7@supplier.com', '台灣', 2, '2025-05-07 00:00:00'),
+(8, '供應商8', 'contact8@supplier.com', '台灣', 4, '2025-04-09 00:00:00'),
+(9, '供應商9', 'contact9@supplier.com', '台灣', 2, '2025-05-18 00:00:00'),
+(10, '供應商10', 'contact10@supplier.com', '台灣', 3, '2025-01-28 00:00:00');
+```
+* Inbound_Shipments
+
+|   inbound_id |   supplier_id |   warehouse_id |   product_id |   quantity | arrival_date   | status   |
+|-------------:|--------------:|---------------:|-------------:|-----------:|:---------------|:---------|
+|            1 |             8 |              6 |           10 |         73 | 2025-04-15     | damaged  |
+|            2 |             4 |             10 |            5 |         78 | 2025-04-14     | pending  |
+|            3 |            10 |              2 |            4 |         91 | 2025-01-06     | damaged  |
+|            4 |             8 |              3 |            5 |         29 | 2025-03-05     | received |
+|            5 |             2 |              4 |            1 |         75 | 2025-05-21     | damaged  |
+|            6 |             1 |             10 |            3 |         53 | 2025-02-07     | pending  |
+|            7 |            10 |              8 |           10 |         54 | 2025-05-02     | received |
+|            8 |            10 |              8 |            7 |         89 | 2025-03-03     | damaged  |
+|            9 |             7 |              2 |            6 |         17 | 2025-04-23     | damaged  |
+|           10 |             4 |              6 |            3 |         84 | 2025-04-12     | damaged  |
+```sql
+INSERT INTO `Inbound_Shipments` (`inbound_id`, `supplier_id`, `warehouse_id`, `product_id`, `quantity`, `arrival_date`, `status`) VALUES
+(1, 8, 6, 10, 73, '2025-04-15', 'damaged'),
+(2, 4, 10, 5, 78, '2025-04-14', 'pending'),
+(3, 10, 2, 4, 91, '2025-01-06', 'damaged'),
+(4, 8, 3, 5, 29, '2025-03-05', 'received'),
+(5, 2, 4, 1, 75, '2025-05-21', 'damaged'),
+(6, 1, 10, 3, 53, '2025-02-07', 'pending'),
+(7, 10, 8, 10, 54, '2025-05-02', 'received'),
+(8, 10, 8, 7, 89, '2025-03-03', 'damaged'),
+(9, 7, 2, 6, 17, '2025-04-23', 'damaged'),
+(10, 4, 6, 3, 84, '2025-04-12', 'damaged');
+```
+* Outbound_Shipments
 |   outbound_id |   order_id |   warehouse_id |   product_id |   quantity | dispatch_date   | status    |
 |--------------:|-----------:|---------------:|-------------:|-----------:|:----------------|:----------|
 |             1 |          8 |              3 |            6 |          3 | 2025-01-01      | preparing |
@@ -397,10 +510,7 @@ INSERT INTO `outbound_shipments` (`outbound_id`, `order_id`, `warehouse_id`, `pr
 (10, 1, 3, 2, 10, '2025-02-19', 'delivered');
 ```
 
-
-
-
-# Shipments 測試資料
+* Shipments 
 
 |   shipment_id |   order_id | tracking_number   | shipment_status   | estimated_delivery   | actual_delivery   | carrier    |   shipping_cost |
 |--------------:|-----------:|:------------------|:------------------|:---------------------|:------------------|:-----------|----------------:|
@@ -429,36 +539,36 @@ INSERT INTO `shipments` (`shipment_id`, `order_id`, `tracking_number`, `shipment
 (10, 4, 'TN000010', 'delivered', '2025-03-30', '2025-02-28', '快遞公司10', 468.08);
 ```
 
-# Suppliers 測試資料
+*Warehouse_Transfers
 
-|   supplier_id | supplier_name   | contact_info           | country   |   rating | created_at          |
-|--------------:|:----------------|:-----------------------|:----------|---------:|:--------------------|
-|             1 | 供應商1         | contact1@supplier.com  | 台灣      |        4 | 2025-01-23 00:00:00 |
-|             2 | 供應商2         | contact2@supplier.com  | 台灣      |        2 | 2025-02-02 00:00:00 |
-|             3 | 供應商3         | contact3@supplier.com  | 台灣      |        2 | 2025-03-19 00:00:00 |
-|             4 | 供應商4         | contact4@supplier.com  | 台灣      |        4 | 2025-04-07 00:00:00 |
-|             5 | 供應商5         | contact5@supplier.com  | 台灣      |        1 | 2025-03-03 00:00:00 |
-|             6 | 供應商6         | contact6@supplier.com  | 台灣      |        5 | 2025-04-26 00:00:00 |
-|             7 | 供應商7         | contact7@supplier.com  | 台灣      |        2 | 2025-05-07 00:00:00 |
-|             8 | 供應商8         | contact8@supplier.com  | 台灣      |        4 | 2025-04-09 00:00:00 |
-|             9 | 供應商9         | contact9@supplier.com  | 台灣      |        2 | 2025-05-18 00:00:00 |
-|            10 | 供應商10        | contact10@supplier.com | 台灣      |        3 | 2025-01-28 00:00:00 |
-
+|   transfer_id |   from_warehouse_id |   to_warehouse_id |   product_id |   quantity | transfer_status   | transfer_date       |
+|--------------:|--------------------:|------------------:|-------------:|-----------:|:------------------|:--------------------|
+|             1 |                   1 |                10 |            9 |         30 | completed         | 2025-04-20 00:00:00 |
+|             2 |                   2 |                 9 |            9 |         13 | completed         | 2025-04-15 00:00:00 |
+|             3 |                   3 |                 8 |            3 |         26 | pending           | 2025-04-22 00:00:00 |
+|             4 |                   4 |                 7 |            5 |         15 | completed         | 2025-02-26 00:00:00 |
+|             5 |                   5 |                 6 |            5 |         21 | pending           | 2025-05-26 00:00:00 |
+|             6 |                   6 |                 5 |            7 |         20 | in_transit        | 2025-02-19 00:00:00 |
+|             7 |                   7 |                 4 |            3 |          7 | pending           | 2025-04-10 00:00:00 |
+|             8 |                   8 |                 3 |            7 |         15 | completed         | 2025-05-23 00:00:00 |
+|             9 |                   9 |                 2 |            1 |         25 | pending           | 2025-03-14 00:00:00 |
+|            10 |                  10 |                 1 |            6 |         20 | pending           | 2025-03-16 00:00:00 |
 ```sql
-INSERT INTO `suppliers` (`supplier_id`, `supplier_name`, `contact_info`, `country`, `rating`, `created_at`) VALUES
-(1, '供應商1', 'contact1@supplier.com', '台灣', 4, '2025-01-23 00:00:00'),
-(2, '供應商2', 'contact2@supplier.com', '台灣', 2, '2025-02-02 00:00:00'),
-(3, '供應商3', 'contact3@supplier.com', '台灣', 2, '2025-03-19 00:00:00'),
-(4, '供應商4', 'contact4@supplier.com', '台灣', 4, '2025-04-07 00:00:00'),
-(5, '供應商5', 'contact5@supplier.com', '台灣', 1, '2025-03-03 00:00:00'),
-(6, '供應商6', 'contact6@supplier.com', '台灣', 5, '2025-04-26 00:00:00'),
-(7, '供應商7', 'contact7@supplier.com', '台灣', 2, '2025-05-07 00:00:00'),
-(8, '供應商8', 'contact8@supplier.com', '台灣', 4, '2025-04-09 00:00:00'),
-(9, '供應商9', 'contact9@supplier.com', '台灣', 2, '2025-05-18 00:00:00'),
-(10, '供應商10', 'contact10@supplier.com', '台灣', 3, '2025-01-28 00:00:00');
+INSERT INTO `Warehouse_Transfers` (`transfer_id`, `from_warehouse_id`, `to_warehouse_id`, `product_id`, `quantity`, `transfer_status`, `transfer_date`) VALUES
+(1, 1, 10, 9, 30, 'completed', '2025-04-20 00:00:00'),
+(2, 2, 9, 9, 13, 'completed', '2025-04-15 00:00:00'),
+(3, 3, 8, 3, 26, 'pending', '2025-04-22 00:00:00'),
+(4, 4, 7, 5, 15, 'completed', '2025-02-26 00:00:00'),
+(5, 5, 6, 5, 21, 'pending', '2025-05-26 00:00:00'),
+(6, 6, 5, 7, 20, 'in_transit', '2025-02-19 00:00:00'),
+(7, 7, 4, 3, 7, 'pending', '2025-04-10 00:00:00'),
+(8, 8, 3, 7, 15, 'completed', '2025-05-23 00:00:00'),
+(9, 9, 2, 1, 25, 'pending', '2025-03-14 00:00:00'),
+(10, 10, 1, 6, 20, 'pending', '2025-03-16 00:00:00');
 ```
 
-# Sales Analysis
+## 數據分析
+* Sales Analysis
 
 |   record_id | date       |   product_id |   category_id |   total_sales |   revenue |   average_price |
 |------------:|:-----------|-------------:|--------------:|--------------:|----------:|----------------:|
@@ -487,7 +597,7 @@ INSERT INTO `sales_analysis` (`record_id`, `date`, `product_id`, `category_id`, 
 (10, '2025-05-21', 2, 1, 31, 4570.76, 760.73);
 ```
 
-# Inventory Analytics
+* Inventory Analytics
 
 |   record_id | date       |   warehouse_id |   product_id |   starting_stock |   ending_stock |   sold_units |   received_units |
 |------------:|:-----------|---------------:|-------------:|-----------------:|---------------:|-------------:|-----------------:|
@@ -516,7 +626,7 @@ INSERT INTO `inventory_analytics` (`record_id`, `date`, `warehouse_id`, `product
 (10, '2025-05-21', 3, 5, 425, 360, 65, 1);
 ```
 
-# Order Conversion Stats
+* Order Conversion Stats
 
 |   record_id | date       |   total_visits |   total_orders |   conversion_rate |
 |------------:|:-----------|---------------:|---------------:|------------------:|
@@ -545,7 +655,7 @@ INSERT INTO `order_conversion_stats` (`record_id`, `date`, `total_visits`, `tota
 (10, '2025-05-21', 163, 11, 6.75);
 ```
 
-# Shipment Performance
+* Shipment Performance
 
 |   record_id | date       | carrier    |   total_shipments |   on_time_deliveries |   late_deliveries |   average_delivery_time |
 |------------:|:-----------|:-----------|------------------:|---------------------:|------------------:|------------------------:|
@@ -575,7 +685,7 @@ INSERT INTO `shipment_performance` (`record_id`, `date`, `carrier`, `total_shipm
 
 ```
 
-# Customer Feedback Stats
+* Customer Feedback Stats
 
 |   record_id | date       |   product_id |   total_reviews |   average_rating |   positive_reviews |   negative_reviews |
 |------------:|:-----------|-------------:|----------------:|-----------------:|-------------------:|-------------------:|
@@ -606,8 +716,8 @@ INSERT INTO `customer_feedback_stats` (`record_id`, `date`, `product_id`, `total
 (10, '2025-05-21', 1, 97, 3.01, 26, 71);
 
 ```
-
-# Orders
+## 訂單管理
+* Orders
 
 |   order_id |   customer_id | order_status   |   total_amount | created_at   | updated_at   |   shipping_fee |   discount |   payment_id |   shipping_id | coupon_id   |
 |-----------:|--------------:|:---------------|---------------:|:-------------|:-------------|---------------:|-----------:|-------------:|--------------:|:------------|
@@ -637,7 +747,7 @@ INSERT INTO `orders` (`order_id`, `customer_id`, `order_status`, `total_amount`,
 
 ```
 
-# Order Items
+* Order Items
 
 |   order_item_id |   order_id |   product_id |   quantity |   unit_price |   subtotal |
 |----------------:|-----------:|-------------:|-----------:|-------------:|-----------:|
@@ -668,7 +778,7 @@ INSERT INTO `order_items` (`order_item_id`, `order_id`, `product_id`, `quantity`
 
 ```
 
-# Payments
+* Payments
 
 |   payment_id |   order_id | payment_method   | payment_status   |   amount | payment_date   |
 |-------------:|-----------:|:-----------------|:-----------------|---------:|:---------------|
@@ -699,7 +809,7 @@ INSERT INTO `payments` (`payment_id`, `payment_method`, `payment_status`, `amoun
 
 ```
 
-# Return Refunds
+* Return Refunds
 
 |   refund_id |   order_id |   product_id | reason   | status    |   refund_amount | created_at   |
 |------------:|-----------:|-------------:|:---------|:----------|----------------:|:-------------|
@@ -734,32 +844,3 @@ INSERT INTO `return_refunds` (`refund_id`, `order_id`, `product_id`, `reason`, `
 
 ```
 
-# Warehouses 測試資料
-
-|   warehouse_id | warehouse_name   | location       |   capacity |   manager_id | contact_info            | created_at          |
-|---------------:|:-----------------|:---------------|-----------:|-------------:|:------------------------|:--------------------|
-|              1 | 倉庫1            | 台灣 1 號  |       1815 |          107 | manager1@warehouse.com  | 2025-05-07 00:00:00 |
-|              2 | 倉庫2            | 台灣 2 號  |       4737 |          109 | manager2@warehouse.com  | 2025-01-23 00:00:00 |
-|              3 | 倉庫3            | 台灣 3 號  |       2565 |          110 | manager3@warehouse.com  | 2025-01-31 00:00:00 |
-|              4 | 倉庫4            | 台灣 4 號  |       1967 |          102 | manager4@warehouse.com  | 2025-05-22 00:00:00 |
-|              5 | 倉庫5            | 台灣 5 號  |       2088 |          106 | manager5@warehouse.com  | 2025-03-26 00:00:00 |
-|              6 | 倉庫6            | 台灣 6 號  |       3755 |          103 | manager6@warehouse.com  | 2025-01-02 00:00:00 |
-|              7 | 倉庫7            | 台灣 7 號  |       1688 |          110 | manager7@warehouse.com  | 2025-02-13 00:00:00 |
-|              8 | 倉庫8            | 台灣 8 號  |       1248 |          110 | manager8@warehouse.com  | 2025-02-10 00:00:00 |
-|              9 | 倉庫9            | 台灣 9 號  |       1491 |          105 | manager9@warehouse.com  | 2025-01-17 00:00:00 |
-|             10 | 倉庫10           | 台灣 10 號 |       3980 |          106 | manager10@warehouse.com | 2025-05-27 00:00:00 |
-
-```sql
-
-INSERT INTO `warehouses` (`warehouse_id`, `warehouse_name`, `location`, `capacity`, `manager_id`, `contact_info`, `created_at`) VALUES
-(1, '倉庫1', '台灣 1 號', 1815, 1, 'manager1@warehouse.com', '2025-05-07 00:00:00'),
-(2, '倉庫2', '台灣 2 號', 4737, 2, 'manager2@warehouse.com', '2025-01-23 00:00:00'),
-(3, '倉庫3', '台灣 3 號', 2565, 3, 'manager3@warehouse.com', '2025-01-31 00:00:00'),
-(4, '倉庫4', '台灣 4 號', 1967, 4, 'manager4@warehouse.com', '2025-05-22 00:00:00'),
-(5, '倉庫5', '台灣 5 號', 2088, 5, 'manager5@warehouse.com', '2025-03-26 00:00:00'),
-(6, '倉庫6', '台灣 6 號', 3755, 6, 'manager6@warehouse.com', '2025-01-02 00:00:00'),
-(7, '倉庫7', '台灣 7 號', 1688, 7, 'manager7@warehouse.com', '2025-02-13 00:00:00'),
-(8, '倉庫8', '台灣 8 號', 1248, 8, 'manager8@warehouse.com', '2025-02-10 00:00:00'),
-(9, '倉庫9', '台灣 9 號', 1491, 9, 'manager9@warehouse.com', '2025-01-17 00:00:00'),
-(10, '倉庫10', '台灣 10 號', 3980, 10, 'manager10@warehouse.com', '2025-05-27 00:00:00');
-```
