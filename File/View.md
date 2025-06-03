@@ -1034,7 +1034,10 @@ FROM shipment_performance;
 CREATE VIEW admin_feedback_stats_view AS
 SELECT * FROM customer_feedback_stats;
 ```
+
 📌 用途：服務品質監控、全面改進 
+
+![image](https://github.com/user-attachments/assets/13ff8b18-63fd-4401-b821-a9c16508871c)
 
 2. 賣家（Seller）  
 > 商品評價統計數據
@@ -1045,6 +1048,9 @@ FROM customer_feedback_stats;
 ```
 📌 用途：商品改進、評價管理 
 
+![image](https://github.com/user-attachments/assets/1a70ea4f-3b3f-4948-a781-95940a61cfba)
+
+
 3. 行銷/營運（Marketing）  
 > 客戶體驗分析數據
 ```sql
@@ -1052,6 +1058,9 @@ CREATE VIEW marketing_feedback_stats_view AS
 SELECT * FROM customer_feedback_stats;
 ```
 📌 用途：品牌形象管理、忠誠度計劃 
+
+![image](https://github.com/user-attachments/assets/af9b3824-b436-44f5-afae-a82368a1236f)
+
 
 4. 客服人員（Support）  
 > 客戶服務相關反饋
@@ -1061,6 +1070,9 @@ SELECT record_id, date, product_id, total_reviews, average_rating
 FROM customer_feedback_stats;
 ```
 📌 用途：服務品質提升、客訴預防 
+
+![image](https://github.com/user-attachments/assets/fa43e874-1506-4a79-97a3-58f31220e63b)
+
 
 ## 商品管理 & 驗證伺服器
 
@@ -1096,6 +1108,9 @@ SELECT * FROM products;
 ```
 📌 用途：產品全生命周期管理與審計 
 
+![image](https://github.com/user-attachments/assets/708144da-a076-4eb1-aba1-60cc92d3ab5d)
+
+
 2. 賣家（Seller）  
 > 賣家自有產品管理介面
 ```sql
@@ -1104,11 +1119,14 @@ SELECT product_id, product_name, sku, brand, model, description,
        category_id, variant_type, price, promotional_price, 
        promotion_start_date, promotion_end_date, shipping_weight,
        image_url, barcode, reviews_count, favorites_count,
-       date_added, last_updated
+       date_added, last_updated,seller_id
 FROM products
 WHERE seller_id = CURRENT_USER_ID();
 ```
 📌 用途：商品上架、價格調整與庫存管理 
+
+![image](https://github.com/user-attachments/assets/aea14a8e-7a00-4048-891e-25275bde20fb)
+
 
 3. 顧客（Customer）  
 > 顧客可見產品資訊
@@ -1123,6 +1141,9 @@ WHERE (promotion_end_date IS NULL OR promotion_end_date >= NOW());
 ```
 📌 用途：商品瀏覽與購買決策 
 
+![image](https://github.com/user-attachments/assets/7fa0709f-19c5-46cb-b942-46a7d32c7ad2)
+
+
 4. 倉儲人員（Warehouse）  
 > 產品物流相關資訊
 ```sql
@@ -1132,6 +1153,9 @@ SELECT product_id, product_name, sku, shipping_weight,
 FROM products;
 ```
 📌 用途：揀貨、包裝與庫存管理 
+
+![image](https://github.com/user-attachments/assets/a914e5b9-5700-4890-a181-5bf07808118f)
+
 
 5. 行銷/營運（Marketing）  
 > 產品銷售分析數據
@@ -1144,6 +1168,9 @@ FROM products;
 ```
 📌 用途：市場定位與促銷策略制定 
 
+![image](https://github.com/user-attachments/assets/f275e020-2d34-4343-a93f-2be27447b5f7)
+
+
 6. 客服人員（Support）  
 > 產品基本查詢資訊
 ```sql
@@ -1153,6 +1180,9 @@ SELECT product_id, product_name, brand, model,
 FROM products;
 ```
 📌 用途：客戶諮詢與爭議處理 
+
+![image](https://github.com/user-attachments/assets/231b08c3-d5e6-4192-8bb0-c8a28a82a274)
+
 
 ### `Reviews` 欄位可視權限表
 | 欄位         | Admin | Seller | Customer | Warehouse | Finance | Marketing | Support |
@@ -1172,16 +1202,22 @@ SELECT * FROM reviews;
 ```
 📌 用途：評論內容審核與管理 
 
+![image](https://github.com/user-attachments/assets/78ac2ec8-463b-4ed4-b45b-e66204b04cd6)
+
+
 2. 賣家（Seller）  
 > 賣家產品相關評論
 ```sql
 CREATE VIEW seller_reviews_view AS
-SELECT r.review_id, r.product_id, r.rating, r.comment, r.created_at
+SELECT r.review_id, r.product_id, r.rating, r.comment, r.created_at , p.seller_id
 FROM reviews r
 JOIN products p ON r.product_id = p.product_id
 WHERE p.seller_id = CURRENT_USER_ID();
 ```
 📌 用途：產品改進與客戶反饋分析 
+
+![image](https://github.com/user-attachments/assets/700dd17b-7e90-4db0-a2a6-bf982bea7ed8)
+
 
 3. 顧客（Customer）  
 > 所有公開產品評論
@@ -1192,6 +1228,9 @@ FROM reviews;
 ```
 📌 用途：購買決策參考 
 
+![image](https://github.com/user-attachments/assets/228a5ae3-0e17-42a4-9797-6f5cb12b08cb)
+
+
 4. 行銷/營運（Marketing）  
 > 評論統計分析數據
 ```sql
@@ -1200,6 +1239,9 @@ SELECT review_id, product_id, rating, created_at
 FROM reviews;
 ```
 📌 用途：產品滿意度評估 
+
+![image](https://github.com/user-attachments/assets/a807d46e-9151-4067-a924-d8a1e200efc1)
+
 
 5. 客服人員（Support）  
 > 評論完整資訊
@@ -1210,6 +1252,9 @@ SELECT review_id, product_id, user_id, rating,
 FROM reviews;
 ```
 📌 用途：不當評論處理與客戶溝通 
+
+![image](https://github.com/user-attachments/assets/dcfd0230-cdf4-4f15-97e5-322f49e68db2)
+
 
 ### `Categories ` 欄位可視權限表
 | 欄位                | Admin | Seller | Customer | Warehouse | Finance | Marketing | Support |
@@ -1226,6 +1271,9 @@ SELECT * FROM categories;
 ```
 📌 用途：分類體系管理與調整 
 
+![image](https://github.com/user-attachments/assets/9f718738-4fcc-46c3-83ba-911dd4d7c2aa)
+
+
 2. 賣家（Seller）  
 > 產品分類結構
 ```sql
@@ -1235,14 +1283,19 @@ FROM categories;
 ```
 📌 用途：商品上架分類選擇 
 
+![image](https://github.com/user-attachments/assets/b8775647-ff4d-4582-9cfc-f8c10d54d7b0)
+
+
 3. 顧客（Customer）  
 > 顧客可見分類資訊
 ```sql
 CREATE VIEW customer_categories_view AS
-SELECT category_id, category_name
+SELECT category_description, category_name
 FROM categories;
 ```
 📌 用途：商品分類瀏覽 
+
+![image](https://github.com/user-attachments/assets/b744823e-deee-486e-beb3-fe59638670f4)
 
 4. 行銷/營運（Marketing）  
 > 分類完整數據
@@ -1252,6 +1305,9 @@ SELECT category_id, category_name, category_description
 FROM categories;
 ```
 📌 用途：分類銷售分析與促銷規劃 
+
+![image](https://github.com/user-attachments/assets/d47347e1-3fd1-4a0e-98d9-f7490f9f0513)
+
 
 ### `Login_logs ` 欄位可視權限表
 | 欄位            | Admin | Seller | Customer | Warehouse | Finance | Marketing | Support |
@@ -1273,6 +1329,8 @@ SELECT * FROM login_logs;
 ```
 📌 用途：安全審計與異常登入監控 
 
+![image](https://github.com/user-attachments/assets/c700ccd5-1dc7-44e9-8f2b-eb451e75e2ab)
+
 2. 客服人員（Support）  
 > 用戶登入狀態查詢
 ```sql
@@ -1281,6 +1339,9 @@ SELECT log_id, user_id, login_time, success
 FROM login_logs;
 ```
 📌 用途：帳號問題排查 
+
+![image](https://github.com/user-attachments/assets/a7569678-1bbd-44a4-8837-c08a497396df)
+
 
 ### `Users ` 欄位可視權限表
 | 欄位                  | Admin | Seller | Customer | Warehouse | Finance | Marketing | Support |
@@ -1302,6 +1363,9 @@ SELECT * FROM users;
 ```
 📌 用途：帳號全權限管理 
 
+![image](https://github.com/user-attachments/assets/a06e5dae-696e-4039-9565-b50ccb7e76b2)
+
+
 2. 客服人員（Support）  
 > 用戶基本服務資訊
 ```sql
@@ -1311,6 +1375,9 @@ SELECT user_id, email, account_enable,
 FROM users;
 ```
 📌 用途：帳號問題排查與處理 
+
+![image](https://github.com/user-attachments/assets/585d0a98-6378-40c0-ae8c-9a4c3d0b1109)
+
 
 ## 訂單管理
 
@@ -1337,13 +1404,16 @@ SELECT * FROM orders;
 ```
 📌 用途：訂單全生命周期管理與審計 
 
+![image](https://github.com/user-attachments/assets/ab79d1f0-c2c2-46d9-9b6a-918e639175f9)
+
+
 2. 賣家（Seller）  
 > 賣家相關訂單資訊
 ```sql
-CREATE VIEW seller_orders_view AS
+CREATE  VIEW seller_orders_view AS
 SELECT o.order_id, o.customer_id, o.order_status, 
        o.total_amount, o.created_at, o.updated_at,
-       o.shipping_fee, o.discount, o.coupon_id
+       o.shipping_fee, o.discount, o.coupon_id,p.seller_id
 FROM orders o
 JOIN order_items oi ON o.order_id = oi.order_id
 JOIN products p ON oi.product_id = p.product_id
@@ -1352,17 +1422,23 @@ GROUP BY o.order_id;
 ```
 📌 用途：訂單處理與出貨管理 
 
+![image](https://github.com/user-attachments/assets/591e06d8-7c16-4b5a-9d48-d3fc67b7b8c9)
+
+
 3. 顧客（Customer）  
 > 顧客個人訂單記錄
 ```sql
 CREATE VIEW customer_orders_view AS
 SELECT order_id, order_status, total_amount, 
        created_at, updated_at, shipping_fee,
-       discount, coupon_id
+       discount, coupon_id , customer_id
 FROM orders
 WHERE customer_id = CURRENT_USER_ID();
 ```
 📌 用途：訂單狀態追蹤與歷史查詢 
+
+![image](https://github.com/user-attachments/assets/639b7ca8-234e-4d54-9fd3-ba060a1f6a06)
+
 
 4. 財務人員（Finance）  
 > 訂單財務相關資訊
@@ -1375,6 +1451,9 @@ FROM orders;
 ```
 📌 用途：收入確認與財務報表 
 
+![image](https://github.com/user-attachments/assets/62af9212-efb9-456c-b9c5-9ac84d68fe54)
+
+
 5. 客服人員（Support）  
 > 訂單服務查詢資訊
 ```sql
@@ -1385,6 +1464,9 @@ SELECT order_id, customer_id, order_status,
 FROM orders;
 ```
 📌 用途：客戶訂單問題處理 
+
+![image](https://github.com/user-attachments/assets/db0c5a4a-cdd0-47ad-8b07-19cbc6614c9e)
+
 
 ### `Order_items` 欄位可視權限表
 | 欄位            | Admin | Seller | Customer | Warehouse | Finance | Marketing | Support |
@@ -1404,29 +1486,38 @@ SELECT * FROM order_items;
 ```
 📌 用途：訂單商品全面分析 
 
+![image](https://github.com/user-attachments/assets/659600f7-a30a-4861-a156-7b1e29d0e1f2)
+
+
 2. 賣家（Seller）  
 > 賣家商品訂購明細
 ```sql
 CREATE VIEW seller_order_items_view AS
 SELECT oi.order_item_id, oi.order_id, oi.product_id,
-       oi.quantity, oi.unit_price, oi.subtotal
+       oi.quantity, oi.unit_price, oi.subtotal,p.seller_id
 FROM order_items oi
 JOIN products p ON oi.product_id = p.product_id
 WHERE p.seller_id = CURRENT_USER_ID();
 ```
 📌 用途：銷售統計與庫存預測 
 
+![image](https://github.com/user-attachments/assets/a313001f-a44d-4325-bdc8-17ad0aa73cfb)
+
+
 3. 顧客（Customer）  
 > 個人訂單商品明細
 ```sql
-CREATE VIEW customer_order_items_view AS
+CREATE OR REPLACE VIEW customer_order_items_view AS
 SELECT oi.order_item_id, oi.order_id, oi.product_id,
-       oi.quantity, oi.unit_price, oi.subtotal
+       oi.quantity, oi.unit_price, oi.subtotal,o.customer_id
 FROM order_items oi
 JOIN orders o ON oi.order_id = o.order_id
 WHERE o.customer_id = CURRENT_USER_ID();
 ```
 📌 用途：訂單詳情查看與再次購買 
+
+![image](https://github.com/user-attachments/assets/ad2197f3-bbe7-45b3-904d-7b96d617434a)
+
 
 4. 財務人員（Finance）  
 > 訂單商品財務數據
@@ -1438,6 +1529,9 @@ FROM order_items;
 ```
 📌 用途：收入分攤與成本核算
 
+![image](https://github.com/user-attachments/assets/e6de60f6-8357-457d-99a3-62486d4d0caa)
+
+
 5. 客服人員（Support）  
 > 訂單商品查詢資訊
 ```sql
@@ -1447,6 +1541,9 @@ SELECT order_item_id, order_id, product_id,
 FROM order_items;
 ```
 📌 用途：退換貨與訂單爭議處理 
+
+![image](https://github.com/user-attachments/assets/35436ca4-cfcd-44cd-8bf0-6288b138fe43)
+
 
 ### `Payments` 欄位可視權限表
 | 欄位            | Admin | Seller | Customer | Warehouse | Finance | Marketing | Support |
