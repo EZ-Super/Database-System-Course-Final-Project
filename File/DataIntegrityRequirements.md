@@ -70,7 +70,7 @@
 
 | Field 名稱           | Data Type | 唯一 | Not Null | 預設值                    | 格式/限制                            | 說明                     |
 |----------------------|-----------|------|----------|---------------------------|-------------------------------------|--------------------------|
-| user_id (主鍵)       | INT       | Y    | Y        | AUTO_INCREMENT            | 正整數                               | 每位使用者的唯一識別碼   |
+| user_id (主鍵)       | INT UNSIGNED       | Y    | Y        | AUTO_INCREMENT            | 正整數                               | 每位使用者的唯一識別碼   |
 | email                | STRING    | Y    | Y        | 無                        | 必須為有效 Email 格式                | 使用者註冊用 Email       |
 | password_hash        | STRING    | N    | Y        | 無                        | 至少 8 字，含大小寫 + 數字 + 特殊符號（經過 bcrypt） | 雜湊後的使用者密碼       |
 | Account Enable       | BOOL      | N    | Y        | True                      | 僅允許 True/False                    | 是否啟用帳號             |
@@ -96,8 +96,8 @@
 
 | Field 名稱           | Data Type     | 唯一 | Not Null | 預設值                | 格式/限制                             | 說明                         |
 |----------------------|---------------|------|----------|------------------------|----------------------------------------|------------------------------|
-| log_id (主鍵)        | INT        | Y    | Y        | AUTO_INCREMENT         | 正整數                                 | 每筆登入紀錄的唯一識別碼     |
-| user_id      | INT           | N    | Y       | 無                    | 外鍵參照 `Users` 表                         | 嘗試登入的使用者     |
+| log_id (主鍵)        | INT UNSIGNED       | Y    | Y        | AUTO_INCREMENT         | 正整數                                 | 每筆登入紀錄的唯一識別碼     |
+| user_id      | INT  UNSIGNED         | N    | Y       | 無                    | 外鍵參照 `Users` 表                         | 嘗試登入的使用者     |
 | email                 | STRING        | N    | Y       | 無                    | 必須為有效 Email 格式                     | 嘗試登入的帳號（即使錯誤）   |
 | login_time           | TIMESTAMP     | N    | Y        | CURRENT_TIMESTAMP      | 時間格式                               | 登入嘗試的發生時間           |
 | ip_address           | STRING        | N    | Y        | 無                    | IPv4 或 IPv6 格式                     | 登入來源 IP                  |
@@ -122,13 +122,13 @@
 
 | 欄位名稱             | 資料型別         | 唯一 | NOT NULL | 預設值                              | 格式/限制                              | 說明                         |
 |----------------------|------------------|------|----------|--------------------------------------|----------------------------------------|------------------------------|
-| product_id (主鍵)    | INT  | Y    | Y        | AUTO_INCREMENT                        | 正整數                                 | 商品唯一識別碼               |
+| product_id (主鍵)    | INT UNSIGNED  | Y    | Y        | AUTO_INCREMENT                        | 正整數                                 | 商品唯一識別碼               |
 | product_name         | STRING(255)      | N    | Y        | 無                                   | 最長 255 字                            | 商品名稱                     |
 | sku                  | STRING(100)      | Y    | Y        | 無                                   | 唯一 SKU 編碼                          | 商品庫存單位識別碼           |
 | brand                | STRING(100)      | N    | N        | 無                                   | -                                      | 商品品牌                     |
 | model                | STRING(100)      | N    | N        | 無                                   | -                                      | 商品型號                     |
 | description          | STRING (255)     | N    | N        | 無                                   |   最長 255 字                            | 商品描述                     |
-| category_id          | INT   | N    | Y        | 無                                   | 外鍵參照 `categories` 表              | 商品所屬分類                 |
+| category_id          | INT UNSIGNED   | N    | Y        | 無                                   | 外鍵參照 `categories` 表              | 商品所屬分類                 |
 | variant_type         | STRING(255)      | N    | N        | 無                                   | 例如：尺寸、顏色                       | 商品變體類型                 |
 | price                | DECIMAL(10,2)    | N    | Y        | 無                                   | 金額格式（最多 99999999.99）           | 商品原價                     |
 | promotional_price    | DECIMAL(10,2)    | N    | N        | 無                                   | 金額格式                               | 特價價格（如有）             |
@@ -161,7 +161,7 @@
 
 | 欄位名稱           | 資料型別     | 唯一 | NOT NULL | 預設值           | 格式/限制               | 說明                     |
 |--------------------|--------------|------|----------|-------------------|--------------------------|--------------------------|
-| category_id        | INT       | Y    | Y        | AUTO_INCREMENT    | 正整數                   | 分類唯一識別碼           |
+| category_id        | INT   UNSIGNED     | Y    | Y        | AUTO_INCREMENT    | 正整數                   | 分類唯一識別碼           |
 | category_name      | STRING(255)  | Y    | Y        | 無                | 最長 255 字，唯一         | 分類名稱                 |
 | category_description | STRING     | N    | N        | 無                | 無長度限制（原為 TEXT）   | 分類描述文字             |
 
@@ -179,9 +179,9 @@
 
 | 欄位名稱   | 資料型別       | 唯一 | NOT NULL | 預設值              | 格式/限制                  | 說明                     |
 |------------|----------------|------|----------|----------------------|----------------------------|--------------------------|
-| review_id  | INT         | Y    | Y        | AUTO_INCREMENT       | 正整數                     | 每筆評論的唯一識別碼     |
-| product_id | INT         | N    | N        | 無                   | 外鍵參照 `products` 表     | 被評論的商品 ID          |
-| user_id    | INT            | N    | N        | 無                   | 外鍵參照 `users` 表        | 發表評論的使用者 ID      |
+| review_id  | INT  UNSIGNED       | Y    | Y        | AUTO_INCREMENT       | 正整數                     | 每筆評論的唯一識別碼     |
+| product_id | INT   UNSIGNED      | N    | N        | 無                   | 外鍵參照 `products` 表     | 被評論的商品 ID          |
+| user_id    | INT    UNSIGNED        | N    | N        | 無                   | 外鍵參照 `users` 表        | 發表評論的使用者 ID      |
 | rating     | INT            | N    | Y        | 無                   | 限制 1～5              | 評分數值（如星數）        |
 | comment    | STRING         | N    | Y        | 無                   | 無長度限制（原為 TEXT）    | 評論內容文字             |
 | created_at | TIMESTAMP      | N    | Y        | CURRENT_TIMESTAMP    | 自動記錄建立時間           | 評論建立時間             |
@@ -201,7 +201,7 @@
 
 | 欄位名稱       | 資料型別      | 唯一 | NOT NULL | 預設值                                  | 格式/限制                      | 說明                     |
 |----------------|---------------|------|----------|------------------------------------------|--------------------------------|--------------------------|
-| level_id       | INT           | Y    | Y        | AUTO_INCREMENT                           | 正整數                         | 會員等級的唯一識別碼     |
+| level_id       | INT   UNSIGNED        | Y    | Y        | AUTO_INCREMENT                           | 正整數                         | 會員等級的唯一識別碼     |
 | level_name     | STRING(255)   | N    | Y        | 無                                       | 最長 255 字                    | 會員等級名稱             |
 | required_points| INT           | N    | Y        | 無                                       | 非負整數                       | 達到該等級所需的點數     |
 | discount_rate  | DECIMAL(5,2)  | N    | Y        | 無                                       | 介於 0.00 ~ 100.00             | 該等級享有的折扣百分比   |
@@ -222,13 +222,13 @@
 
 | 欄位名稱             | 資料型別     | 唯一 | NOT NULL | 預設值                | 格式/限制                          | 說明                         |
 |----------------------|--------------|------|----------|------------------------|------------------------------------|------------------------------|
-| user_id              | INT          | Y    | Y        | AUTO_INCREMENT         | 正整數                             | 使用者唯一識別碼             |
+| user_id              | INT   UNSIGNED       | Y    | Y        | AUTO_INCREMENT         | 正整數                             | 使用者唯一識別碼             |
 | username             | STRING(255)  | Y    | Y        | 無                     | 最長 255 字，唯一，不可為空         | 使用者名稱（登入帳號）       |
 | email                | STRING(255)  | Y    | Y        | 無                     | 必須為有效 Email 格式              | 使用者 Email                  |
 | phone                | STRING(20)   | N    | N        | 無                     | 手機格式，如 `09xxxxxxxx`          | 使用者電話號碼（可選填）     |
 | registration_date    | TIMESTAMP    | N    | N        | CURRENT_TIMESTAMP      | 自動填入                           | 註冊時間                     |
 | is_active            | BOOLEAN      | N    | N        | TRUE                   | 僅允許 TRUE / FALSE                | 是否啟用帳號                 |
-| membership_level_id  | INT          | N    | N        | 無                     | 外鍵參照 `membership_levels` 表    | 對應會員等級                 |
+| membership_level_id  | INT  UNSIGNED        | N    | N        | 無                     | 外鍵參照 `membership_levels` 表    | 對應會員等級                 |
 | shipping_address     | STRING(255)  | N    | N        | 無                     | 最長 255 字                        | 收貨地址                     |
 | billing_address      | STRING(255)  | N    | N        | 無                     | 最長 255 字                        | 帳單地址                     |
 
@@ -248,8 +248,8 @@
 
 | 欄位名稱         | 資料型別     | 唯一 | NOT NULL | 預設值                                  | 格式/限制                    | 說明                         |
 |------------------|--------------|------|----------|------------------------------------------|------------------------------|------------------------------|
-| seller_id        | INT          | Y    | Y        | AUTO_INCREMENT                           | 正整數                       | 賣家唯一識別碼               |
-| user_id          | INT          | Y    | Y        | 無                                       | 外鍵參照 `users` 表          | 對應使用者帳號（1 對 1）     |
+| seller_id        | INT  UNSIGNED        | Y    | Y        | AUTO_INCREMENT                           | 正整數                       | 賣家唯一識別碼               |
+| user_id          | INT   UNSIGNED       | Y    | Y        | 無                                       | 外鍵參照 `users` 表          | 對應使用者帳號（1 對 1）     |
 | store_name       | STRING(255)  | N    | Y        | 無                                       | 最長 255 字                  | 商店名稱                     |
 | store_description| STRING       | N    | N        | 無                                       | 無長度限制（原為 TEXT）       | 商店描述                     |
 | bank_account     | STRING(255)  | N    | N        | 無                                       | 字串（格式驗證）          | 收款帳戶資訊                 |
@@ -268,8 +268,8 @@
 
 | 欄位名稱         | 資料型別     | 唯一 | NOT NULL | 預設值                | 格式/限制                      | 說明                           |
 |------------------|--------------|------|----------|------------------------|--------------------------------|--------------------------------|
-| point_id         | INT          | Y    | Y        | AUTO_INCREMENT         | 正整數                         | 每筆點數紀錄的唯一識別碼       |
-| user_id          | INT          | N    | Y        | 無                     | 外鍵參照 `users` 表            | 對應的使用者 ID                |
+| point_id         | INT   UNSIGNED       | Y    | Y        | AUTO_INCREMENT         | 正整數                         | 每筆點數紀錄的唯一識別碼       |
+| user_id          | INT    UNSIGNED      | N    | Y        | 無                     | 外鍵參照 `users` 表            | 對應的使用者 ID                |
 | points_earned    | INT          | N    | N        | 無                     | 限制為整數，可為負值（扣點） | 當次增加或扣除的點數           |
 | transaction_date | TIMESTAMP    | N    | N        | CURRENT_TIMESTAMP      | 自動填入                       | 點數交易發生的時間             |
 | description      | STRING(255)  | N    | N        | 無                     | 最長 255 字                    | 點數來源或用途說明             |
@@ -285,7 +285,7 @@
 
 | 欄位名稱        | 資料型別       | 唯一 | NOT NULL | 預設值           | 格式/限制                                       | 說明                           |
 |-----------------|----------------|------|----------|------------------|------------------------------------------------|--------------------------------|
-| coupon_id       | INT            | Y    | Y        | AUTO_INCREMENT   | 正整數                                           | 每張優惠券的唯一識別碼         |
+| coupon_id       | INT  UNSIGNED          | Y    | Y        | AUTO_INCREMENT   | 正整數                                           | 每張優惠券的唯一識別碼         |
 | coupon_code     | STRING(255)    | Y    | Y        | 無               | 最長 255 字，唯一                               | 優惠券代碼                     |
 | discount_amount | DECIMAL(10,2)  | N    | Y        | 無               | 正數，  `>= 0.00`                            | 折扣金額                       |
 | expiry_date     | DATE           | N    | N        | 無               | 合法日期格式                                     | 優惠券到期日                   |
@@ -308,9 +308,9 @@
 
 | 欄位名稱          | 資料型別   | 唯一 | NOT NULL | 預設值                | 格式/限制                     | 說明                         |
 |-------------------|------------|------|----------|------------------------|-------------------------------|------------------------------|
-| message_id        | INT        | Y    | Y        | AUTO_INCREMENT         | 正整數                        | 訊息唯一識別碼               |
-| sender_id         | INT        | N    | Y        | 無                     | 外鍵參照 `users(user_id)`     | 發送者 ID                    |
-| receiver_id       | INT        | N    | Y        | 無                     | 外鍵參照 `users(user_id)`     | 接收者 ID                    |
+| message_id        | INT UNSIGNED       | Y    | Y        | AUTO_INCREMENT         | 正整數                        | 訊息唯一識別碼               |
+| sender_id         | INT  UNSIGNED      | N    | Y        | 無                     | 外鍵參照 `users(user_id)`     | 發送者 ID                    |
+| receiver_id       | INT  UNSIGNED      | N    | Y        | 無                     | 外鍵參照 `users(user_id)`     | 接收者 ID                    |
 | message_content   | STRING     | N    | Y        | 無                     | 無長度限制（原為 TEXT）       | 訊息內容                     |
 | send_time         | TIMESTAMP  | N    | N        | CURRENT_TIMESTAMP      | 自動填入時間                  | 訊息傳送時間                 |
 | is_read           | BOOLEAN    | N    | N        | FALSE                  | 僅允許 TRUE / FALSE           | 是否已讀                     |
@@ -325,15 +325,15 @@
 
 | 欄位名稱             | 資料型別     | 唯一 | NOT NULL | 預設值                | 格式/限制                        | 說明                               |
 |----------------------|--------------|------|----------|------------------------|-----------------------------------|------------------------------------|
-| notification_id      | INT          | Y    | Y        | AUTO_INCREMENT         | 正整數                            | 通知唯一識別碼                     |
-| user_id              | INT          | N    | Y        | 無                     | 外鍵參照 `users(user_id)`         | 接收通知的使用者 ID                |
+| notification_id      | INT  UNSIGNED        | Y    | Y        | AUTO_INCREMENT         | 正整數                            | 通知唯一識別碼                     |
+| user_id              | INT  UNSIGNED        | N    | Y        | 無                     | 外鍵參照 `users(user_id)`         | 接收通知的使用者 ID                |
 | notification_type    | STRING(50)   | N    | Y        | 無                     | 最長 50 字                        | 通知類型（如 order, promo, system）|
 | subject              | STRING(255)  | N    | Y        | 無                     | 最長 255 字                       | 通知主題                           |
 | message              | STRING       | N    | Y        | 無                     | 無長度限制（原為 TEXT）           | 通知內容                           |
 | sent_at              | TIMESTAMP    | N    | N        | CURRENT_TIMESTAMP      | 系統自動填入                      | 通知發送時間                       |
 | is_read              | BOOLEAN      | N    | N        | FALSE                  | TRUE / FALSE                      | 是否已讀                           |
 | related_entity       | STRING(50)   | N    | N        | 無                     | 例如 'order', 'product', 'coupon' | 關聯實體名稱（模組）               |
-| related_entity_id    | INT          | N    | N        | 無                     | 整數                              | 關聯實體的 ID                      |
+| related_entity_id    | INT  UNSIGNED        | N    | N        | 無                     | 整數                              | 關聯實體的 ID                      |
 
 | 欄位名稱            | 限制方式                                                   | 理由說明                         |
 |---------------------|----------------------------------------------------------------|----------------------------------|
@@ -349,11 +349,11 @@
 
 | 欄位名稱         | 資料型別    | 唯一 | NOT NULL | 預設值           | 格式/限制                       | 說明                         |
 |------------------|-------------|------|----------|------------------|----------------------------------|------------------------------|
-| `warehouse_id`   | INT           | Y    | Y        | AUTO_INCREMENT   |正整數                            | 倉庫唯一識別碼               |
+| `warehouse_id`   | INT  UNSIGNED         | Y    | Y        | AUTO_INCREMENT   |正整數                            | 倉庫唯一識別碼               |
 | `warehouse_name` | STRING(100) | N    | Y        | 無               | 最長 100 字                     | 倉庫名稱                     |
 | `location`       | STRING(255) | N    | Y        | 無               | 最長 255 字                     | 倉庫地址 / 位置              |
 | `capacity`       | INT         | N    | Y        | 無               |  限制 ≥ 0                    | 倉儲容量                     |
-| `manager_id`     | INT  | N    | N        | 無               | 外鍵參照 `Users(user_id)`       | 倉庫負責人 ID（UUID 格式）    |
+| `manager_id`     | INT UNSIGNED | N    | N        | 無               | 外鍵參照 `Users(user_id)`       | 倉庫負責人 ID（UUID 格式）    |
 | `contact_info`   | STRING(255) | N    | N        | 無               | 最長 255 字                     | 聯絡方式（電話/Email）       |
 | `created_at`     | TIMESTAMP   | N    | N        | CURRENT_TIMESTAMP | 系統時間                        | 建立時間                     |
 
@@ -370,9 +370,9 @@
 
 | 欄位名稱         | 資料型別    | 唯一 | NOT NULL | 預設值           | 格式/限制                             | 說明                             |
 |------------------|-------------|------|----------|------------------|----------------------------------------|----------------------------------|
-| `inventory_id`   | INT        | Y    | Y        | AUTO_INCREMENT    | 正整數                              | 庫存記錄的唯一識別碼             |
-| `warehouse_id`   | INT        | N    | N        | 無               | 外鍵參照 `Warehouses(warehouse_id)`    | 所屬倉庫識別碼（UUID）            |
-| `product_id`     | INT          | N    | N        | 無               | 外鍵參照 `Products(product_id)`        | 對應商品識別碼（UUID）            |
+| `inventory_id`   | INT   UNSIGNED     | Y    | Y        | AUTO_INCREMENT    | 正整數                              | 庫存記錄的唯一識別碼             |
+| `warehouse_id`   | INT   UNSIGNED     | N    | N        | 無               | 外鍵參照 `Warehouses(warehouse_id)`    | 所屬倉庫識別碼（UUID）            |
+| `product_id`     | INT   UNSIGNED       | N    | N        | 無               | 外鍵參照 `Products(product_id)`        | 對應商品識別碼（UUID）            |
 | `stock_quantity` | INT         | N    | N        | 0                | 整數， 限制為 `>= 0`               | 當前庫存數量                      |
 | `reorder_level`  | INT         | N    | N        | 10               | 整數， 限制為 `>= 0`               | 庫存補貨臨界值                    |
 | `last_updated`   | TIMESTAMP   | N    | N        | CURRENT_TIMESTAMP | 自動更新時間                          | 最後更新庫存時間                  |
@@ -391,7 +391,7 @@
 
 | 欄位名稱        | 資料型別     | 唯一 | NOT NULL | 預設值           | 格式/限制                     | 說明                         |
 |-----------------|--------------|------|----------|------------------|--------------------------------|------------------------------|
-| `supplier_id`   | INT          | Y    | Y        | AUTO_INCREMENT   | 正整數                         | 供應商唯一識別碼             |
+| `supplier_id`   | INT   UNSIGNED       | Y    | Y        | AUTO_INCREMENT   | 正整數                         | 供應商唯一識別碼             |
 | `supplier_name` | STRING(100)  | N    | Y        | 無               | 最長 100 字                    | 供應商名稱                   |
 | `contact_info`  | STRING(255)  | N    | N        | 無               | 電話、Email 或聯絡人格式       | 聯絡方式                     |
 | `country`       | STRING(50)   | N    | N        | 無               | 國名、國碼或 ISO 代碼等         | 國家地區                     |
@@ -412,10 +412,10 @@
 
 | 欄位名稱        | 資料型別  | 唯一 | NOT NULL | 預設值     | 格式/限制                                    | 說明                         |
 |-----------------|-----------|------|----------|------------|-----------------------------------------------|------------------------------|
-| `inbound_id`    | INT       | Y    | Y        | AUTO_INCREMENT | 正整數                                 | 入庫記錄唯一識別碼           |
-| `supplier_id`   | INT       | N    | N        | 無         | 外鍵參照 `Suppliers(supplier_id)`            | 供應商 ID                    |
-| `warehouse_id`  | INT       | N    | N        | 無         | 外鍵參照 `Warehouses(warehouse_id)`          | 倉庫 ID                      |
-| `product_id`    | INT       | N    | N        | 無         | 外鍵參照 `Products(product_id)`              | 商品 ID                      |
+| `inbound_id`    | INT  UNSIGNED     | Y    | Y        | AUTO_INCREMENT | 正整數                                 | 入庫記錄唯一識別碼           |
+| `supplier_id`   | INT  UNSIGNED     | N    | N        | 無         | 外鍵參照 `Suppliers(supplier_id)`            | 供應商 ID                    |
+| `warehouse_id`  | INT   UNSIGNED    | N    | N        | 無         | 外鍵參照 `Warehouses(warehouse_id)`          | 倉庫 ID                      |
+| `product_id`    | INT  UNSIGNED     | N    | N        | 無         | 外鍵參照 `Products(product_id)`              | 商品 ID                      |
 | `quantity`      | INT       | N    | Y        | 無         |  限制為整數且 ≥ 0                         | 入庫數量                     |
 | `arrival_date`  | DATE      | N    | Y        | 無         | 合法日期格式                                 | 預計或實際到貨日期           |
 | `status`        | ENUM      | N    | N        | `'pending'`| 僅限 `'pending'`, `'received'`, `'damaged'`  | 入庫狀態                     |
@@ -432,10 +432,10 @@
 
 | 欄位名稱        | 資料型別  | 唯一 | NOT NULL | 預設值       | 格式/限制                                       | 說明                         |
 |-----------------|-----------|------|----------|--------------|------------------------------------------------|------------------------------|
-| `outbound_id`   | INT       | Y    | Y        | AUTO_INCREMENT | 正整數                                      | 出貨記錄唯一識別碼           |
-| `order_id`      | INT       | N    | N        | 無           | 外鍵參照 `Orders(order_id)`                    | 所屬訂單 ID                  |
-| `warehouse_id`  | INT       | N    | N        | 無           | 外鍵參照 `Warehouses(warehouse_id)`            | 出貨倉庫 ID                  |
-| `product_id`    | INT       | N    | N        | 無           | 外鍵參照 `Products(product_id)`                | 出貨商品 ID                  |
+| `outbound_id`   | INT  UNSIGNED     | Y    | Y        | AUTO_INCREMENT | 正整數                                      | 出貨記錄唯一識別碼           |
+| `order_id`      | INT  UNSIGNED     | N    | N        | 無           | 外鍵參照 `Orders(order_id)`                    | 所屬訂單 ID                  |
+| `warehouse_id`  | INT  UNSIGNED     | N    | N        | 無           | 外鍵參照 `Warehouses(warehouse_id)`            | 出貨倉庫 ID                  |
+| `product_id`    | INT   UNSIGNED    | N    | N        | 無           | 外鍵參照 `Products(product_id)`                | 出貨商品 ID                  |
 | `quantity`      | INT       | N    | Y        | 無           |  限制為整數且 ≥ 0                           | 出貨數量                     |
 | `dispatch_date` | DATE      | N    | Y        | 無           | 合法日期格式                                   | 實際出貨日期                 |
 | `status`        | ENUM      | N    | N        | `'preparing'`| 僅限 `'preparing'`, `'shipped'`, `'delivered'` | 出貨狀態                     |
@@ -454,9 +454,9 @@
 
 | 欄位名稱        | 資料型別      | 唯一 | NOT NULL | 預設值           | 格式/限制                                   | 說明                     |
 |-----------------|---------------|------|----------|------------------|----------------------------------------------|--------------------------|
-| `order_item_id` | INT           | Y    | Y        | AUTO_INCREMENT   | 正整數                                       | 訂單項目唯一識別碼       |
-| `order_id`      | INT           | N    | N        | 無               | 外鍵參照 `Orders(order_id)`                  | 所屬訂單 ID              |
-| `product_id`    | INT           | N    | N        | 無               | 外鍵參照 `Products(product_id)`              | 所屬商品 ID              |
+| `order_item_id` | INT   UNSIGNED        | Y    | Y        | AUTO_INCREMENT   | 正整數                                       | 訂單項目唯一識別碼       |
+| `order_id`      | INT  UNSIGNED         | N    | N        | 無               | 外鍵參照 `Orders(order_id)`                  | 所屬訂單 ID              |
+| `product_id`    | INT   UNSIGNED        | N    | N        | 無               | 外鍵參照 `Products(product_id)`              | 所屬商品 ID              |
 | `quantity`      | INT           | N    | Y        | 無               |  限制為整數且 ≥ 1                         | 訂購數量                 |
 | `price`         | DECIMAL(10,2) | N    | Y        | 無               |  限制為浮點數且 ≥ 0                        | 單項商品價格             |
 
@@ -471,8 +471,8 @@
 
 | 欄位名稱            | 資料型別      | 唯一 | NOT NULL | 預設值     | 格式/限制                                          | 說明                         |
 |---------------------|---------------|------|----------|------------|-----------------------------------------------------|------------------------------|
-| `shipment_id`       | INT           | Y    | Y        | AUTO_INCREMENT | 正整數                                          | 出貨記錄唯一識別碼           |
-| `order_id`          | INT           | N    | N        | 無         | 外鍵參照 `Orders(order_id)`                        | 對應訂單 ID                  |
+| `shipment_id`       | INT    UNSIGNED       | Y    | Y        | AUTO_INCREMENT | 正整數                                          | 出貨記錄唯一識別碼           |
+| `order_id`          | INT   UNSIGNED        | N    | N        | 無         | 外鍵參照 `Orders(order_id)`                        | 對應訂單 ID                  |
 | `tracking_number`   | STRING(50)    | Y    | N        | 無         | 限英數字，避免特殊字元                             | 物流追蹤編號                 |
 | `shipment_status`   | ENUM          | N    | Y        | 無         | 僅限 `preparing`, `shipped`, `delivered`            | 出貨狀態                     |
 | `estimated_delivery`| DATE          | N    | N        | 無         | 合法日期格式                                       | 預計送達日                   |
@@ -494,10 +494,10 @@
 
 | 欄位名稱             | 資料型別  | 唯一 | NOT NULL | 預設值             | 格式/限制                                                    | 說明                         |
 |----------------------|-----------|------|----------|---------------------|----------------------------------------------------------------|------------------------------|
-| `transfer_id`        | INT       | Y    | Y        | AUTO_INCREMENT      | 正整數                                                       | 調撥記錄唯一識別碼           |
-| `from_warehouse_id`  | INT       | N    | N        | 無                  | 外鍵參照 `Warehouses(warehouse_id)`                            | 調出倉庫 ID                  |
-| `to_warehouse_id`    | INT       | N    | N        | 無                  | 外鍵參照 `Warehouses(warehouse_id)`                            | 調入倉庫 ID                  |
-| `product_id`         | INT       | N    | N        | 無                  | 外鍵參照 `Products(product_id)`                                | 商品 ID                      |
+| `transfer_id`        | INT   UNSIGNED    | Y    | Y        | AUTO_INCREMENT      | 正整數                                                       | 調撥記錄唯一識別碼           |
+| `from_warehouse_id`  | INT  UNSIGNED     | N    | N        | 無                  | 外鍵參照 `Warehouses(warehouse_id)`                            | 調出倉庫 ID                  |
+| `to_warehouse_id`    | INT   UNSIGNED    | N    | N        | 無                  | 外鍵參照 `Warehouses(warehouse_id)`                            | 調入倉庫 ID                  |
+| `product_id`         | INT UNSIGNED      | N    | N        | 無                  | 外鍵參照 `Products(product_id)`                                | 商品 ID                      |
 | `quantity`           | INT       | N    | Y        | 無                  |  限制為整數且 ≥ 1                                          | 調撥數量                     |
 | `transfer_status`    | ENUM      | N    | N        | `'pending'`         | 僅限 `pending`, `in_transit`, `completed`                     | 調撥狀態                     |
 | `transfer_date`      | TIMESTAMP | N    | N        | CURRENT_TIMESTAMP   | 系統時間自動填入                                              | 建立時間                     |
@@ -518,10 +518,10 @@
 
 | 欄位名稱         | 資料型別      | 唯一 | NOT NULL | 預設值           | 格式/限制                                     | 說明                         |
 |------------------|---------------|------|----------|------------------|------------------------------------------------|------------------------------|
-| `record_id`      | INT           | Y    | Y        | AUTO_INCREMENT   | 正整數                                         | 分析紀錄唯一識別碼           |
+| `record_id`      | INT  UNSIGNED         | Y    | Y        | AUTO_INCREMENT   | 正整數                                         | 分析紀錄唯一識別碼           |
 | `date`           | DATE          | N    | Y        | 無               | 合法日期格式                                   | 統計日期                     |
-| `product_id`     | INT           | N    | N        | 無               | 外鍵參照 `Products(product_id)`                | 所屬商品 ID                  |
-| `category_id`    | INT           | N    | N        | 無               | 外鍵參照 `Categories(category_id)`             | 所屬分類 ID                  |
+| `product_id`     | INT  UNSIGNED         | N    | N        | 無               | 外鍵參照 `Products(product_id)`                | 所屬商品 ID                  |
+| `category_id`    | INT  UNSIGNED         | N    | N        | 無               | 外鍵參照 `Categories(category_id)`             | 所屬分類 ID                  |
 | `total_sales`    | INT           | N    | Y        | 無               | 限制為整數且 ≥ 0                               | 銷售數量                     |
 | `revenue`        | DECIMAL(10,2) | N    | Y        | 無               | 限制為浮點數且 ≥ 0                             | 銷售總金額                   |
 | `average_price`  | DECIMAL(10,2) | N    | Y        | 無               | 限制為浮點數且 ≥ 0                             | 平均單價                     |
@@ -539,10 +539,10 @@
 
 | 欄位名稱         | 資料型別 | 唯一 | NOT NULL | 預設值         | 格式/限制                                      | 說明                         |
 |------------------|----------|------|----------|----------------|------------------------------------------------|------------------------------|
-| `record_id`      | INT      | Y    | Y        | AUTO_INCREMENT | 正整數                                         | 分析紀錄唯一識別碼           |
+| `record_id`      | INT UNSIGNED     | Y    | Y        | AUTO_INCREMENT | 正整數                                         | 分析紀錄唯一識別碼           |
 | `date`           | DATE     | N    | Y        | 無             | 合法日期格式                                   | 統計日期                     |
-| `warehouse_id`   | INT      | N    | N        | 無             | 外鍵參照 `Warehouses(warehouse_id)`            | 倉庫 ID                      |
-| `product_id`     | INT      | N    | N        | 無             | 外鍵參照 `Products(product_id)`                | 商品 ID                      |
+| `warehouse_id`   | INT  UNSIGNED    | N    | N        | 無             | 外鍵參照 `Warehouses(warehouse_id)`            | 倉庫 ID                      |
+| `product_id`     | INT UNSIGNED     | N    | N        | 無             | 外鍵參照 `Products(product_id)`                | 商品 ID                      |
 | `starting_stock` | INT      | N    | Y        | 無             | 限制為整數且 ≥ 0                               | 起始庫存量                   |
 | `ending_stock`   | INT      | N    | Y        | 無             | 限制為整數且 ≥ 0                               | 結束庫存量                   |
 | `sold_units`     | INT      | N    | Y        | 無             | 限制為整數且 ≥ 0                               | 銷售數量                     |
@@ -562,7 +562,7 @@
 
 | 欄位名稱          | 資料型別      | 唯一 | NOT NULL | 預設值         | 格式/限制                          | 說明                            |
 |-------------------|---------------|------|----------|----------------|-----------------------------------|---------------------------------|
-| `record_id`       | INT           | Y    | Y        | AUTO_INCREMENT | 正整數                            | 統計紀錄唯一識別碼              |
+| `record_id`       | INT   UNSIGNED        | Y    | Y        | AUTO_INCREMENT | 正整數                            | 統計紀錄唯一識別碼              |
 | `date`            | DATE          | N    | Y        | 無             | 合法日期格式                      | 統計日期                        |
 | `total_visits`    | INT           | N    | Y        | 無             | 整數，應 ≥ 0                      | 當日網站訪問次數                |
 | `total_orders`    | INT           | N    | Y        | 無             | 整數，應 ≥ 0                      | 當日訂單數量                    |
@@ -581,7 +581,7 @@
 
 | 欄位名稱               | 資料型別     | 唯一 | NOT NULL | 預設值         | 格式/限制                              | 說明                            |
 |------------------------|--------------|------|----------|----------------|-----------------------------------------|---------------------------------|
-| `record_id`            | INT          | Y    | Y        | AUTO_INCREMENT | 正整數                                  | 紀錄唯一識別碼                  |
+| `record_id`            | INT  UNSIGNED        | Y    | Y        | AUTO_INCREMENT | 正整數                                  | 紀錄唯一識別碼                  |
 | `date`                 | DATE         | N    | Y        | 無             | 合法日期格式                            | 統計日期                        |
 | `carrier`              | STRING(50)   | N    | Y        | 無             | 最長 50 字， 限制字元類型            | 承運商名稱                      |
 | `total_shipments`      | INT          | N    | Y        | 無             | 整數 ≥ 0                                | 當日總出貨數量                  |
@@ -604,9 +604,9 @@
 
 | 欄位名稱           | 資料型別      | 唯一 | NOT NULL | 預設值         | 格式/限制                                | 說明                            |
 |--------------------|---------------|------|----------|----------------|-------------------------------------------|---------------------------------|
-| `record_id`        | INT           | Y    | Y        | AUTO_INCREMENT | 正整數                                    | 統計紀錄唯一識別碼              |
+| `record_id`        | INT   UNSIGNED        | Y    | Y        | AUTO_INCREMENT | 正整數                                    | 統計紀錄唯一識別碼              |
 | `date`             | DATE          | N    | Y        | 無             | 合法日期格式                              | 統計日期                        |
-| `product_id`       | INT           | N    | N        | 無             | 外鍵參照 `Products(product_id)`            | 所屬商品 ID                     |
+| `product_id`       | INT   UNSIGNED        | N    | N        | 無             | 外鍵參照 `Products(product_id)`            | 所屬商品 ID                     |
 | `total_reviews`    | INT           | N    | Y        | 無             | 整數且 ≥ 0                                | 評論總數                        |
 | `average_rating`   | DECIMAL(3,2)  | N    | Y        | 無             | 數值範圍 為 1.00 ~ 5.00                | 平均評分（星數）                |
 | `positive_reviews` | INT           | N    | Y        | 無             | 整數且 ≥ 0                                | 好評數量                        |
@@ -627,17 +627,17 @@
 
 | 欄位名稱       | 資料型別      | 唯一 | NOT NULL | 預設值                            | 格式/限制                                                              | 說明                       |
 |----------------|---------------|------|----------|------------------------------------|------------------------------------------------------------------------|----------------------------|
-| `order_id`     | INT           | Y    | Y        | AUTO_INCREMENT                     | 正整數                                                                 | 訂單唯一識別碼             |
-| `customer_id`  | INT           | N    | Y        | 無                                 | 外鍵參照 `users(user_id)`                                               | 購買者 ID                  |
+| `order_id`     | INT     UNSIGNED      | Y    | Y        | AUTO_INCREMENT                     | 正整數                                                                 | 訂單唯一識別碼             |
+| `customer_id`  | INT    UNSIGNED       | N    | Y        | 無                                 | 外鍵參照 `users(user_id)`                                               | 購買者 ID                  |
 | `order_status` | ENUM          | N    | Y        | 無                                 | 僅允許 `pending`, `shipped`, `delivered`, `cancelled`                  | 訂單狀態                   |
 | `total_amount` | DECIMAL(10,2) | N    | Y        | 無                                 | 必須為正數，兩位小數                                                  | 訂單總金額                 |
 | `created_at`   | TIMESTAMP     | N    | N        | CURRENT_TIMESTAMP                  | 系統時間自動填入                                                       | 建立時間                   |
 | `updated_at`   | TIMESTAMP     | N    | N        | CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP | 系統時間自動更新                                       | 最後更新時間               |
 | `shipping_fee` | DECIMAL(10,2) | N    | N        | 0.00                               | 金額格式，兩位小數                                                     | 運費                       |
 | `discount`     | DECIMAL(10,2) | N    | N        | 0.00                               | 金額格式，兩位小數                                                     | 折扣金額                   |
-| `payment_id`   | INT           | N    | N        | 無                                 | 外鍵參照 `payments(payment_id)`                                        | 對應付款紀錄 ID            |
-| `shipping_id`  | INT           | N    | N        | 無                                 | 外鍵參照 `shipments(shipment_id)`                                      | 對應物流紀錄 ID            |
-| `coupon_id`    | INT           | N    | N        | 無                                 | 外鍵參照 `coupons(coupon_id)`                                          | 使用的優惠券 ID            |
+| `payment_id`   | INT   UNSIGNED        | N    | N        | 無                                 | 外鍵參照 `payments(payment_id)`                                        | 對應付款紀錄 ID            |
+| `shipping_id`  | INT  UNSIGNED         | N    | N        | 無                                 | 外鍵參照 `shipments(shipment_id)`                                      | 對應物流紀錄 ID            |
+| `coupon_id`    | INT   UNSIGNED        | N    | N        | 無                                 | 外鍵參照 `coupons(coupon_id)`                                          | 使用的優惠券 ID            |
 
 | 欄位名稱       |  限制方式                                         | 理由說明                        |
 |----------------|------------------------------------------------------|---------------------------------|
@@ -654,9 +654,9 @@
 
 | 欄位名稱        | 資料型別      | 唯一 | NOT NULL | 預設值         | 格式/限制                                      | 說明                          |
 |-----------------|---------------|------|----------|----------------|------------------------------------------------|-------------------------------|
-| `order_item_id` | INT           | Y    | Y        | AUTO_INCREMENT | 正整數                                         | 訂單項目唯一識別碼            |
-| `order_id`      | INT           | N    | N        | 無             | 外鍵參照 `orders(order_id)`                    | 所屬訂單 ID                    |
-| `product_id`    | INT           | N    | Y        | 無             | 外鍵參照 `products(product_id)`                | 商品 ID                        |
+| `order_item_id` | INT    UNSIGNED       | Y    | Y        | AUTO_INCREMENT | 正整數                                         | 訂單項目唯一識別碼            |
+| `order_id`      | INT   UNSIGNED        | N    | N        | 無             | 外鍵參照 `orders(order_id)`                    | 所屬訂單 ID                    |
+| `product_id`    | INT   UNSIGNED        | N    | Y        | 無             | 外鍵參照 `products(product_id)`                | 商品 ID                        |
 | `quantity`      | INT           | N    | Y        | 無             | 整數且 ≥ 1                                     | 訂購數量                       |
 | `unit_price`    | DECIMAL(10,2) | N    | Y        | 無             | 正數，小數點後 2 位                            | 商品單價                       |
 | `subtotal`      | DECIMAL(10,2) | N    | Y        | 計算欄位       | 自動計算：`quantity * unit_price`              | 該商品項目小計                |
@@ -674,8 +674,8 @@
 
 | 欄位名稱         | 資料型別      | 唯一 | NOT NULL | 預設值             | 格式/限制                                                           | 說明                         |
 |------------------|---------------|------|----------|---------------------|----------------------------------------------------------------------|------------------------------|
-| `payment_id`     | INT           | Y    | Y        | AUTO_INCREMENT      | 正整數                                                             | 付款記錄唯一識別碼           |
-| `order_id`       | INT           | N    | N        | 無                  | 外鍵參照 `Orders(order_id)`                                          | 所屬訂單 ID                  |
+| `payment_id`     | INT  UNSIGNED         | Y    | Y        | AUTO_INCREMENT      | 正整數                                                             | 付款記錄唯一識別碼           |
+| `order_id`       | INT  UNSIGNED         | N    | N        | 無                  | 外鍵參照 `Orders(order_id)`                                          | 所屬訂單 ID                  |
 | `payment_method` | ENUM          | N    | Y        | 無                  | 僅允許 `credit_card`, `paypal`, `bank_transfer`, `cash_on_delivery` | 付款方式                     |
 | `payment_status` | ENUM          | N    | Y        | 無                  | 僅允許 `pending`, `completed`, `failed`                             | 付款狀態                     |
 | `amount`         | DECIMAL(10,2) | N    | Y        | 無                  | 金額格式， 限制 ≥ 0                                              | 付款金額                     |
@@ -695,9 +695,9 @@
 
 | 欄位名稱        | 資料型別      | 唯一 | NOT NULL | 預設值             | 格式/限制                                                        | 說明                         |
 |-----------------|---------------|------|----------|---------------------|-------------------------------------------------------------------|------------------------------|
-| `return_id`     | INT           | Y    | Y        | AUTO_INCREMENT      | 正整數                                                          | 退貨/退款記錄唯一識別碼      |
-| `order_id`      | INT           | N    | N        | 無                  | 外鍵參照 `Orders(order_id)`                                       | 所屬訂單 ID                  |
-| `product_id`    | INT           | N    | N        | 無                  | 外鍵參照 `Products(product_id)`                                   | 所屬商品 ID                  |
+| `return_id`     | INT  UNSIGNED         | Y    | Y        | AUTO_INCREMENT      | 正整數                                                          | 退貨/退款記錄唯一識別碼      |
+| `order_id`      | INT   UNSIGNED        | N    | N        | 無                  | 外鍵參照 `Orders(order_id)`                                       | 所屬訂單 ID                  |
+| `product_id`    | INT  UNSIGNED         | N    | N        | 無                  | 外鍵參照 `Products(product_id)`                                   | 所屬商品 ID                  |
 | `reason`        | STRING        | N    | N        | 無                  |  長度限制，並防止特殊符號                                     | 退貨/退款原因文字描述        |
 | `status`        | ENUM          | N    | N        | `'requested'`       | 僅允許 `requested`, `approved`, `rejected`, `processed`           | 處理狀態                     |
 | `refund_amount` | DECIMAL(10,2) | N    | N        | 無                  |  限制為浮點數且 ≥ 0                                           | 退款金額（可為部分退款）     |
