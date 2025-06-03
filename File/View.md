@@ -56,7 +56,8 @@ FROM membership_levels;
 ```
 📌 用途：顧客等級查詢、升等動機引導
 
-![image](https://github.com/user-attachments/assets/400b5958-e82c-4587-b55b-56a2f1abcd5c)
+![image](https://github.com/user-attachments/assets/290da991-d8c5-4626-a912-28dd1eaec940)
+
 
 
 4. 倉儲人員（Warehouse）  
