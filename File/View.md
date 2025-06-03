@@ -1549,7 +1549,6 @@ FROM order_items;
 | 欄位            | Admin | Seller | Customer | Warehouse | Finance | Marketing | Support |
 |-----------------|:-----:|:------:|:--------:|:---------:|:-------:|:---------:|:-------:|
 | payment_id      |  ✔   |   ✘   |    ✔     |     ✘     |    ✔    |     ✘     |    ✔    |
-| order_id        |  ✔   |   ✘   |    ✔     |     ✘     |    ✔    |     ✘     |    ✔    |
 | payment_method  |  ✔   |   ✘   |    ✔     |     ✘     |    ✔    |     ✘     |    ✔    |
 | payment_status  |  ✔   |   ✘   |    ✔     |     ✘     |    ✔    |     ✘     |    ✔    |
 | amount          |  ✔   |   ✘   |    ✔     |     ✘     |    ✔    |     ✘     |    ✔    |
@@ -1563,37 +1562,51 @@ SELECT * FROM payments;
 ```
 📌 用途：支付全流程監控與異常處理 
 
+![image](https://github.com/user-attachments/assets/72e89f8a-999c-43d2-abfd-952b2722a0b4)
+
+
 2. 顧客（Customer）  
 > 個人支付記錄
 ```sql
-CREATE VIEW customer_payments_view AS
-SELECT p.payment_id, p.order_id, p.payment_method,
-       p.payment_status, p.amount, p.payment_date
+CREATE OR REPLACE VIEW customer_payments_view AS
+SELECT p.payment_id, p.payment_method,
+       p.payment_status, p.amount, p.payment_date,o.customer_id,o.order_id
 FROM payments p
-JOIN orders o ON p.order_id = o.order_id
+JOIN orders o ON p.payment_id = o.payment_id
 WHERE o.customer_id = CURRENT_USER_ID();
 ```
 📌 用途：支付憑證查詢與退款申請 
+
+![image](https://github.com/user-attachments/assets/43d69954-2361-44d9-9db9-846382be9a0a)
+
 
 3. 財務人員（Finance）  
 > 完整付款財務資料
 ```sql
 CREATE VIEW finance_payments_view AS
-SELECT payment_id, order_id, payment_method,
-       payment_status, amount, payment_date
-FROM payments;
+SELECT p.payment_id, p.payment_method,
+       p.payment_status, p.amount, p.payment_date , o.order_id
+FROM payments p
+JOIN orders o ON p.payment_id = o.payment_id;
 ```
 📌 用途：賬務處理與銀行對賬 
+
+![image](https://github.com/user-attachments/assets/4190f2d2-d3a3-422f-95e2-52d72ce314e0)
+
 
 4. 客服人員（Support）  
 > 客戶支付查詢介面
 ```sql
 CREATE VIEW support_payments_view AS
-SELECT payment_id, order_id, payment_method,
-       payment_status, amount, payment_date
-FROM payments;
+SELECT p.payment_id, o.order_id, p.payment_method,
+       p.payment_status, p.amount, p.payment_date
+FROM payments p
+JOIN orders o ON p.payment_id = o.payment_id;
 ```
 📌 用途：支付問題排查與退款處理 
+
+![image](https://github.com/user-attachments/assets/6c3ad93e-0610-429f-8c77-22310738a52b)
+
 
 ### `Return_refunds` 欄位可視權限表
 | 欄位            | Admin | Seller | Customer | Warehouse | Finance | Marketing | Support |
@@ -1614,17 +1627,24 @@ SELECT * FROM return_refunds;
 ```
 📌 用途：退貨率分析與流程優化 
 
+![image](https://github.com/user-attachments/assets/14c4e78a-373c-4435-8508-74c92b88cb8b)
+
+
 2. 賣家（Seller）  
 > 賣家商品退貨申請
 ```sql
 CREATE VIEW seller_return_refunds_view AS
 SELECT rr.refund_id, rr.order_id, rr.product_id,
        rr.reason, rr.status, rr.refund_amount, rr.created_at
+       ,p.seller_id
 FROM return_refunds rr
 JOIN products p ON rr.product_id = p.product_id
 WHERE p.seller_id = CURRENT_USER_ID();
 ```
 📌 用途：退貨審核與庫存恢復 
+
+![image](https://github.com/user-attachments/assets/aa187ceb-6907-472a-9e5d-8479a67b3fb4)
+
 
 3. 顧客（Customer）  
 > 個人退貨退款記錄
@@ -1632,11 +1652,15 @@ WHERE p.seller_id = CURRENT_USER_ID();
 CREATE VIEW customer_return_refunds_view AS
 SELECT rr.refund_id, rr.order_id, rr.product_id,
        rr.reason, rr.status, rr.refund_amount, rr.created_at
+       ,o.customer_id
 FROM return_refunds rr
 JOIN orders o ON rr.order_id = o.order_id
 WHERE o.customer_id = CURRENT_USER_ID();
 ```
 📌 用途：退貨進度查詢與追蹤 
+
+![image](https://github.com/user-attachments/assets/115176b6-5c2c-4589-abbc-4bd783cf6d76)
+
 
 5. 財務人員（Finance）  
 > 退款財務資料
@@ -1648,6 +1672,9 @@ FROM return_refunds;
 ```
 📌 用途：退款處理與賬務調整 
 
+![image](https://github.com/user-attachments/assets/a69609e7-3ce4-49e2-bb0e-80e17c130ffb)
+
+
 7. 客服人員（Support）  
 > 退貨退款全資訊
 ```sql
@@ -1657,3 +1684,6 @@ SELECT refund_id, order_id, product_id,
 FROM return_refunds;
 ```
 📌 用途：退貨流程處理與客戶溝通 
+
+![image](https://github.com/user-attachments/assets/d0cf33be-8bb0-4950-a28e-0eb3521d82a5)
+
