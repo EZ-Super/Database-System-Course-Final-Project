@@ -128,7 +128,7 @@
 | brand                | STRING(100)      | N    | N        | 無                                   | -                                      | 商品品牌                     |
 | model                | STRING(100)      | N    | N        | 無                                   | -                                      | 商品型號                     |
 | description          | STRING (255)     | N    | N        | 無                                   |   最長 255 字                            | 商品描述                     |
-| category_id          | INT UNSIGNED  | N    | Y        | 無                                   | 外鍵參照 `categories` 表              | 商品所屬分類                 |
+| category_id          | INT   | N    | Y        | 無                                   | 外鍵參照 `categories` 表              | 商品所屬分類                 |
 | variant_type         | STRING(255)      | N    | N        | 無                                   | 例如：尺寸、顏色                       | 商品變體類型                 |
 | price                | DECIMAL(10,2)    | N    | Y        | 無                                   | 金額格式（最多 99999999.99）           | 商品原價                     |
 | promotional_price    | DECIMAL(10,2)    | N    | N        | 無                                   | 金額格式                               | 特價價格（如有）             |
@@ -353,7 +353,7 @@
 | `warehouse_name` | STRING(100) | N    | Y        | 無               | 最長 100 字                     | 倉庫名稱                     |
 | `location`       | STRING(255) | N    | Y        | 無               | 最長 255 字                     | 倉庫地址 / 位置              |
 | `capacity`       | INT         | N    | Y        | 無               |  限制 ≥ 0                    | 倉儲容量                     |
-| `manager_id`     | STRING(36)  | N    | N        | 無               | 外鍵參照 `Users(user_id)`       | 倉庫負責人 ID（UUID 格式）    |
+| `manager_id`     | INT  | N    | N        | 無               | 外鍵參照 `Users(user_id)`       | 倉庫負責人 ID（UUID 格式）    |
 | `contact_info`   | STRING(255) | N    | N        | 無               | 最長 255 字                     | 聯絡方式（電話/Email）       |
 | `created_at`     | TIMESTAMP   | N    | N        | CURRENT_TIMESTAMP | 系統時間                        | 建立時間                     |
 
