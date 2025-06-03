@@ -275,7 +275,7 @@ FROM sellers;
 ![image](https://github.com/user-attachments/assets/72f246db-abe6-4163-8e88-49060ca5ee4e)
 
 
-### `Points` 欄位可視權限表
+### `points` 欄位可視權限表
 | 欄位            | Admin | Seller | Customer | Warehouse | Finance | Marketing | Support |
 |-----------------|:-----:|:------:|:--------:|:---------:|:-------:|:---------:|:-------:|
 | point_id        |  ✔   |   ✘   |    ✔     |     ✘     |    ✔    |     ✘     |    ✔    |
@@ -331,7 +331,7 @@ FROM points;
 ![image](https://github.com/user-attachments/assets/7f45d41d-53c9-4c96-9d38-5ffde2363641)
 
 
-### `Coupons` 欄位可視權限表
+### `coupons` 欄位可視權限表
 | 欄位            | Admin | Seller | Customer | Warehouse | Finance | Marketing | Support |
 |-----------------|:-----:|:------:|:--------:|:---------:|:-------:|:---------:|:-------:|
 | coupon_id       |  ✔   |   ✘   |    ✘     |     ✘     |    ✘    |     ✔     |    ✘    |
@@ -380,7 +380,7 @@ WHERE is_active = TRUE AND (expiry_date IS NULL OR expiry_date >= CURDATE());
 ![image](https://github.com/user-attachments/assets/30876a08-3213-43e6-a259-f212313294bb)
 
 
-### `Messages` 欄位可視權限表
+### `messages` 欄位可視權限表
 | 欄位            | Admin | Seller | Customer | Warehouse | Finance | Marketing | Support |
 |-----------------|:-----:|:------:|:--------:|:---------:|:-------:|:---------:|:-------:|
 | message_id      |  ✔   |   ✔   |    ✔     |     ✘     |    ✘    |     ✘     |    ✔    |
@@ -426,7 +426,7 @@ FROM messages;
 ![image](https://github.com/user-attachments/assets/aeab6f20-83bd-4dea-b462-abd05dad0bcb)
 
 
-### `Notifications` 欄位可視權限表
+### `notifications` 欄位可視權限表
 | 欄位            | Admin | Seller | Customer | Warehouse | Finance | Marketing | Support |
 |-----------------|:-----:|:------:|:--------:|:---------:|:-------:|:---------:|:-------:|
 | notification_id |  ✔   |   ✘   |    ✔     |     ✘     |    ✘    |     ✔     |    ✔    |
@@ -491,7 +491,7 @@ FROM notifications;
 
 ## 倉庫管理
 
-### `Warehouses` 欄位可視權限表
+### `warehouses` 欄位可視權限表
 | 欄位            | Admin | Seller | Customer | Warehouse | Finance | Marketing | Support |
 |-----------------|:-----:|:------:|:--------:|:---------:|:-------:|:---------:|:-------:|
 | warehouse_id    |  ✔   |   ✘   |    ✘     |     ✔     |    ✘    |     ✘     |    ✘    |
@@ -524,7 +524,7 @@ SELECT * FROM warehouses;
 ![image](https://github.com/user-attachments/assets/8ef68b4b-e4eb-4535-9cea-d6f68f38af13)
 
 
-### `Inventory` 欄位可視權限表
+### `inventory` 欄位可視權限表
 | 欄位            | Admin | Seller | Customer | Warehouse | Finance | Marketing | Support |
 |-----------------|:-----:|:------:|:--------:|:---------:|:-------:|:---------:|:-------:|
 | inventory_id    |  ✔   |   ✔   |    ✘     |     ✔     |    ✘    |     ✘     |    ✘    |
@@ -569,7 +569,7 @@ SELECT * FROM inventory;
 ![image](https://github.com/user-attachments/assets/aafec53c-bf5a-46d0-9cd3-daa6404bf09d)
 
 
-### `Suppliers` 欄位可視權限表
+### `suppliers` 欄位可視權限表
 | 欄位            | Admin | Seller | Customer | Warehouse | Finance | Marketing | Support |
 |-----------------|:-----:|:------:|:--------:|:---------:|:-------:|:---------:|:-------:|
 | supplier_id     |  ✔   |   ✔   |    ✘     |     ✔     |    ✘    |     ✘     |    ✘    |
@@ -615,7 +615,7 @@ FROM suppliers;
 
 📌 用途：到貨異常時緊急聯絡
 
-### `Inbound_Shipments` 欄位可視權限表
+### `inbound_Shipments` 欄位可視權限表
 | 欄位            | Admin | Seller | Customer | Warehouse | Finance | Marketing | Support |
 |-----------------|:-----:|:------:|:--------:|:---------:|:-------:|:---------:|:-------:|
 | inbound_id      |  ✔   |   ✔   |    ✘     |     ✔     |    ✘    |     ✘     |    ✘    |
@@ -661,7 +661,7 @@ SELECT * FROM inbound_shipments;
 
 📌 用途：實際收貨與驗收入庫
 
-### `Outbound_Shipments` 欄位可視權限表
+### `outbound_Shipments` 欄位可視權限表
 | 欄位            | Admin | Seller | Customer | Warehouse | Finance | Marketing | Support |
 |-----------------|:-----:|:------:|:--------:|:---------:|:-------:|:---------:|:-------:|
 | outbound_id     |  ✔   |   ✔   |    ✘     |     ✔     |    ✘    |     ✘     |    ✘    |
@@ -725,7 +725,7 @@ FROM outbound_shipments;
 
 📌 用途：退換貨處理、訂單爭議解決 
 
-### `Shipments` 欄位可視權限表
+### `shipments` 欄位可視權限表
 | 欄位                | Admin | Seller | Customer | Warehouse | Finance | Marketing | Support |
 |---------------------|:-----:|:------:|:--------:|:---------:|:-------:|:---------:|:-------:|
 | shipment_id         |  ✔   |   ✔   |    ✔     |     ✔     |    ✘    |     ✘     |    ✔    |
@@ -804,7 +804,7 @@ FROM shipments;
 
 📌 用途：物流異常處理、客戶諮詢 
 
-### `Warehouse_Transfers` 欄位可視權限表
+### `warehouse_Transfers` 欄位可視權限表
 | 欄位                | Admin | Seller | Customer | Warehouse | Finance | Marketing | Support |
 |---------------------|:-----:|:------:|:--------:|:---------:|:-------:|:---------:|:-------:|
 | transfer_id         |  ✔   |   ✘   |    ✘     |     ✔     |    ✘    |     ✘     |    ✘    |
@@ -839,7 +839,7 @@ SELECT * FROM warehouse_transfers;
 
 ## 數據分析
 
-### `Sales_Analysis` 欄位可視權限表
+### `sales_Analysis` 欄位可視權限表
 | 欄位            | Admin | Seller | Customer | Warehouse | Finance | Marketing | Support |
 |-----------------|:-----:|:------:|:--------:|:---------:|:-------:|:---------:|:-------:|
 | record_id       |  ✔   |   ✔   |    ✘     |     ✘     |    ✘    |     ✔     |    ✘    |
@@ -883,7 +883,7 @@ SELECT * FROM sales_analysis;
 ![image](https://github.com/user-attachments/assets/db4c3172-8998-4877-98c1-bf4f8a84d722)
 
 
-### `Inventory_Analytics` 欄位可視權限表
+### `inventory_Analytics` 欄位可視權限表
 | 欄位            | Admin | Seller | Customer | Warehouse | Finance | Marketing | Support |
 |-----------------|:-----:|:------:|:--------:|:---------:|:-------:|:---------:|:-------:|
 | record_id       |  ✔   |   ✔   |    ✘     |     ✔     |    ✘    |     ✔     |    ✘    |
@@ -941,7 +941,7 @@ FROM inventory_analytics;
 ![image](https://github.com/user-attachments/assets/28ed8a22-955b-42d1-96b1-64cb90d4f507)
 
 
-### `Order_Conversion_Stats` 欄位可視權限表
+### `order_Conversion_Stats` 欄位可視權限表
 | 欄位            | Admin | Seller | Customer | Warehouse | Finance | Marketing | Support |
 |-----------------|:-----:|:------:|:--------:|:---------:|:-------:|:---------:|:-------:|
 | record_id       |  ✔   |   ✘   |    ✘     |     ✘     |    ✘    |     ✔     |    ✘    |
@@ -972,7 +972,7 @@ SELECT * FROM order_conversion_stats;
 ![image](https://github.com/user-attachments/assets/f503882d-e320-4a27-9843-bb3995987996)
 
 
-### `Shipment_Performance` 欄位可視權限表
+### `shipment_Performance` 欄位可視權限表
 | 欄位                    | Admin | Seller | Customer | Warehouse | Finance | Marketing | Support |
 |-------------------------|:-----:|:------:|:--------:|:---------:|:-------:|:---------:|:-------:|
 | record_id               |  ✔   |   ✘   |    ✘     |     ✔     |    ✘    |     ✔     |    ✘    |
@@ -1018,7 +1018,7 @@ FROM shipment_performance;
 ![image](https://github.com/user-attachments/assets/41b7d5f9-e3cf-454e-ba2f-2a711d7924e2)
 
 
-### `Customer_Feedback_Stats` 欄位可視權限表
+### `customer_Feedback_Stats` 欄位可視權限表
 | 欄位                | Admin | Seller | Customer | Warehouse | Finance | Marketing | Support |
 |---------------------|:-----:|:------:|:--------:|:---------:|:-------:|:---------:|:-------:|
 | record_id           |  ✔   |   ✔   |    ✘     |     ✘     |    ✘    |     ✔     |    ✔    |
@@ -1077,7 +1077,7 @@ FROM customer_feedback_stats;
 
 ## 商品管理 & 驗證伺服器
 
-### `Products` 欄位可視權限表
+### `products` 欄位可視權限表
 | 欄位                | Admin | Seller | Customer | Warehouse | Finance | Marketing | Support |
 |---------------------|:-----:|:------:|:--------:|:---------:|:-------:|:---------:|:-------:|
 | product_id          |  ✔   |   ✔   |    ✔     |     ✔     |    ✘    |     ✔     |    ✔    |
@@ -1185,7 +1185,7 @@ FROM products;
 ![image](https://github.com/user-attachments/assets/231b08c3-d5e6-4192-8bb0-c8a28a82a274)
 
 
-### `Reviews` 欄位可視權限表
+### `reviews` 欄位可視權限表
 | 欄位         | Admin | Seller | Customer | Warehouse | Finance | Marketing | Support |
 |--------------|:-----:|:------:|:--------:|:---------:|:-------:|:---------:|:-------:|
 | review_id    |  ✔   |   ✔   |    ✔     |     ✘     |    ✘    |     ✔     |    ✔    |
@@ -1257,7 +1257,7 @@ FROM reviews;
 ![image](https://github.com/user-attachments/assets/dcfd0230-cdf4-4f15-97e5-322f49e68db2)
 
 
-### `Categories ` 欄位可視權限表
+### `categories ` 欄位可視權限表
 | 欄位                | Admin | Seller | Customer | Warehouse | Finance | Marketing | Support |
 |---------------------|:-----:|:------:|:--------:|:---------:|:-------:|:---------:|:-------:|
 | category_id         |  ✔   |   ✔   |    ✔     |     ✔     |    ✘    |     ✔     |    ✔    |
@@ -1310,7 +1310,7 @@ FROM categories;
 ![image](https://github.com/user-attachments/assets/d47347e1-3fd1-4a0e-98d9-f7490f9f0513)
 
 
-### `Login_logs ` 欄位可視權限表
+### `login_logs ` 欄位可視權限表
 | 欄位            | Admin | Seller | Customer | Warehouse | Finance | Marketing | Support |
 |-----------------|:-----:|:------:|:--------:|:---------:|:-------:|:---------:|:-------:|
 | log_id          |  ✔   |   ✘   |    ✘     |     ✘     |    ✘    |     ✘     |    ✘    |
@@ -1344,7 +1344,7 @@ FROM login_logs;
 ![image](https://github.com/user-attachments/assets/a7569678-1bbd-44a4-8837-c08a497396df)
 
 
-### `Users ` 欄位可視權限表
+### `users ` 欄位可視權限表
 | 欄位                  | Admin | Seller | Customer | Warehouse | Finance | Marketing | Support |
 |-----------------------|:-----:|:------:|:--------:|:---------:|:-------:|:---------:|:-------:|
 | user_id               |  ✔   |   ✘   |    ✘     |     ✘     |    ✘    |     ✘     |    ✘    |
@@ -1382,11 +1382,11 @@ FROM users;
 
 ## 訂單管理
 
-### `Orders` 欄位可視權限表
+### `orders` 欄位可視權限表
 | 欄位            | Admin | Seller | Customer | Warehouse | Finance | Marketing | Support |
 |-----------------|:-----:|:------:|:--------:|:---------:|:-------:|:---------:|:-------:|
 | order_id        |  ✔   |   ✔   |    ✔     |     ✘     |    ✔    |     ✘     |    ✔    |
-| customer_id     |  ✔   |   ✘   |    ✔     |     ✘     |    ✔    |     ✘     |    ✔    |
+| customer_id     |  ✔   |   ✔   |    ✔     |     ✘     |    ✔    |     ✘     |    ✔    |
 | order_status    |  ✔   |   ✔   |    ✔     |     ✔     |    ✔    |     ✘     |    ✔    |
 | total_amount    |  ✔   |   ✔   |    ✔     |     ✘     |    ✔    |     ✘     |    ✔    |
 | created_at      |  ✔   |   ✔   |    ✔     |     ✘     |    ✔    |     ✘     |    ✔    |
@@ -1469,7 +1469,7 @@ FROM orders;
 ![image](https://github.com/user-attachments/assets/db0c5a4a-cdd0-47ad-8b07-19cbc6614c9e)
 
 
-### `Order_items` 欄位可視權限表
+### `order_items` 欄位可視權限表
 | 欄位            | Admin | Seller | Customer | Warehouse | Finance | Marketing | Support |
 |-----------------|:-----:|:------:|:--------:|:---------:|:-------:|:---------:|:-------:|
 | order_item_id   |  ✔   |   ✔   |    ✔     |     ✘     |    ✔    |     ✘     |    ✔    |
@@ -1546,7 +1546,7 @@ FROM order_items;
 ![image](https://github.com/user-attachments/assets/35436ca4-cfcd-44cd-8bf0-6288b138fe43)
 
 
-### `Payments` 欄位可視權限表
+### `payments` 欄位可視權限表
 | 欄位            | Admin | Seller | Customer | Warehouse | Finance | Marketing | Support |
 |-----------------|:-----:|:------:|:--------:|:---------:|:-------:|:---------:|:-------:|
 | payment_id      |  ✔   |   ✘   |    ✔     |     ✘     |    ✔    |     ✘     |    ✔    |
@@ -1609,7 +1609,7 @@ JOIN orders o ON p.payment_id = o.payment_id;
 ![image](https://github.com/user-attachments/assets/6c3ad93e-0610-429f-8c77-22310738a52b)
 
 
-### `Return_refunds` 欄位可視權限表
+### `return_refunds` 欄位可視權限表
 | 欄位            | Admin | Seller | Customer | Warehouse | Finance | Marketing | Support |
 |-----------------|:-----:|:------:|:--------:|:---------:|:-------:|:---------:|:-------:|
 | refund_id       |  ✔   |   ✔   |    ✔     |     ✘     |    ✔    |     ✘     |    ✔    |
