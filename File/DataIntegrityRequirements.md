@@ -128,7 +128,7 @@
 | brand                | STRING(100)      | N    | N        | 無                                   | -                                      | 商品品牌                     |
 | model                | STRING(100)      | N    | N        | 無                                   | -                                      | 商品型號                     |
 | description          | STRING (255)     | N    | N        | 無                                   |   最長 255 字                            | 商品描述                     |
-| category_id          | BIGINT UNSIGNED  | N    | Y        | 無                                   | 外鍵參照 `categories` 表              | 商品所屬分類                 |
+| category_id          | INT UNSIGNED  | N    | Y        | 無                                   | 外鍵參照 `categories` 表              | 商品所屬分類                 |
 | variant_type         | STRING(255)      | N    | N        | 無                                   | 例如：尺寸、顏色                       | 商品變體類型                 |
 | price                | DECIMAL(10,2)    | N    | Y        | 無                                   | 金額格式（最多 99999999.99）           | 商品原價                     |
 | promotional_price    | DECIMAL(10,2)    | N    | N        | 無                                   | 金額格式                               | 特價價格（如有）             |
@@ -161,7 +161,7 @@
 
 | 欄位名稱           | 資料型別     | 唯一 | NOT NULL | 預設值           | 格式/限制               | 說明                     |
 |--------------------|--------------|------|----------|-------------------|--------------------------|--------------------------|
-| category_id        | BIGINT       | Y    | Y        | AUTO_INCREMENT    | 正整數                   | 分類唯一識別碼           |
+| category_id        | INT       | Y    | Y        | AUTO_INCREMENT    | 正整數                   | 分類唯一識別碼           |
 | category_name      | STRING(255)  | Y    | Y        | 無                | 最長 255 字，唯一         | 分類名稱                 |
 | category_description | STRING     | N    | N        | 無                | 無長度限制（原為 TEXT）   | 分類描述文字             |
 
