@@ -1,4 +1,4 @@
-## 用戶管理 - 謝延偵
+a94ru84## 用戶管理 - 謝延偵
 
 * membership_levels
 
@@ -397,7 +397,7 @@ INSERT INTO `warehouses` (`warehouse_id`, `warehouse_name`, `location`, `capacit
 (10, '倉庫10', '台灣 10 號', 3980, 10, 'manager10@warehouse.com', '2025-05-27 00:00:00');
 ```
 
-* Inventory
+* inventory
 
 |   inventory_id |   warehouse_id |   product_id |   stock_quantity |   reorder_level | last_updated        |
 |---------------:|---------------:|-------------:|-----------------:|----------------:|:--------------------|
@@ -413,7 +413,7 @@ INSERT INTO `warehouses` (`warehouse_id`, `warehouse_name`, `location`, `capacit
 |             10 |              1 |            3 |              134 |              15 | 2025-04-21 00:00:00 |
 
 ```sql
-INSERT INTO `Inventory` (`inventory_id`, `warehouse_id`, `product_id`, `stock_quantity`, `reorder_level`, `last_updated`) VALUES
+INSERT INTO `inventory` (`inventory_id`, `warehouse_id`, `product_id`, `stock_quantity`, `reorder_level`, `last_updated`) VALUES
 (1, 4, 1, 383, 8, '2025-05-04 00:00:00'),
 (2, 6, 4, 326, 10, '2025-04-25 00:00:00'),
 (3, 6, 3, 207, 10, '2025-03-16 00:00:00'),
@@ -454,7 +454,7 @@ INSERT INTO `suppliers` (`supplier_id`, `supplier_name`, `contact_info`, `countr
 (9, '供應商9', 'contact9@supplier.com', '台灣', 2, '2025-05-18 00:00:00'),
 (10, '供應商10', 'contact10@supplier.com', '台灣', 3, '2025-01-28 00:00:00');
 ```
-* Inbound_Shipments
+* inbound_Shipments
 
 |   inbound_id |   supplier_id |   warehouse_id |   product_id |   quantity | arrival_date   | status   |
 |-------------:|--------------:|---------------:|-------------:|-----------:|:---------------|:---------|
@@ -469,7 +469,7 @@ INSERT INTO `suppliers` (`supplier_id`, `supplier_name`, `contact_info`, `countr
 |            9 |             7 |              2 |            6 |         17 | 2025-04-23     | damaged  |
 |           10 |             4 |              6 |            3 |         84 | 2025-04-12     | damaged  |
 ```sql
-INSERT INTO `Inbound_Shipments` (`inbound_id`, `supplier_id`, `warehouse_id`, `product_id`, `quantity`, `arrival_date`, `status`) VALUES
+INSERT INTO `inbound_Shipments` (`inbound_id`, `supplier_id`, `warehouse_id`, `product_id`, `quantity`, `arrival_date`, `status`) VALUES
 (1, 8, 6, 10, 73, '2025-04-15', 'damaged'),
 (2, 4, 10, 5, 78, '2025-04-14', 'pending'),
 (3, 10, 2, 4, 91, '2025-01-06', 'damaged'),
@@ -538,7 +538,7 @@ INSERT INTO `shipments` (`shipment_id`, `order_id`, `tracking_number`, `shipment
 (10, 4, 'TN000010', 'delivered', '2025-03-30', '2025-02-28', '快遞公司10', 468.08);
 ```
 
-* Warehouse_Transfers
+* warehouse_Transfers
 
 |   transfer_id |   from_warehouse_id |   to_warehouse_id |   product_id |   quantity | transfer_status   | transfer_date       |
 |--------------:|--------------------:|------------------:|-------------:|-----------:|:------------------|:--------------------|
@@ -553,7 +553,7 @@ INSERT INTO `shipments` (`shipment_id`, `order_id`, `tracking_number`, `shipment
 |             9 |                   9 |                 2 |            1 |         25 | pending           | 2025-03-14 00:00:00 |
 |            10 |                  10 |                 1 |            6 |         20 | pending           | 2025-03-16 00:00:00 |
 ```sql
-INSERT INTO `Warehouse_Transfers` (`transfer_id`, `from_warehouse_id`, `to_warehouse_id`, `product_id`, `quantity`, `transfer_status`, `transfer_date`) VALUES
+INSERT INTO `warehouse_Transfers` (`transfer_id`, `from_warehouse_id`, `to_warehouse_id`, `product_id`, `quantity`, `transfer_status`, `transfer_date`) VALUES
 (1, 1, 10, 9, 30, 'completed', '2025-04-20 00:00:00'),
 (2, 2, 9, 9, 13, 'completed', '2025-04-15 00:00:00'),
 (3, 3, 8, 3, 26, 'pending', '2025-04-22 00:00:00'),
