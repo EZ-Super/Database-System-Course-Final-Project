@@ -305,7 +305,7 @@ INSERT INTO reviews (review_id, product_id, user_id, rating, comment, created_at
 ```
 
 
-## 驗證伺服器
+## 驗證伺服器 - 楊峻朋
 
 * users 
 
@@ -367,7 +367,7 @@ INSERT INTO login_logs (log_id, user_id, email, login_time, ip_address, user_age
 ```
 
 
-## 倉庫管裡
+## 倉庫管裡 - 鍾文瑀
 * Warehouses 
 
 |   warehouse_id | warehouse_name   | location       |   capacity |   manager_id | contact_info            | created_at          |
@@ -567,7 +567,7 @@ INSERT INTO `Warehouse_Transfers` (`transfer_id`, `from_warehouse_id`, `to_wareh
 (10, 10, 1, 6, 20, 'pending', '2025-03-16 00:00:00');
 ```
 
-## 數據分析
+## 數據分析 - 鍾文瑀
 * Sales Analysis
 
 |   record_id | date       |   product_id |   category_id |   total_sales |   revenue |   average_price |
