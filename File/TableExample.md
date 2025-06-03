@@ -1,6 +1,6 @@
 ## 用戶管理 - 謝延偵
 
-* MembershipLevels
+* membership_levels
 
 | level_id | level_name | required_points | discount_rate |
 |----------|------------|-----------------|---------------|
@@ -31,8 +31,7 @@ INSERT INTO membership_levels (level_id, level_name, required_points, discount_r
 
 ```
 
-* Users
-
+* users
 | user_id | username | email | phone | registration_date | is_active | membership_level_id | shipping_address | billing_address |
 |---------|----------|-------|-------|-------------------|-----------|-------------------|------------------|-----------------|
 | 1 | 陳小明 | chen.xiaoming@gmail.com | 0912345678 | 2023-01-15 10:30:00+08 | TRUE | 1 | 台北市大安區忠孝東路四段112號 | 台北市大安區忠孝東路四段112號 |
@@ -62,7 +61,7 @@ INSERT INTO users (user_id, username, email, phone, registration_date, is_active
 
 ```
 
-* Sellers
+* sellers
 
 | seller_id | user_id | store_name | store_description | bank_account |
 |-----------|---------|------------|-------------------|--------------|
@@ -92,7 +91,7 @@ INSERT INTO sellers (seller_id, user_id, store_name, store_description, bank_acc
 
 ```
 
-* Points
+* points
 
 | point_id | user_id | points_earned | transaction_date | description |
 |----------|---------|---------------|------------------|-------------|
@@ -122,7 +121,7 @@ INSERT INTO points (point_id, user_id, points_earned, transaction_date, descript
 
 ```
 
-* Coupons
+* coupons
 
 | coupon_id | coupon_code | discount_amount | expiry_date | usage_limit | is_active | coupon_type |
 |-----------|-------------|-----------------|-------------|-------------|-----------|-------------|
@@ -152,7 +151,7 @@ INSERT INTO coupons (coupon_id, coupon_code, discount_amount, expiry_date, usage
 
 ```
 
-* Messages
+* messages
 
 | message_id | sender_id | receiver_id | message_content | send_time | is_read |
 |------------|-----------|-------------|-----------------|-----------|---------|
@@ -182,7 +181,7 @@ INSERT INTO messages (message_id, sender_id, receiver_id, message_content, send_
 
 ```
 
-* Notifications
+* notifications
 
 | notification_id | user_id | notification_type | subject | message | sent_at | is_read | related_entity | related_entity_id |
 |-----------------|---------|-------------------|---------|---------|---------|---------|----------------|-------------------|
@@ -215,7 +214,7 @@ INSERT INTO notifications (
 
 ## 商品管理 - 楊峻朋
 
-* Product
+* products
 
 | product_id | product_name     | sku       | brand     | model       | price   | promotional_price | category_id | seller_id | reviews_count | favorites_count | date_added          | last_updated         |
 |------------|------------------|-----------|-----------|-------------|---------|-------------------|-------------|-----------|----------------|------------------|----------------------|----------------------|
@@ -244,7 +243,7 @@ INSERT INTO products (product_id, product_name, sku, brand, model, price, promot
 (10, '智慧手錶', 'WT-010', 'Apple', 'Watch SE', 8990.00, 8490.00, 9, 2, 65, 58, '2025-05-30 10:09:00', '2025-05-30 10:09:00');
 ```
 
-* category
+* categories
 
 | category_id | category_name     | category_description                    |
 |-------------|-------------------|------------------------------------------|
@@ -274,7 +273,7 @@ INSERT INTO categories (category_id, category_name, category_description) VALUES
 
 ```
 
-* review
+* reviews
 
 | review_id | product_id | user_id | rating | comment                                             | created_at          |
 |-----------|------------|---------|--------|------------------------------------------------------|---------------------|
@@ -367,8 +366,8 @@ INSERT INTO login_logs (log_id, user_id, email, login_time, ip_address, user_age
 ```
 
 
-## 倉庫管裡 - 鍾文瑀
-* Warehouses 
+## 倉庫管理 - 鍾文瑀
+* warehouses 
 
 |   warehouse_id | warehouse_name   | location       |   capacity |   manager_id | contact_info            | created_at          |
 |---------------:|:-----------------|:---------------|-----------:|-------------:|:------------------------|:--------------------|
@@ -427,7 +426,7 @@ INSERT INTO `Inventory` (`inventory_id`, `warehouse_id`, `product_id`, `stock_qu
 (10, 1, 3, 134, 15, '2025-04-21 00:00:00');
 ```
 
-* Suppliers
+* suppliers
 
 |   supplier_id | supplier_name   | contact_info           | country   |   rating | created_at          |
 |--------------:|:----------------|:-----------------------|:----------|---------:|:--------------------|
@@ -482,7 +481,7 @@ INSERT INTO `Inbound_Shipments` (`inbound_id`, `supplier_id`, `warehouse_id`, `p
 (9, 7, 2, 6, 17, '2025-04-23', 'damaged'),
 (10, 4, 6, 3, 84, '2025-04-12', 'damaged');
 ```
-* Outbound_Shipments
+* outbound_Shipments
 |   outbound_id |   order_id |   warehouse_id |   product_id |   quantity | dispatch_date   | status    |
 |--------------:|-----------:|---------------:|-------------:|-----------:|:----------------|:----------|
 |             1 |          8 |              3 |            6 |          3 | 2025-01-01      | preparing |
@@ -510,7 +509,7 @@ INSERT INTO `outbound_shipments` (`outbound_id`, `order_id`, `warehouse_id`, `pr
 (10, 1, 3, 2, 10, '2025-02-19', 'delivered');
 ```
 
-* Shipments 
+* shipments 
 
 |   shipment_id |   order_id | tracking_number   | shipment_status   | estimated_delivery   | actual_delivery   | carrier    |   shipping_cost |
 |--------------:|-----------:|:------------------|:------------------|:---------------------|:------------------|:-----------|----------------:|
@@ -539,7 +538,7 @@ INSERT INTO `shipments` (`shipment_id`, `order_id`, `tracking_number`, `shipment
 (10, 4, 'TN000010', 'delivered', '2025-03-30', '2025-02-28', '快遞公司10', 468.08);
 ```
 
-*Warehouse_Transfers
+* Warehouse_Transfers
 
 |   transfer_id |   from_warehouse_id |   to_warehouse_id |   product_id |   quantity | transfer_status   | transfer_date       |
 |--------------:|--------------------:|------------------:|-------------:|-----------:|:------------------|:--------------------|
@@ -568,7 +567,7 @@ INSERT INTO `Warehouse_Transfers` (`transfer_id`, `from_warehouse_id`, `to_wareh
 ```
 
 ## 數據分析 - 鍾文瑀
-* Sales Analysis
+* sales_analysis
 
 |   record_id | date       |   product_id |   category_id |   total_sales |   revenue |   average_price |
 |------------:|:-----------|-------------:|--------------:|--------------:|----------:|----------------:|
@@ -597,7 +596,7 @@ INSERT INTO `sales_analysis` (`record_id`, `date`, `product_id`, `category_id`, 
 (10, '2025-05-21', 2, 1, 31, 4570.76, 760.73);
 ```
 
-* Inventory Analytics
+* inventory_analytics
 
 |   record_id | date       |   warehouse_id |   product_id |   starting_stock |   ending_stock |   sold_units |   received_units |
 |------------:|:-----------|---------------:|-------------:|-----------------:|---------------:|-------------:|-----------------:|
@@ -626,7 +625,7 @@ INSERT INTO `inventory_analytics` (`record_id`, `date`, `warehouse_id`, `product
 (10, '2025-05-21', 3, 5, 425, 360, 65, 1);
 ```
 
-* Order Conversion Stats
+* order_conversion_stats
 
 |   record_id | date       |   total_visits |   total_orders |   conversion_rate |
 |------------:|:-----------|---------------:|---------------:|------------------:|
@@ -655,7 +654,7 @@ INSERT INTO `order_conversion_stats` (`record_id`, `date`, `total_visits`, `tota
 (10, '2025-05-21', 163, 11, 6.75);
 ```
 
-* Shipment Performance
+* shipment_performance
 
 |   record_id | date       | carrier    |   total_shipments |   on_time_deliveries |   late_deliveries |   average_delivery_time |
 |------------:|:-----------|:-----------|------------------:|---------------------:|------------------:|------------------------:|
@@ -685,7 +684,7 @@ INSERT INTO `shipment_performance` (`record_id`, `date`, `carrier`, `total_shipm
 
 ```
 
-* Customer Feedback Stats
+* customer_feedback_stats
 
 |   record_id | date       |   product_id |   total_reviews |   average_rating |   positive_reviews |   negative_reviews |
 |------------:|:-----------|-------------:|----------------:|-----------------:|-------------------:|-------------------:|
@@ -717,7 +716,7 @@ INSERT INTO `customer_feedback_stats` (`record_id`, `date`, `product_id`, `total
 
 ```
 ## 訂單管理 - 楊峻朋
-* Orders
+* orders
 
 |   order_id |   customer_id | order_status   |   total_amount | created_at   | updated_at   |   shipping_fee |   discount |   payment_id |   shipping_id | coupon_id   |
 |-----------:|--------------:|:---------------|---------------:|:-------------|:-------------|---------------:|-----------:|-------------:|--------------:|:------------|
@@ -747,7 +746,7 @@ INSERT INTO `orders` (`order_id`, `customer_id`, `order_status`, `total_amount`,
 
 ```
 
-* Order Items
+* order_items
 
 |   order_item_id |   order_id |   product_id |   quantity |   unit_price |   subtotal |
 |----------------:|-----------:|-------------:|-----------:|-------------:|-----------:|
@@ -763,7 +762,6 @@ INSERT INTO `orders` (`order_id`, `customer_id`, `order_status`, `total_amount`,
 |              10 |         10 |            2 |          5 |       786.05 |    3930.25 |
 
 ```sql
--- order_items
 INSERT INTO `order_items` (`order_item_id`, `order_id`, `product_id`, `quantity`, `unit_price`) VALUES
 (1.0, 1.0, 3.0, 3.0, 696.66),
 (2.0, 2.0, 6.0, 5.0, 141.18),
@@ -778,7 +776,7 @@ INSERT INTO `order_items` (`order_item_id`, `order_id`, `product_id`, `quantity`
 
 ```
 
-* Payments
+* payments
 
 |   payment_id |   order_id | payment_method   | payment_status   |   amount | payment_date   |
 |-------------:|-----------:|:-----------------|:-----------------|---------:|:---------------|
@@ -794,7 +792,6 @@ INSERT INTO `order_items` (`order_item_id`, `order_id`, `product_id`, `quantity`
 |           10 |         10 | cash_on_delivery | completed        |  2579.3  | 2025-05-21     |
 
 ```sql
--- payments
 INSERT INTO `payments` (`payment_id`, `payment_method`, `payment_status`, `amount`, `payment_date`) VALUES
 (1, 'bank_transfer', 'pending', 1358.29, '2025-05-30'),
 (2, 'credit_card', 'completed', 2814.99, '2025-05-29'),
@@ -809,7 +806,7 @@ INSERT INTO `payments` (`payment_id`, `payment_method`, `payment_status`, `amoun
 
 ```
 
-* Return Refunds
+* return_refunds
 
 |   refund_id |   order_id |   product_id | reason   | status    |   refund_amount | created_at   |
 |------------:|-----------:|-------------:|:---------|:----------|----------------:|:-------------|
@@ -828,7 +825,6 @@ INSERT INTO `payments` (`payment_id`, `payment_method`, `payment_status`, `amoun
 
 ```sql
 
--- return_refunds
 INSERT INTO `return_refunds` (`refund_id`, `order_id`, `product_id`, `reason`, `status`, `refund_amount`, `created_at`) VALUES
 (1, 1, 5, '原因1', 'rejected', 589.6, '2025-05-30'),
 (2, 2, 9, '原因2', 'processed', 657.86, '2025-05-29'),
