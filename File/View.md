@@ -1388,7 +1388,7 @@ FROM users;
 | order_id        |  ✔   |   ✔   |    ✔     |     ✘     |    ✔    |     ✘     |    ✔    |
 | customer_id     |  ✔   |   ✔   |    ✔     |     ✘     |    ✔    |     ✘     |    ✔    |
 | order_status    |  ✔   |   ✔   |    ✔     |     ✔     |    ✔    |     ✘     |    ✔    |
-| total_amount    |  ✔   |   ✔   |    ✔     |     ✘     |    ✔    |     ✘     |    ✔    |
+| total_amount    |  ✔   |   ✔   |    ✔     |     ✔     |    ✔    |     ✘     |    ✔    |
 | created_at      |  ✔   |   ✔   |    ✔     |     ✘     |    ✔    |     ✘     |    ✔    |
 | updated_at      |  ✔   |   ✔   |    ✔     |     ✘     |    ✔    |     ✘     |    ✔    |
 | shipping_fee    |  ✔   |   ✔   |    ✔     |     ✔     |    ✔    |     ✘     |    ✔    |
@@ -1465,6 +1465,14 @@ SELECT order_id, customer_id, order_status,
 FROM orders;
 ```
 📌 用途：客戶訂單問題處理 
+
+6.倉儲人員(Warehouse)
+> 訂單倉儲查詢
+```sql
+CREATE VIEW warehouse_orders_view AS
+SELECT order_status,total_amount,shipping_fee,shipping_id
+FROM orders;
+```
 
 ![image](https://github.com/user-attachments/assets/db0c5a4a-cdd0-47ad-8b07-19cbc6614c9e)
 
