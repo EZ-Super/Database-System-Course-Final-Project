@@ -1,4 +1,4 @@
-a94ru84## 用戶管理 - 謝延偵
+## 用戶管理 - 謝延偵
 
 * membership_levels
 
@@ -32,6 +32,7 @@ INSERT INTO membership_levels (level_id, level_name, required_points, discount_r
 ```
 
 * users
+
 | user_id | username | email | phone | registration_date | is_active | membership_level_id | shipping_address | billing_address |
 |---------|----------|-------|-------|-------------------|-----------|-------------------|------------------|-----------------|
 | 1 | 陳小明 | chen.xiaoming@gmail.com | 0912345678 | 2023-01-15 10:30:00+08 | TRUE | 1 | 台北市大安區忠孝東路四段112號 | 台北市大安區忠孝東路四段112號 |
@@ -482,6 +483,7 @@ INSERT INTO `inbound_Shipments` (`inbound_id`, `supplier_id`, `warehouse_id`, `p
 (10, 4, 6, 3, 84, '2025-04-12', 'damaged');
 ```
 * outbound_Shipments
+
 |   outbound_id |   order_id |   warehouse_id |   product_id |   quantity | dispatch_date   | status    |
 |--------------:|-----------:|---------------:|-------------:|-----------:|:----------------|:----------|
 |             1 |          8 |              3 |            6 |          3 | 2025-01-01      | preparing |
