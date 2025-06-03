@@ -70,7 +70,7 @@
 
 | Field 名稱           | Data Type | 唯一 | Not Null | 預設值                    | 格式/限制                            | 說明                     |
 |----------------------|-----------|------|----------|---------------------------|-------------------------------------|--------------------------|
-| user_id (主鍵)       | BIGINT       | Y    | Y        | AUTO_INCREMENT            | 正整數                               | 每位使用者的唯一識別碼   |
+| user_id (主鍵)       | INT       | Y    | Y        | AUTO_INCREMENT            | 正整數                               | 每位使用者的唯一識別碼   |
 | email                | STRING    | Y    | Y        | 無                        | 必須為有效 Email 格式                | 使用者註冊用 Email       |
 | password_hash        | STRING    | N    | Y        | 無                        | 至少 8 字，含大小寫 + 數字 + 特殊符號（經過 bcrypt） | 雜湊後的使用者密碼       |
 | Account Enable       | BOOL      | N    | Y        | True                      | 僅允許 True/False                    | 是否啟用帳號             |
@@ -96,7 +96,7 @@
 
 | Field 名稱           | Data Type     | 唯一 | Not Null | 預設值                | 格式/限制                             | 說明                         |
 |----------------------|---------------|------|----------|------------------------|----------------------------------------|------------------------------|
-| log_id (主鍵)        | BIGINT        | Y    | Y        | AUTO_INCREMENT         | 正整數                                 | 每筆登入紀錄的唯一識別碼     |
+| log_id (主鍵)        | INT        | Y    | Y        | AUTO_INCREMENT         | 正整數                                 | 每筆登入紀錄的唯一識別碼     |
 | user_id      | INT           | N    | Y       | 無                    | 外鍵參照 `Users` 表                         | 嘗試登入的使用者     |
 | email                 | STRING        | N    | Y       | 無                    | 必須為有效 Email 格式                     | 嘗試登入的帳號（即使錯誤）   |
 | login_time           | TIMESTAMP     | N    | Y        | CURRENT_TIMESTAMP      | 時間格式                               | 登入嘗試的發生時間           |
@@ -122,7 +122,7 @@
 
 | 欄位名稱             | 資料型別         | 唯一 | NOT NULL | 預設值                              | 格式/限制                              | 說明                         |
 |----------------------|------------------|------|----------|--------------------------------------|----------------------------------------|------------------------------|
-| product_id (主鍵)    | BIGINT (SERIAL)  | Y    | Y        | AUTO_INCREMENT                        | 正整數                                 | 商品唯一識別碼               |
+| product_id (主鍵)    | INT  | Y    | Y        | AUTO_INCREMENT                        | 正整數                                 | 商品唯一識別碼               |
 | product_name         | STRING(255)      | N    | Y        | 無                                   | 最長 255 字                            | 商品名稱                     |
 | sku                  | STRING(100)      | Y    | Y        | 無                                   | 唯一 SKU 編碼                          | 商品庫存單位識別碼           |
 | brand                | STRING(100)      | N    | N        | 無                                   | -                                      | 商品品牌                     |
@@ -134,7 +134,7 @@
 | promotional_price    | DECIMAL(10,2)    | N    | N        | 無                                   | 金額格式                               | 特價價格（如有）             |
 | promotion_start_date | TIMESTAMP        | N    | N        | 無                                   | -                                      | 特價開始時間                 |
 | promotion_end_date   | TIMESTAMP        | N    | N        | 無                                   | -                                      | 特價結束時間                 |
-| seller_id            | BIGINT UNSIGNED  | N    | N        | 無                                   | 外鍵參照 `sellers` 表                 | 所屬賣家 ID                  |
+| seller_id            | INT UNSIGNED  | N    | N        | 無                                   | 外鍵參照 `sellers` 表                 | 所屬賣家 ID                  |
 | shipping_weight      | DECIMAL(10,2)    | N    | N        | 0                                    | 單位：公斤                             | 運送重量                     |
 | image_url            | STRING(255)      | N    | N        | 無                                   | URL 格式                               | 商品主圖網址                 |
 | barcode              | STRING(50)       | N    | N        | 無                                   | 可為 EAN / UPC                         | 商品條碼                     |
@@ -179,8 +179,8 @@
 
 | 欄位名稱   | 資料型別       | 唯一 | NOT NULL | 預設值              | 格式/限制                  | 說明                     |
 |------------|----------------|------|----------|----------------------|----------------------------|--------------------------|
-| review_id  | BIGINT         | Y    | Y        | AUTO_INCREMENT       | 正整數                     | 每筆評論的唯一識別碼     |
-| product_id | BIGINT         | N    | N        | 無                   | 外鍵參照 `products` 表     | 被評論的商品 ID          |
+| review_id  | INT         | Y    | Y        | AUTO_INCREMENT       | 正整數                     | 每筆評論的唯一識別碼     |
+| product_id | INT         | N    | N        | 無                   | 外鍵參照 `products` 表     | 被評論的商品 ID          |
 | user_id    | INT            | N    | N        | 無                   | 外鍵參照 `users` 表        | 發表評論的使用者 ID      |
 | rating     | INT            | N    | Y        | 無                   | 限制 1～5              | 評分數值（如星數）        |
 | comment    | STRING         | N    | Y        | 無                   | 無長度限制（原為 TEXT）    | 評論內容文字             |
