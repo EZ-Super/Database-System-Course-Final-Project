@@ -100,4 +100,22 @@ ORDER BY i.ending_stock ASC;
 ![image](https://github.com/user-attachments/assets/11001939-0d58-4e38-81d8-0510c513c68f)
 
 
+# 賣家查詢某時段自己某商品的銷售數量 
+```sql
+
+SELECT 
+    i.record_id,
+    i.date,
+    s.seller_id,
+    ss.store_name,
+    i.sold_units
+
+FROM inventory_analytics AS i
+JOIN seller_products_view  AS s ON i.product_id = s.product_id
+JOIN seller_seller_view  AS ss ON s.seller_id = ss.seller_id
+WHERE  i.date BETWEEN '2025-05-01' AND '2025-05-30' AND i.product_id = 4;
+```
+![image](https://github.com/user-attachments/assets/60213996-99fa-4f6d-b163-215862704173)
+
+
 
