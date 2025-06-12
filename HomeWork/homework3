@@ -1,15 +1,6 @@
 題目 ： 全方位電商平台智慧型資料庫系統
 ===
 
-# 應用情境與使用案例 ：
-
-* 張小姐利用電腦訪問網站，並註冊一個新帳號。
-* 完成信箱驗證後，登入平台並開始瀏覽首頁上的商品。
-* 之後在搜尋欄輸入「保濕乳液」，系統根據關鍵字呈現多種商品，並顯示最近的熱銷排行榜。
-* 她點選一款產品，查看詳細介紹，並將商品加入購物車。
-* 結帳時，選擇儲存的地址並使用優惠券，完成線上付款。
-* 付款完成後，平台發送通知給張小姐與通知賣家處理訂單。
-* 賣家在看到新訂單通知，進行出貨作業，而系統隨後追蹤物流狀態並持續更新張小姐的訂單進度。
 
 # 系統需求說明：
 ## 使用者角色
@@ -60,3 +51,57 @@
 	* 防止 CSRF：Token 儲存於 HttpOnly cookie 時須實作 CSRF 保護策略
 	* JWT 採 RSA私鑰加密，公鑰對於竄改進行驗證
  
+
+# ER Diagram及詳細說明：
+
+![image](https://github.com/EZ-Super/Database-System-Course-Final-Project/blob/main/image/ER%20Diagram.jpg)
+
+## 四大核心實體 (Entity)
+
+* users (使用者) - 系統使用者的主要實體
+* products (商品) - 產品資訊的主要實體
+* orders (訂單) - 訂單資訊的主要實體
+* warehouses (倉庫) - 倉庫資訊的主要實體
+
+## Weak Entities
+
+* order_items (訂單明細) - 依賴於orders和products的弱實體
+* inventory (庫存) - 依賴於products和warehouses的弱實體
+* sellers (賣家) - 依賴於users的弱實體
+
+## Independent Entities
+
+suppliers (供應商) - 保留為獨立實體，與products有供應關係
+
+## Relationship Descriptions
+
+* 一個 users (使用者) 可以發送多條訊息給其他使用者，而一個使用者也可以收到多條來自其他使用者的訊息。
+  	* 每位使用者作為「發送者」可以發送多則訊息(1對N)
+	* 每位使用者作為「接收者」可以接收多則訊息(1對N)
+	* 每則訊息只有一個「發送者」和一個「接收者」
+* 一個 users (使用者) 可以成為零個或一個 sellers (賣家)，而每個賣家必定對應一個使用者。
+* 一個 users (使用者) 可以下多個 orders (訂單)，每個訂單只能由一個使用者下單。
+* 一個 orders (訂單) 可以包含多個 order_items (訂單明細)，而每個訂單明細必須屬於一個特定訂單。
+* 一個 products (商品) 可以被包含於多個 order_items (訂單明細) 中，而每個訂單明細必定只包含一個商品。
+* 一個 suppliers (供應商) 可以供應多個 products (商品)，一個商品可以由多個供應商供應。
+* 一個 sellers (賣家) 可以銷售多個 products (商品)，一個商品只能由一個賣家銷售。
+* 一個 products (商品) 必須屬於一個 categories (分類)，一個分類可以包含多個商品。
+* 一個 products (商品) 可以存儲於多個 inventory (庫存) 記錄中，每筆庫存記錄只對應一個商品。
+* 一個 warehouses (倉庫) 可以儲存多筆 inventory (庫存) 記錄，每筆庫存記錄只能存放在一個倉庫中。
+
+## Attribute Relationships
+
+* 一個 users (使用者) 擁有一個 AD_server (身份驗證) 屬性和一個 membership_levels (會員等級) 屬性。
+* 一個 users (使用者) 可以有多筆 login_logs (登入日誌)、points (點數) 和 notifications (通知) 多值屬性。
+* 一個 products (商品) 擁有一個 customer_feedback_stats (客戶反饋統計) 屬性和多個 reviews (評論) 多值屬性。
+* 一個 orders (訂單) 擁有 payments (付款)、shipments (物流) 和 coupons (優惠券) 屬性，以及多個 return_refunds (退款) 多值屬性。
+* 一個 warehouses (倉庫) 擁有多個 inbound_shipments (入庫)、outbound_shipments (出庫) 和 warehouse_transfers (調撥記錄) 多值屬性。
+
+## Derived Data
+
+系統中的統計分析資料被表示為Derived Data:
+
+* sales_analysis (銷售分析)
+* inventory_analytics (庫存分析)
+* order_conversion_stats (訂單轉換率)
+* shipment_performance (物流績效)
