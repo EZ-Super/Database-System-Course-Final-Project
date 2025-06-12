@@ -117,5 +117,17 @@ WHERE  i.date BETWEEN '2025-05-01' AND '2025-05-30' AND i.product_id = 4;
 ```
 ![image](https://github.com/user-attachments/assets/60213996-99fa-4f6d-b163-215862704173)
 
+# 查詢某快遞公司的運送準時率
+```sql
+SELECT 
+    w.carrier,
+    w.total_shipments,
+    w.on_time_deliveries,
+    w.late_deliveries,
+    ROUND(w.on_time_deliveries / w.total_shipments * 100, 2) AS on_time_rate_percent,
+    ROUND(w.late_deliveries / w.total_shipments * 100, 2) AS late_rate_percent
+FROM warehouse_shipment_performance_view AS w
+WHERE w.carrier = '快遞公司1';
 
-
+```
+![image](https://github.com/user-attachments/assets/0d8643e0-f42a-43ad-9a73-1f58782549c9)
