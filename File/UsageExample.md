@@ -131,3 +131,22 @@ WHERE w.carrier = '快遞公司1';
 
 ```
 ![image](https://github.com/user-attachments/assets/0d8643e0-f42a-43ad-9a73-1f58782549c9)
+
+
+# 查詢某賣家好評高於某數值的商品
+```sql
+SELECT 
+    s.product_id,
+    p.seller_id,
+    s.total_reviews,
+    s.average_rating,
+    s.positive_reviews,
+    s.negative_reviews,
+    ROUND(s.positive_reviews / s.total_reviews * 100, 2) AS positive_review_rate,
+    ROUND(s.negative_reviews / s.total_reviews * 100, 2) AS negative_review_rate
+FROM seller_feedback_stats_view  AS s
+JOIN seller_products_view  AS p ON s.product_id = p.product_id
+WHERE p.seller_id = 1   AND (s.positive_reviews / s.total_reviews * 100) > 40;
+```
+![image](https://github.com/user-attachments/assets/05c96570-a1ea-49e1-b260-940cc020f5dc)
+
