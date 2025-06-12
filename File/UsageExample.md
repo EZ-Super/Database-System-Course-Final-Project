@@ -24,6 +24,33 @@
 # 客服人員查詢評價
 ![image](https://github.com/user-attachments/assets/6ac932cd-96f8-46e3-a652-fb57ed551158)
 
+# 賣家查詢自己賣場銷售前三名
+```sql
+SELECT
+    s.seller_id,
+    s.store_name,
+    ranked_products.product_id,
+    ranked_products.product_name,
+    ranked_products.total_sales,
+    ranked_products.revenue,
+    ranked_products.average_price
+FROM (
+    SELECT
+        p.seller_id,
+        p.product_id,
+        p.product_name,
+        sa.total_sales,
+        sa.revenue,
+        sa.average_price,
+        ROW_NUMBER() OVER (PARTITION BY p.seller_id ORDER BY sa.total_sales DESC) AS sales_rank
+    FROM seller_products_view AS p
+    JOIN sales_analysis AS sa ON p.product_id = sa.product_id AND p.seller_id = 2
+    WHERE sa.total_sales > 0
+) AS ranked_products
+JOIN sellers AS s ON s.seller_id = ranked_products.seller_id
+WHERE ranked_products.sales_rank <= 3;
+```
+![image](https://github.com/user-attachments/assets/58ae483a-5d63-4eca-b8ea-49884fb181fa)
 
 
 
