@@ -83,3 +83,21 @@ WHERE ranked_products.sales_rank <= 3;
 ![image](https://github.com/user-attachments/assets/52ca9213-5414-4f86-b176-463c4e50a267)
 
 
+
+# 賣家查找自己庫存小於3 的商品
+```sql
+SELECT 
+    p.product_id,
+    p.product_name,
+    i.ending_stock,
+    p.seller_id
+FROM seller_inventory_analytics_view  AS i
+JOIN seller_products_view  AS p ON i.product_id = p.product_id
+WHERE  p.seller_id = 4 AND
+i.ending_stock < 3
+ORDER BY i.ending_stock ASC;
+```
+![image](https://github.com/user-attachments/assets/11001939-0d58-4e38-81d8-0510c513c68f)
+
+
+
