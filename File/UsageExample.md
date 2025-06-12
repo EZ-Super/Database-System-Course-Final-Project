@@ -54,7 +54,7 @@ WHERE ranked_products.sales_rank <= 3;
 
 
 
-# 賣家依造賣場銷售平均價格前三名排序
+# 賣家依照賣場銷售平均價格前三名排序
 ```sql
 SELECT
     s.seller_id,
@@ -84,7 +84,7 @@ WHERE ranked_products.sales_rank <= 3;
 
 
 
-# 賣家查找自己庫存小於3 的商品
+# 賣家查找自己庫存小於3的商品
 ```sql
 SELECT 
     p.product_id,
