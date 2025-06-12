@@ -633,7 +633,7 @@
 |----------------|---------------|------|----------|------------------------------------|------------------------------------------------------------------------|----------------------------|
 | `order_id`     | INT     UNSIGNED      | Y    | Y        | AUTO_INCREMENT                     | 正整數                                                                 | 訂單唯一識別碼             |
 | `customer_id`  | INT    UNSIGNED       | N    | Y        | 無                                 | 外鍵參照 `users(user_id)`                                               | 購買者 ID                  |
-| `order_status` | ENUM          | N    | Y        | 無                                 | 僅允許 `pending`, `shipped`, `delivered`, `cancelled`                  | 訂單狀態                   |
+| `order_status` | ENUM          | N    | Y        | 無                                 | 僅允許 `pending`, `shipped`, `delivered`, `cancelled`,`return`                  | 訂單狀態                   |
 | `total_amount` | DECIMAL(10,2) | N    | Y        | 無                                 | 必須為正數，兩位小數                                                  | 訂單總金額                 |
 | `created_at`   | TIMESTAMP     | N    | N        | CURRENT_TIMESTAMP                  | 系統時間自動填入                                                       | 建立時間                   |
 | `updated_at`   | TIMESTAMP     | N    | N        | CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP | 系統時間自動更新                                       | 最後更新時間               |
