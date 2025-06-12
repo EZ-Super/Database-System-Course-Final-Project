@@ -1,6 +1,16 @@
 題目 ： 全方位電商平台智慧型資料庫系統
 ===
 
+# 應用情境與使用案例 ：
+
+* 張小姐利用電腦訪問網站，並註冊一個新帳號。
+* 完成信箱驗證後，登入平台並開始瀏覽首頁上的商品。
+* 之後在搜尋欄輸入「保濕乳液」，系統根據關鍵字呈現多種商品，並顯示最近的熱銷排行榜。
+* 她點選一款產品，查看詳細介紹，並將商品加入購物車。
+* 結帳時，選擇儲存的地址並使用優惠券，完成線上付款。
+* 付款完成後，平台發送通知給張小姐與通知賣家處理訂單。
+* 賣家在看到新訂單通知，進行出貨作業，而系統隨後追蹤物流狀態並持續更新張小姐的訂單進度。
+
 # 系統需求說明：
 ## 使用者角色
 * 買家：註冊、搜尋商品、下單、付款、評價
@@ -50,66 +60,3 @@
 	* 防止 CSRF：Token 儲存於 HttpOnly cookie 時須實作 CSRF 保護策略
 	* JWT 採 RSA私鑰加密，公鑰對於竄改進行驗證
  
-# 完整性限制：
-[完整性限制 請參考 ](https://github.com/EZ-Super/Database-System-Course-Final-Project/blob/main/File/DataIntegrityRequirements.md)
-## 主鍵限制（Primary Key Constraint）
-* 每一個表格都應有唯一的主鍵（如 user_id、product_id）
-* 主鍵不可為 NULL，不可重複
- 
-## 外鍵限制（Foreign Key Constraint）
-* 表格之間的關聯應透過外鍵實現，例如：
-* orders.user_id 必須參照 users.user_id
-* product_reviews.product_id 必須參照 products.product_id
-* 刪除或修改參照資料時應定義對應行為（如：CASCADE、RESTRICT）
- 
-## 唯一性限制（Unique Constraint）
-* 某些欄位必須全系統唯一，例如：
-* 使用者的 email、帳號名稱不可重複
- 
-## 非空限制（NOT NULL Constraint）
-* 必填欄位不得為 NULL，例如：
-* 商品名稱、價格、數量、訂單狀態
- 
-## 資料型別限制（Data Type Constraint）
-* 價格欄位應為 decimal，數量欄位應為正整數
-* 日期欄位應限定為有效格式（ex: ISO 8601）
- 
-## 檢查限制（CHECK Constraint）
-* 某些欄位的值需落在特定範圍：
-* 商品價格必須大於 0
-* 評價分數為 1~10 分之間
-* 訂單狀態為 ENUM('待付款', '已出貨', '已完成', '已取消')
-* 對於JWT token 金鑰過期以及竄改檢測
- 
-## 業務邏輯限制（Business Rule Constraints）
-### 評價限制
-* 同一位買家只能對同一筆訂單留一次評價
-* 未完成訂單不能回評
-
-### 下單限制
-* 不得對已下架商品下單
-* 商品庫存不足時不可結帳
-* 單一訂單金額不得超過 NT$100,000
-
-### 出貨限制
-* 超過 7 天未出貨自動通知賣家
-* 無法修改已出貨之訂單內容
-
-### 優惠限制
-* 優惠券不得與其他折扣疊加
-* 優惠券使用次數限制
-
-### 上架限制
-* 商品名稱不得超過 100 字元
-* 商品描述不得含有禁用關鍵字
-
-### 帳號限制
-* 連續登入錯誤 5 次帳號自動鎖定 30 分鐘
-* 被檢舉超過 5 次的賣家將暫停上架權限
-* 停用帳號不得進行任何操作
- 
-### 通知機制
-* 買家下單後系統須即時發送通知給賣家
-* 訂單領貨後 3 天未點收，系統自動標示「已送達」
-
-![image](https://github.com/EZ-Super/Database-System-Course-Final-Project/blob/main/image/ER%20Diagram.jpg)
