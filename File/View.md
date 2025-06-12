@@ -951,7 +951,7 @@ FROM inventory_analytics;
 | conversion_rate|  ✔   |   ✘   |    ✘     |     ✘     |    ✘    |     ✔     |    ✘    |
 
 1. 系統管理員（Admin）  
-> 完整轉換漏斗數據
+> 完整轉換訂單數據
 ```sql
 CREATE VIEW admin_conversion_stats_view AS
 SELECT * FROM order_conversion_stats;
