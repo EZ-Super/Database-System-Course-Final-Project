@@ -54,7 +54,32 @@ WHERE ranked_products.sales_rank <= 3;
 
 
 
-
-
+# 賣家依造賣場銷售平均價格前三名排序
+```sql
+SELECT
+    s.seller_id,
+    s.store_name,
+    ranked_products.product_id,
+    ranked_products.product_name,
+    ranked_products.total_sales,
+    ranked_products.revenue,
+    ranked_products.average_price
+FROM (
+    SELECT
+        p.seller_id,
+        p.product_id,
+        p.product_name,
+        sa.total_sales,
+        sa.revenue,
+        sa.average_price,
+        ROW_NUMBER() OVER (PARTITION BY p.seller_id ORDER BY sa.average_price DESC) AS sales_rank
+    FROM seller_products_view AS p
+    JOIN sales_analysis AS sa ON p.product_id = sa.product_id AND p.seller_id = 2
+    WHERE sa.total_sales > 0
+) AS ranked_products
+JOIN sellers AS s ON s.seller_id = ranked_products.seller_id
+WHERE ranked_products.sales_rank <= 3;
+```
+![image](https://github.com/user-attachments/assets/52ca9213-5414-4f86-b176-463c4e50a267)
 
 
