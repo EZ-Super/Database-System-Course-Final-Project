@@ -18,6 +18,14 @@
 # 財務人員查看退款的訂單
 ![image](https://github.com/user-attachments/assets/087029ba-3859-4299-b4cb-85608f23d4db)
 
+# 行銷人員查詢銷售分析
+![image](https://github.com/user-attachments/assets/b4677665-4677-464b-9851-528ba28a0242)
+
+# 客服人員查詢評價
+![image](https://github.com/user-attachments/assets/6ac932cd-96f8-46e3-a652-fb57ed551158)
+
+
+
 
 
 
