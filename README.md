@@ -14,26 +14,30 @@
   * 📊 數據分析
     * 熱銷商品、價格走勢。
 
-## 📝 應用情境與使用案例
-* [click me 👇](HomeWork/作業一.md)
-
-## 📝 DataBase Tables (Schema、說明、完整性限制、商業規則 )
-* [Click me 👇](File/DataIntegrityRequirements.md)
-
-## 📝 SQL語法
-* [Click me 👇](HomeWork/作業二.md)
-
-## 📝 View
-* [Click me 👇](File/View.md)
-
-## 📝 使用範例
-* [Click me 👇](File/UsageExample.md)
-
 ## 🖋️ HomeWork
  1. Homework I : [Click me 👇](HomeWork/作業一.md)
  2. Homework II : [Click me 👇](HomeWork/作業二.md)
  3. Homework III : [Click me 👇](HomeWork/作業三.md)
  4. 課堂作業 : [Click me 👇](HomeWork/課堂作業.md)
+
+## 📝 DataBase Tables (Schema、說明、完整性限制、商業規則)
+* [Click me 👇](File/DataIntegrityRequirements.md)
+
+## 📝 View
+* [Click me 👇](File/View.md)
+
+## 📝 表格範例
+* [Click me 👇](File/TableExample.md)
+
+## 📝 使用範例
+* [Click me 👇](File/UsageExample.md)
+
+## 期末簡報
+
+
+## 期末完整書面報告
+
+
 
 ## 👾 Team member
 |Student ID|Name|Personal Page|
@@ -52,7 +56,7 @@
 |鍾文瑀|物流與倉儲、數據分析|
 |李維誠|訂單管理|
 
-|Student Name|負責領域|
+|Student Name|負責細項|
 |:---:|:----:|
 |楊峻朋|應用情境與使用案例、系統需求說明、完整性限制、SQL語法、完整DB Schema與說明、View、報告文件撰寫(PPT)|
 |謝延偵|應用情境與使用案例、ER Diagram及詳細說明、SQL語法、報告文件撰寫(PPT、PDF)|
@@ -62,4 +66,4 @@
 
 ## 📆 Schedule
 * [History Schedule Link](schedule.md)
-### 📝 This Week's Progress
+
