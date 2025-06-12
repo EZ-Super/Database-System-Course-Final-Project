@@ -26,10 +26,14 @@
 ## 📝 View
 * [Click me 👇](File/View.md)
 
+## 📝 使用範例
+* [Click me 👇](File/UsageExample.md)
+
 ## 🖋️ HomeWork
  1. Homework I : [Click me 👇](HomeWork/作業一.md)
  2. Homework II : [Click me 👇](HomeWork/作業二.md)
- 3. 課堂作業 : [Click me 👇](HomeWork/課堂作業.md)
+ 3. Homework III : [Click me 👇](HomeWork/作業三.md)
+ 4. 課堂作業 : [Click me 👇](HomeWork/課堂作業.md)
 
 ## 👾 Team member
 |Student ID|Name|Personal Page|
