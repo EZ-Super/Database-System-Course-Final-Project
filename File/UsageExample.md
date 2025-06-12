@@ -50,7 +50,8 @@ FROM (
 JOIN sellers AS s ON s.seller_id = ranked_products.seller_id
 WHERE ranked_products.sales_rank <= 3;
 ```
-![image](https://github.com/user-attachments/assets/58ae483a-5d63-4eca-b8ea-49884fb181fa)
+![image](https://github.com/user-attachments/assets/5abf9cb8-232b-4616-a554-7dbfa7b51260)
+
 
 
 
