@@ -19,6 +19,7 @@
  2. Homework II : [Click me 👇](HomeWork/作業二.md)
  3. Homework III : [Click me 👇](HomeWork/作業三.md)
  4. 課堂作業 : [Click me 👇](HomeWork/課堂作業.md)
+ 5. 心得 : [Click me 👇](Team Member/reflection)
 
 ## 📝 DataBase Tables (Schema、說明、完整性限制、商業規則)
 * [Click me 👇](File/DataIntegrityRequirements.md)
