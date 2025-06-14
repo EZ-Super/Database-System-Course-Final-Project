@@ -64,6 +64,11 @@
 |鍾文瑀|SQL語法、View、報告文件撰寫(PPT)|
 |李維誠|SQL語法|
 
+## 資料參考
+1. ChatGpt
+2. 蝦皮
+3. PCHome
+
 
 ## 📆 Schedule
 * [History Schedule Link](schedule.md)
