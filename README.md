@@ -37,9 +37,9 @@
 * [Click me 👇](File/期末簡報.pdf)
   > github 會隱藏記得按 more page
 
-## 完整書面報告
+## 期末完整書面報告
 
-* [Click me 👇](File/完整書面報告.pdf)
+* [Click me 👇](File/期末完整書面報告.pdf)
   > github 會隱藏記得按 more page
 
 ## 部分完成介面展示
