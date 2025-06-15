@@ -34,7 +34,7 @@
 * [Click me 👇](File/UsageExample.md)
 
 ## 期末簡報
-
+* [Click me 👇](File/期末簡報.pdf)
 
 ## 期末完整書面報告
 
