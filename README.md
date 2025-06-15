@@ -35,6 +35,7 @@
 
 ## 期末簡報
 * [Click me 👇](File/期末簡報.pdf)
+  > github 會隱藏記得按 more page
 
 ## 期末完整書面報告
 
