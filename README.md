@@ -37,9 +37,10 @@
 * [Click me 👇](File/期末簡報.pdf)
   > github 會隱藏記得按 more page
 
-## 期末完整書面報告
+## 完整書面報告
 
-
+* [Click me 👇](File/完整書面報告.pdf)
+  > github 會隱藏記得按 more page
 
 ## 👾 Team member
 |Student ID|Name|Personal Page|
@@ -60,15 +61,23 @@
 
 |Student Name|負責細項|
 |:---:|:----:|
-|楊峻朋|應用情境與使用案例、系統需求說明、完整性限制、SQL語法、完整DB Schema與說明、View、報告文件撰寫(PPT)、使用範例|
-|謝延偵|應用情境與使用案例、ER Diagram及詳細說明、SQL語法、報告文件撰寫(PPT、PDF)|
+|楊峻朋|應用情境與使用案例、系統需求說明、完整性限制、SQL語法、完整DB Schema與說明、View、部分介面、報告文件撰寫(PPT)、使用範例|
+|謝延偵|應用情境與使用案例、ER Diagram及詳細說明、SQL語法、部分介面、報告文件撰寫(PPT、PDF)|
 |鍾文瑀|SQL語法、View、報告文件撰寫(PPT)|
 |李維誠|SQL語法|
 
 ## 資料參考
-1. ChatGpt
-2. 蝦皮
-3. PCHome
+參考網站與平台：
+*	[PChome](https://24h.pchome.com.tw/)
+*	[蝦皮購物](https://shopee.tw/)
+
+AI工具：
+*	[Claude](https://claude.ai)
+*	[Chat GPT](https://chatgpt.com/)
+
+ER圖繪製工具：
+[visual paradigm](https://online.visual-paradigm.com/tw/diagrams/features/erd-tool/)
+
 
 
 ## 📆 Schedule
