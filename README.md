@@ -48,8 +48,8 @@
 * 登入介面
 [Click me 👇](https://yupi.ethidra.org/login)
 * 可驗證的帳戶：
- * 帳號：test@example.com
- * 密碼：@Test894523
+  * 帳號：test@example.com
+  * 密碼：@Test894523
 * 買家個人檔案介面、會員等級與點數介面，請使用上述帳密登入後查看。
 
 
