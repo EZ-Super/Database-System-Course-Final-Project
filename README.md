@@ -42,6 +42,15 @@
 * [Click me 👇](File/完整書面報告.pdf)
   > github 會隱藏記得按 more page
 
+## 部分完成介面展示
+* 未登入時的首頁[Click me 👇](https://yupi.ethidra.org/)
+* 登入介面[Click me 👇](https://yupi.ethidra.org/login)
+* 可驗證的帳戶：
+帳號：test@example.com
+密碼：@Test894523
+* 買家個人檔案介面、會員等級與點數介面，請使用上述帳密登入後查看。
+
+
 ## 👾 Team member
 |Student ID|Name|Personal Page|
 |:---:|:---:|:----:|
@@ -76,6 +85,7 @@ AI工具：
 *	[Chat GPT](https://chatgpt.com/)
 
 ER圖繪製工具：
+
 [visual paradigm](https://online.visual-paradigm.com/tw/diagrams/features/erd-tool/)
 
 
